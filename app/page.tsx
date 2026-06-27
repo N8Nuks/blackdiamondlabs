@@ -177,110 +177,84 @@ export default function Home() {
             <div className="animate-diamond relative z-10" style={{ width: 520, height: 540 }}>
               <svg viewBox="0 0 520 540" fill="none" xmlns="http://www.w3.org/2000/svg" width="520" height="540">
                 <defs>
-                  <radialGradient id="tableGrad" cx="50%" cy="40%" r="50%">
-                    <stop offset="0%" stopColor="#cccccc" stopOpacity="0.25"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="0.9"/>
+                  <radialGradient id="gTable" cx="50%" cy="35%" r="65%">
+                    <stop offset="0%" stopColor="#d6d6d6" stopOpacity="0.85"/>
+                    <stop offset="55%" stopColor="#5a5a5a" stopOpacity="0.6"/>
+                    <stop offset="100%" stopColor="#0a0a0a" stopOpacity="0.95"/>
                   </radialGradient>
-                  <radialGradient id="leftGrad" cx="30%" cy="50%" r="60%">
-                    <stop offset="0%" stopColor="#111111" stopOpacity="0.7"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="0.95"/>
-                  </radialGradient>
-                  <radialGradient id="rightGrad" cx="70%" cy="50%" r="60%">
-                    <stop offset="0%" stopColor="#222222" stopOpacity="0.5"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="0.95"/>
-                  </radialGradient>
-                  <radialGradient id="pavLeft" cx="20%" cy="60%" r="70%">
-                    <stop offset="0%" stopColor="#0a0a0a" stopOpacity="0.9"/>
+                  <linearGradient id="gBezelL" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#bdbdbd" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="#1a1a1a" stopOpacity="0.95"/>
+                  </linearGradient>
+                  <linearGradient id="gBezelR" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#bdbdbd" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="#1a1a1a" stopOpacity="0.95"/>
+                  </linearGradient>
+                  <linearGradient id="gCrownL" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#6a6a6a" stopOpacity="0.6"/>
+                    <stop offset="100%" stopColor="#050505" stopOpacity="1"/>
+                  </linearGradient>
+                  <linearGradient id="gCrownR" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#6a6a6a" stopOpacity="0.6"/>
+                    <stop offset="100%" stopColor="#050505" stopOpacity="1"/>
+                  </linearGradient>
+                  <linearGradient id="gMidL" x1="0%" y1="0%" x2="60%" y2="100%">
+                    <stop offset="0%" stopColor="#909090" stopOpacity="0.55"/>
+                    <stop offset="100%" stopColor="#0a0a0a" stopOpacity="1"/>
+                  </linearGradient>
+                  <linearGradient id="gMidR" x1="100%" y1="0%" x2="40%" y2="100%">
+                    <stop offset="0%" stopColor="#909090" stopOpacity="0.55"/>
+                    <stop offset="100%" stopColor="#0a0a0a" stopOpacity="1"/>
+                  </linearGradient>
+                  <linearGradient id="gPavInL" x1="50%" y1="0%" x2="50%" y2="100%">
+                    <stop offset="0%" stopColor="#3a3a3a" stopOpacity="0.65"/>
                     <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
-                  </radialGradient>
-                  <radialGradient id="pavRight" cx="80%" cy="60%" r="70%">
-                    <stop offset="0%" stopColor="#151515" stopOpacity="0.8"/>
+                  </linearGradient>
+                  <linearGradient id="gPavInR" x1="50%" y1="0%" x2="50%" y2="100%">
+                    <stop offset="0%" stopColor="#3a3a3a" stopOpacity="0.65"/>
                     <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
-                  </radialGradient>
-                  <radialGradient id="culetGlow" cx="50%" cy="100%" r="30%">
-                    <stop offset="0%" stopColor="#FFD700" stopOpacity="0.9"/>
-                    <stop offset="60%" stopColor="#FFD700" stopOpacity="0.2"/>
+                  </linearGradient>
+                  <linearGradient id="gPavOutL" x1="0%" y1="0%" x2="80%" y2="100%">
+                    <stop offset="0%" stopColor="#181818" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
+                  </linearGradient>
+                  <linearGradient id="gPavOutR" x1="100%" y1="0%" x2="20%" y2="100%">
+                    <stop offset="0%" stopColor="#181818" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
+                  </linearGradient>
+                  <radialGradient id="culetGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#FFD700" stopOpacity="1"/>
+                    <stop offset="60%" stopColor="#FFD700" stopOpacity="0.25"/>
                     <stop offset="100%" stopColor="#FFD700" stopOpacity="0"/>
                   </radialGradient>
-                  <radialGradient id="baseGlow" cx="50%" cy="0%" r="80%">
-                    <stop offset="0%" stopColor="#FFD70040"/>
-                    <stop offset="100%" stopColor="transparent"/>
-                  </radialGradient>
-                  <filter id="culetFilter" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="4"/>
+                  <filter id="culetFilter" x="-150%" y="-150%" width="400%" height="400%">
+                    <feGaussianBlur stdDeviation="5"/>
                   </filter>
                   <filter id="edgeGlow">
-                    <feGaussianBlur stdDeviation="1.5" result="blur"/>
-                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    <feGaussianBlur stdDeviation="1.4" result="b"/>
+                    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
                   </filter>
                 </defs>
-
-                {/* ── Crown (top) ── */}
-                {/* Table — flat top */}
-                <polygon points="180,70 260,48 340,70 355,130 260,148 165,130"
-                  fill="url(#tableGrad)" stroke="#FFD700" strokeWidth="0.8" strokeOpacity="0.7"/>
-
-                {/* Star facets left of table */}
-                <polygon points="80,170 165,130 180,70 110,95"
-                  fill="url(#leftGrad)" stroke="#FFD700" strokeWidth="0.7" strokeOpacity="0.6"/>
-                <polygon points="110,95 180,70 260,48 175,45"
-                  fill="url(#tableGrad)" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.5"/>
-
-                {/* Star facets right of table */}
-                <polygon points="440,170 355,130 340,70 410,95"
-                  fill="url(#rightGrad)" stroke="#FFD700" strokeWidth="0.7" strokeOpacity="0.6"/>
-                <polygon points="410,95 340,70 260,48 345,45"
-                  fill="url(#tableGrad)" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.5"/>
-
-                {/* Lower crown left */}
-                <polygon points="30,240 80,170 165,130 260,148 150,255"
-                  fill="url(#leftGrad)" stroke="#FFD700" strokeWidth="0.8" strokeOpacity="0.55"/>
-
-                {/* Lower crown right */}
-                <polygon points="490,240 440,170 355,130 260,148 370,255"
-                  fill="url(#rightGrad)" stroke="#FFD700" strokeWidth="0.8" strokeOpacity="0.55"/>
-
-                {/* Lower crown centre-left */}
-                <polygon points="150,255 260,148 80,170"
-                  fill="url(#leftGrad)" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.4"/>
-
-                {/* Lower crown centre-right */}
-                <polygon points="370,255 260,148 440,170"
-                  fill="url(#rightGrad)" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.4"/>
-
-                {/* ── Pavilion (bottom) ── */}
-                <polygon points="30,240 150,255 260,500"
-                  fill="url(#pavLeft)" stroke="#FFD700" strokeWidth="0.9" strokeOpacity="0.6"/>
-                <polygon points="150,255 260,148 260,500"
-                  fill="url(#pavLeft)" stroke="#FFD700" strokeWidth="0.7" strokeOpacity="0.5"/>
-                <polygon points="260,148 370,255 260,500"
-                  fill="url(#pavRight)" stroke="#FFD700" strokeWidth="0.7" strokeOpacity="0.5"/>
-                <polygon points="370,255 490,240 260,500"
-                  fill="url(#pavRight)" stroke="#FFD700" strokeWidth="0.9" strokeOpacity="0.6"/>
-
-                {/* Internal pavilion lines */}
-                <path d="M260,148 L260,500" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.5" fill="none"/>
-                <path d="M150,255 L370,255" stroke="#FFD700" strokeWidth="0.5" strokeOpacity="0.35" fill="none"/>
-                <path d="M80,170 L440,170" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.4" fill="none"/>
-
-                {/* Outer girdle outline — main shape */}
-                <path d="M110,95 L175,45 L260,48 L345,45 L410,95 L490,240 L370,255 L260,500 L150,255 L30,240 Z"
-                  fill="none" stroke="#FFD700" strokeWidth="1.4" strokeOpacity="0.75" filter="url(#edgeGlow)"/>
-
-                {/* Culet glow */}
-                <ellipse cx="260" cy="498" rx="8" ry="8" fill="#FFD700" opacity="0.9" filter="url(#culetFilter)"/>
-                <circle cx="260" cy="500" r="2.5" fill="#FFD700" opacity="1"/>
-
-                {/* Base platform glow */}
-                <ellipse cx="260" cy="510" rx="120" ry="18"
-                  fill="none" stroke="#FFD700" strokeWidth="0.8" strokeOpacity="0.4"/>
-                <ellipse cx="260" cy="515" rx="170" ry="14"
-                  fill="none" stroke="#FFD700" strokeWidth="0.5" strokeOpacity="0.25"/>
-                <ellipse cx="260" cy="520" rx="210" ry="12"
-                  fill="none" stroke="#FFD700" strokeWidth="0.3" strokeOpacity="0.15"/>
-
-                {/* Subtle inner glow on pavilion */}
-                <polygon points="30,240 260,500 490,240 260,148" fill="url(#culetGlow)" opacity="0.08"/>
+                <polygon points="185,72 335,72 345,165 260,180 175,165" fill="url(#gTable)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="185,72 98,150 175,165" fill="url(#gBezelL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="98,150 30,238 148,238 175,165" fill="url(#gCrownL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="175,165 148,238 260,238 260,180" fill="url(#gMidL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="335,72 422,150 345,165" fill="url(#gBezelR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="422,150 490,238 372,238 345,165" fill="url(#gCrownR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="345,165 372,238 260,238 260,180" fill="url(#gMidR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="30,238 148,238 260,502" fill="url(#gPavOutL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="148,238 260,238 260,502" fill="url(#gPavInL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="260,238 372,238 260,502" fill="url(#gPavInR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <polygon points="372,238 490,238 260,502" fill="url(#gPavOutR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
+                <path d="M185,72 L260,180 L335,72" stroke="#E8C77A" strokeWidth="0.5" strokeOpacity="0.4" fill="none"/>
+                <path d="M260,72 L260,180" stroke="#E8C77A" strokeWidth="0.4" strokeOpacity="0.3" fill="none"/>
+                <path d="M30,238 L490,238" stroke="#E8C77A" strokeWidth="0.6" strokeOpacity="0.45" fill="none"/>
+                <path d="M185,72 L335,72 L422,150 L490,238 L260,502 L30,238 L98,150 Z" fill="none" stroke="#FFD700" strokeWidth="1.4" strokeOpacity="0.8" filter="url(#edgeGlow)"/>
+                <circle cx="260" cy="500" r="22" fill="url(#culetGlow)" filter="url(#culetFilter)"/>
+                <circle cx="260" cy="502" r="2.5" fill="#FFF6D5"/>
+                <ellipse cx="260" cy="512" rx="130" ry="14" fill="none" stroke="#FFD700" strokeWidth="0.7" strokeOpacity="0.35"/>
+                <ellipse cx="260" cy="518" rx="190" ry="11" fill="none" stroke="#FFD700" strokeWidth="0.5" strokeOpacity="0.2"/>
+                <ellipse cx="260" cy="524" rx="240" ry="9" fill="none" stroke="#FFD700" strokeWidth="0.3" strokeOpacity="0.12"/>
               </svg>
             </div>
           </div>

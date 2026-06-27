@@ -254,12 +254,12 @@ export default function Home() {
               <BrandCard
                 name="LegacyMint"
                 tagline="Your Legacy, Their Dream."
-                taglineSplit={{ first: "Your Legacy,", second: "Their Dream.", secondColor: "#2596be" }}
+                taglineSplit={{ first: "Your Legacy,", firstColor: "#FFD700", second: "Their Dream.", secondColor: "#98FFD0" }}
                 description="A platform for creating and sharing lasting digital legacies — stories, moments, and memories built to endure."
                 href="#"
                 status="soon"
                 accentColor="#A78BFA"
-                nameSplit={{ first: "LEGACY", second: "MINT", secondColor: "#2596be" }}
+                nameSplit={{ first: "LEGACY", second: "MINT", secondColor: "#98FFD0" }}
                 hideEdition={true}
               />
               <BrandCard

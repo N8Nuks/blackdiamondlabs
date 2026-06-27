@@ -2,12 +2,12 @@ interface BrandCardProps {
   name: string
   edition?: string
   tagline: string
-  taglineSplit?: { first: string; second: string; secondColor: string }
+  taglineSplit?: { first: string; firstColor: string; second: string; secondColor: string }
   description?: string
   href: string
   status: string
   accentColor: string
-  nameSplit?: { first: string; firstColor?: string; second: string; secondColor: string; secondShimmer?: boolean }
+  nameSplit?: { first: string; firstColor?: string; second: string; secondColor: string }
   taglineStyle?: React.CSSProperties
   hideEdition?: boolean
   nameStyle?: string
@@ -20,6 +20,24 @@ export default function BrandCard({
 }: BrandCardProps) {
   const isLive = status === 'live'
 
+  const shimmerStyle = (colors: string): React.CSSProperties => ({
+    background: colors,
+    backgroundSize: '200% auto',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    animation: 'shimmer 3s linear infinite',
+  })
+
+  const grassStyle: React.CSSProperties = {
+    background: 'linear-gradient(180deg, #87CEEB 0%, #60B8E0 20%, #87CEEB 35%, #90EE90 52%, #3a9c3a 65%, #1f6b1f 80%, #0d420d 100%)',
+    backgroundSize: '100% 100%',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    filter: 'drop-shadow(0 2px 4px rgba(0,100,0,0.4))',
+  }
+
   return (
     <div className={`w-full flex flex-col rounded-2xl border border-white/10 bg-white/5 text-center hover:bg-white/8 transition-all duration-300 ${larger ? 'p-10 sm:p-14' : 'p-6 sm:p-8'}`}>
 
@@ -30,49 +48,20 @@ export default function BrandCard({
       <h3 className={`font-black leading-tight mb-1 ${larger ? 'text-3xl' : 'text-xl'}`}>
         {nameStyle === 'futureproof' ? (
           <>
-            <span style={{
-              background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF8DC,#FFD700,#B8860B)',
-              backgroundSize: '200% auto',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              animation: 'shimmer 3s linear infinite',
-            }}>FutureProof</span>
+            <span style={shimmerStyle('linear-gradient(90deg,#B8860B,#FFD700,#FFF8DC,#FFD700,#B8860B)')}>FutureProof</span>
             {' '}
-            <span style={{
-              background: 'linear-gradient(90deg,#888,#fff,#ccc,#fff,#888)',
-              backgroundSize: '200% auto',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              animation: 'shimmer 3s linear infinite',
-              animationDelay: '0.5s',
-            }}>Solutions</span>
+            <span style={{ ...shimmerStyle('linear-gradient(90deg,#888,#fff,#ccc,#fff,#888)'), animationDelay: '0.5s' }}>Solutions</span>
           </>
         ) : nameStyle === 'grassroots' ? (
           <>
-            <span style={{ color: '#2d9e4e' }}>Grassroots</span>
+            <span style={grassStyle}>Grassroots</span>
             {' '}
-            <span style={{
-              background: 'linear-gradient(90deg,#a0c4ff,#ffffff,#c8e6ff,#ffffff,#a0c4ff)',
-              backgroundSize: '200% auto',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              animation: 'shimmer 3s linear infinite',
-            }}>Fantasy</span>
+            <span style={shimmerStyle('linear-gradient(90deg,#a0c4ff,#ffffff,#c8e6ff,#ffffff,#a0c4ff)')}>Fantasy</span>
           </>
         ) : nameSplit ? (
           <>
             <span style={{ color: nameSplit.firstColor || '#ffffff' }}>{nameSplit.first}</span>
-            <span style={nameSplit.secondShimmer ? {
-              background: 'linear-gradient(90deg,#a0c4ff,#ffffff,#c8e6ff,#ffffff,#a0c4ff)',
-              backgroundSize: '200% auto',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              animation: 'shimmer 3s linear infinite',
-            } : { color: nameSplit.secondColor }}>{nameSplit.second}</span>
+            <span style={{ color: nameSplit.secondColor }}>{nameSplit.second}</span>
           </>
         ) : (
           <span className="text-white">{name}</span>
@@ -80,8 +69,8 @@ export default function BrandCard({
       </h3>
 
       {taglineSplit ? (
-        <p className={`font-semibold mt-3 mb-3 ${larger ? 'text-base' : 'text-sm'}`}>
-          <span style={{ color: accentColor }}>{taglineSplit.first}</span>
+        <p className={`font-semibold italic mt-3 mb-3 ${larger ? 'text-base' : 'text-sm'}`}>
+          <span style={{ color: taglineSplit.firstColor }}>{taglineSplit.first}</span>
           {' '}
           <span style={{ color: taglineSplit.secondColor }}>{taglineSplit.second}</span>
         </p>

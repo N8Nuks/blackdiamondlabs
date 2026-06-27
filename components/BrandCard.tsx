@@ -6,13 +6,14 @@ interface BrandCardProps {
   href: string
   status: string
   accentColor: string
+  nameSplit?: { first: string; second: string; secondColor: string }
 }
 
-export default function BrandCard({ name, edition, tagline, description, href, status, accentColor }: BrandCardProps) {
+export default function BrandCard({ name, edition, tagline, description, href, status, accentColor, nameSplit }: BrandCardProps) {
   const isLive = status === 'live'
 
   return (
-    <div className="w-full flex flex-col rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
+    <div className="w-full flex flex-col rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 text-center">
       <div className="flex items-center justify-center mb-4">
         <span className="rounded-full px-3 py-0.5 text-xs font-semibold uppercase tracking-wider"
           style={{ backgroundColor: isLive ? accentColor + '22' : '#ffffff11', color: isLive ? accentColor : '#666666' }}>
@@ -20,7 +21,14 @@ export default function BrandCard({ name, edition, tagline, description, href, s
         </span>
       </div>
 
-      <h3 className="text-xl font-black text-white">{name}</h3>
+      <h3 className="text-xl font-black text-white">
+        {nameSplit ? (
+          <>
+            <span style={{ color: '#ffffff' }}>{nameSplit.first}</span>
+            <span style={{ color: nameSplit.secondColor }}>{nameSplit.second}</span>
+          </>
+        ) : name}
+      </h3>
       <p className="text-sm text-white/30 mt-1 mb-3">{edition}</p>
       <p className="text-sm font-semibold italic mb-4" style={{ color: isLive ? accentColor : '#555555' }}>{tagline}</p>
       <p className="text-sm text-white/40 leading-relaxed flex-1">{description}</p>

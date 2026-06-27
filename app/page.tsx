@@ -247,6 +247,7 @@ export default function Home() {
               />
               <BrandCard
                 name="LegacyMint"
+                nameSplit={{ first: "LEGACY", second: "MINT", secondColor: "#FFD700" }}
                 edition="Coming Soon"
                 tagline="Your legacy, preserved forever."
                 description="Digital legacy platform — stories, moments, and memories built to endure."

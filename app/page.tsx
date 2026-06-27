@@ -229,46 +229,60 @@ export default function Home() {
         </section>
 
         {/* Brands */}
-        BRANDS_PLACEHOLDER
+        <section id="brands" className="py-20 sm:py-28 px-6 sm:px-10 lg:px-16" style={{ background: '#050505', borderTop: '1px solid #ffffff08' }}>
+          <style>{`
+            @keyframes shimmer {
+              0% { background-position: -200% center; }
+              100% { background-position: 200% center; }
+            }
+          `}</style>
           <div className="mx-auto max-w-6xl">
             <div className="mb-12 sm:mb-16">
-              <p className="text-xs font-bold uppercase tracking-[0.3em] mb-3" style={{ color: '#00CFFF' }}>Our Brands</p>
-              <h2 className="text-2xl sm:text-3xl font-black text-white">What we build.</h2>
+              <p className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: '#00CFFF' }}>Our Brands</p>
             </div>
             <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               <BrandCard
                 name="Grassroots Fantasy"
-                edition="NFS Edition"
                 tagline="Built for the game you love."
-                description="Fantasy league platform for the Northern Fastpitch Series."
                 href="https://grassrootsfantasy.co.nz"
                 status="live"
                 accentColor="#00CFFF"
+                hideEdition={true}
               />
               <BrandCard
                 name="LegacyMint"
-                nameSplit={{ first: "LEGACY", second: "MINT", secondColor: "#FFD700" }}
-                edition="Coming Soon"
-                tagline="Your legacy, preserved forever."
-                description="Digital legacy platform — stories, moments, and memories built to endure."
+                tagline="Your Legacy, Their Dream."
+                description="A platform for creating and sharing lasting digital legacies — stories, moments, and memories built to endure."
                 href="#"
                 status="soon"
                 accentColor="#A78BFA"
+                nameSplit={{ first: "LEGACY", second: "MINT", secondColor: "#FFD700" }}
+                taglineStyle={{ color: "#FFD700", fontStyle: "italic" }}
+                hideEdition={true}
               />
               <BrandCard
                 name="FutureProof Solutions"
-                edition="Coming Soon"
                 tagline="Built for what comes next."
                 description="Technology consulting helping organisations adapt and thrive."
                 href="#"
                 status="soon"
-                accentColor="#34D399"
+                accentColor="#C0C0C0"
+                nameStyle="futureproof"
+                taglineStyle={{
+                  background: "linear-gradient(90deg,#888,#fff,#ccc,#fff,#888)",
+                  backgroundSize: "200% auto",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  animation: "shimmer 3s linear infinite",
+                }}
+                hideEdition={true}
               />
             </div>
           </div>
         </section>
 
-        <Footer />
+                <Footer />
       </main>
     </>
   )

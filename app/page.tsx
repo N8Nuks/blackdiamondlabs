@@ -246,18 +246,20 @@ export default function Home() {
                 tagline="Built for the game you love."
                 href="https://grassrootsfantasy.co.nz"
                 status="live"
-                accentColor="#00CFFF"
+                accentColor="#2d9e4e"
+                nameStyle="grassroots"
                 hideEdition={true}
+                larger={true}
               />
               <BrandCard
                 name="LegacyMint"
                 tagline="Your Legacy, Their Dream."
+                taglineSplit={{ first: "Your Legacy,", second: "Their Dream.", secondColor: "#2596be" }}
                 description="A platform for creating and sharing lasting digital legacies — stories, moments, and memories built to endure."
                 href="#"
                 status="soon"
                 accentColor="#A78BFA"
-                nameSplit={{ first: "LEGACY", second: "MINT", secondColor: "#FFD700" }}
-                taglineStyle={{ color: "#FFD700", fontStyle: "italic" }}
+                nameSplit={{ first: "LEGACY", second: "MINT", secondColor: "#2596be" }}
                 hideEdition={true}
               />
               <BrandCard

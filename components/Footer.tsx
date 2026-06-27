@@ -4,10 +4,10 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
-            <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#FFD700" strokeWidth="1.5" fill="none"/>
-            <line x1="16" y1="2" x2="16" y2="16" stroke="#FFD700" strokeWidth="0.8"/>
-            <line x1="2" y1="10" x2="16" y2="16" stroke="#FFD700" strokeWidth="0.6"/>
-            <line x1="30" y1="10" x2="16" y2="16" stroke="#FFD700" strokeWidth="0.6"/>
+            <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#00CFFF" strokeWidth="1.5" fill="none"/>
+            <line x1="16" y1="2" x2="16" y2="16" stroke="#00CFFF" strokeWidth="0.8"/>
+            <line x1="2" y1="10" x2="16" y2="16" stroke="#00CFFF" strokeWidth="0.6"/>
+            <line x1="30" y1="10" x2="16" y2="16" stroke="#00CFFF" strokeWidth="0.6"/>
           </svg>
           <span className="text-sm text-white/30">Black Diamond Labs Ltd</span>
         </div>

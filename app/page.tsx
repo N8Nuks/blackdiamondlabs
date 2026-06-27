@@ -229,7 +229,7 @@ export default function Home() {
         </section>
 
         {/* Brands */}
-        <section id="brands" className="py-20 sm:py-28 px-6 sm:px-10 lg:px-16" style={{ background: '#050505', borderTop: '1px solid #ffffff08' }}>
+        BRANDS_PLACEHOLDER
           <div className="mx-auto max-w-6xl">
             <div className="mb-12 sm:mb-16">
               <p className="text-xs font-bold uppercase tracking-[0.3em] mb-3" style={{ color: '#00CFFF' }}>Our Brands</p>

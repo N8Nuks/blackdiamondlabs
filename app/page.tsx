@@ -259,9 +259,9 @@ export default function Home() {
                   fill="url(#pavRight)" stroke="#FFD700" strokeWidth="0.9" strokeOpacity="0.6"/>
 
                 {/* Internal pavilion lines */}
-                <line x1="260" y1="148" x2="260" y2="500" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.5"/>
-                <line x1="150" y1="255" x2="370" y2="255" stroke="#FFD700" strokeWidth="0.5" strokeOpacity="0.35"/>
-                <line x1="80" y1="170" x2="440" y2="170" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.4"/>
+                <path d="M260,148 L260,500" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.5" fill="none"/>
+                <path d="M150,255 L370,255" stroke="#FFD700" strokeWidth="0.5" strokeOpacity="0.35" fill="none"/>
+                <path d="M80,170 L440,170" stroke="#FFD700" strokeWidth="0.6" strokeOpacity="0.4" fill="none"/>
 
                 {/* Outer girdle outline — main shape */}
                 <path d="M110,95 L175,45 L260,48 L345,45 L410,95 L490,240 L370,255 L260,500 L150,255 L30,240 Z"

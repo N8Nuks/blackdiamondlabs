@@ -174,56 +174,12 @@ export default function Home() {
             </div>
 
             {/* Diamond */}
-            <div className="animate-diamond relative z-10" style={{ width: 480, height: 480 }}>
-              <svg viewBox="0 0 480 520" fill="none" xmlns="http://www.w3.org/2000/svg" width="480" height="520">
-                <defs>
-                  <linearGradient id="f1" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.12"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="0.8"/>
-                  </linearGradient>
-                  <linearGradient id="f2" x1="1" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#333333" stopOpacity="0.9"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="0.95"/>
-                  </linearGradient>
-                  <linearGradient id="f3" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#111111" stopOpacity="0.95"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
-                  </linearGradient>
-                  <linearGradient id="f4" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#222222" stopOpacity="0.9"/>
-                    <stop offset="100%" stopColor="#111111" stopOpacity="0.95"/>
-                  </linearGradient>
-                  <linearGradient id="gb" x1="0.5" y1="0" x2="0.5" y2="1">
-                    <stop offset="0%" stopColor="#00CFFF" stopOpacity="0"/>
-                    <stop offset="100%" stopColor="#00CFFF" stopOpacity="0.6"/>
-                  </linearGradient>
-                  <filter id="glow">
-                    <feGaussianBlur stdDeviation="3" result="blur"/>
-                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                  </filter>
-                </defs>
-                <polygon points="160,80 240,60 320,80 340,140 240,160 140,140" fill="url(#f1)" stroke="#00CFFF" strokeWidth="0.8" strokeOpacity="0.6"/>
-                <polygon points="80,160 140,140 160,80 100,90" fill="url(#f2)" stroke="#00CFFF" strokeWidth="0.6" strokeOpacity="0.5"/>
-                <polygon points="100,90 160,80 240,60 160,50" fill="url(#f1)" stroke="#00CFFF" strokeWidth="0.6" strokeOpacity="0.5"/>
-                <polygon points="240,60 320,80 380,90 240,50" fill="url(#f4)" stroke="#00CFFF" strokeWidth="0.6" strokeOpacity="0.5"/>
-                <polygon points="380,90 320,80 340,140 400,160" fill="url(#f3)" stroke="#00CFFF" strokeWidth="0.6" strokeOpacity="0.5"/>
-                <polygon points="40,220 80,160 140,140 240,160 140,240" fill="url(#f2)" stroke="#00CFFF" strokeWidth="0.7" strokeOpacity="0.5"/>
-                <polygon points="440,220 400,160 340,140 240,160 340,240" fill="url(#f3)" stroke="#00CFFF" strokeWidth="0.7" strokeOpacity="0.5"/>
-                <polygon points="40,220 140,240 240,160 80,160" fill="url(#f4)" stroke="#00CFFF" strokeWidth="0.6" strokeOpacity="0.4"/>
-                <polygon points="440,220 340,240 240,160 400,160" fill="url(#f2)" stroke="#00CFFF" strokeWidth="0.6" strokeOpacity="0.4"/>
-                <polygon points="40,220 140,240 240,490" fill="url(#f3)" stroke="#00CFFF" strokeWidth="0.8" strokeOpacity="0.5"/>
-                <polygon points="140,240 240,160 240,490" fill="url(#f4)" stroke="#00CFFF" strokeWidth="0.7" strokeOpacity="0.5"/>
-                <polygon points="240,160 340,240 240,490" fill="url(#f2)" stroke="#00CFFF" strokeWidth="0.7" strokeOpacity="0.5"/>
-                <polygon points="340,240 440,220 240,490" fill="url(#f3)" stroke="#00CFFF" strokeWidth="0.8" strokeOpacity="0.5"/>
-                <line x1="240" y1="160" x2="240" y2="490" stroke="#00CFFF" strokeWidth="0.5" strokeOpacity="0.4"/>
-                <line x1="140" y1="240" x2="340" y2="240" stroke="#ffffff" strokeWidth="0.4" strokeOpacity="0.2"/>
-                <line x1="80" y1="160" x2="400" y2="160" stroke="#ffffff" strokeWidth="0.5" strokeOpacity="0.3"/>
-                <path d="M100,90 L160,50 L240,50 L320,50 L380,90 L440,220 L340,240 L240,490 L140,240 L40,220 Z"
-                  fill="none" stroke="#00CFFF" strokeWidth="1.2" strokeOpacity="0.7"/>
-                <ellipse cx="240" cy="488" rx="60" ry="16" fill="url(#gb)" opacity="0.8"/>
-                <circle cx="240" cy="490" r="3" fill="#00CFFF" opacity="0.9" filter="url(#glow)"/>
-                <polygon points="40,220 240,490 440,220 240,160" fill="url(#gb)" opacity="0.06"/>
-              </svg>
+            <div className="animate-diamond relative z-10" style={{ width: 520, height: 520 }}>
+              <img
+                src="/bdiamond.jpeg"
+                alt="Black Diamond"
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              />
             </div>
           </div>
         </section>

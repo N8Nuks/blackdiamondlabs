@@ -85,16 +85,13 @@ export default function About() {
         </div>
       </section>
 
-      {/* What We Believe — THIRD */}
+      {/* Why and How — THIRD */}
       <section className="px-6 sm:px-16 lg:px-24 py-32" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
         <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-8" style={{ color: '#00CFFF' }}>What We Believe</p>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-8" style={{ color: '#00CFFF' }}>Why and How</p>
           <blockquote className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight max-w-3xl mx-auto mb-10">
-            "We must give back to a sport or community that helped shape the people we are."
+            "Why? We want to give back to the sports community that made us into the driven and successful individuals we are. Promoting excellence and being better every day."
           </blockquote>
-          <p className="text-sm text-white/25 max-w-md mx-auto leading-relaxed">
-            That is the belief that drives every decision at Black Diamond Labs — from the platforms we build to the communities we serve.
-          </p>
         </div>
       </section>
 

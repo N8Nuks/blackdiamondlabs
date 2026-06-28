@@ -46,7 +46,6 @@ export default function Platform() {
               </h2>
             </div>
             <p className="text-sm text-white/30 max-w-xs">
-              Most sports software solves one problem. Black Diamond Labs solves the entire ecosystem.
             </p>
           </div>
 

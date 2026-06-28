@@ -30,7 +30,7 @@ export default function About() {
           <div className="grid sm:grid-cols-2 gap-6 mb-6">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-3">
               <div>
-                <h3 className="text-xl font-black mb-2" style={{ background: "linear-gradient(90deg,#a0c4ff,#ffffff,#e8f4ff,#ffffff,#a0c4ff)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", animation: "shimmer 3s linear infinite" }}>Nathan Nukunuku</h3>
+                <h3 className="text-xl font-black mb-2" style={{ background: "linear-gradient(90deg,#00CFFF,#ffffff,#00CFFF,#ffffff,#00CFFF)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", animation: "shimmer 3s linear infinite" }}>Nathan Nukunuku</h3>
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Vision & Execution</p>
               </div>
               <div className="h-px w-12" style={{ backgroundColor: '#00CFFF30' }} />
@@ -41,7 +41,7 @@ export default function About() {
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-3">
               <div>
-                <h3 className="text-xl font-black mb-2" style={{ background: "linear-gradient(90deg,#a0c4ff,#ffffff,#e8f4ff,#ffffff,#a0c4ff)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", animation: "shimmer 3s linear infinite" }}>Katrina Nukunuku</h3>
+                <h3 className="text-xl font-black mb-2" style={{ background: "linear-gradient(90deg,#00CFFF,#ffffff,#00CFFF,#ffffff,#00CFFF)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", animation: "shimmer 3s linear infinite" }}>Katrina Nukunuku</h3>
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Heart & Purpose</p>
               </div>
               <div className="h-px w-12" style={{ backgroundColor: '#00CFFF30' }} />

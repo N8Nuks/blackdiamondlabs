@@ -25,7 +25,7 @@ export default function Platform() {
             The Platform
           </p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-none mb-8 text-white">
-            One ecosystem.<br />Every sport<span style={{ color: '#00CFFF' }}>.</span>
+            One ecosystem.<br />Any sport<span style={{ color: '#00CFFF' }}>.</span>
           </h1>
           <p className="text-lg sm:text-xl text-white/50 leading-relaxed max-w-2xl">
             Black Diamond Labs connects athletes, clubs, fans, competitions, and commercial opportunities in one intelligent ecosystem — built from the ground up for minor sports.

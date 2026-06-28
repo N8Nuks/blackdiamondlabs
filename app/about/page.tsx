@@ -7,7 +7,7 @@ export default function About() {
       <Nav />
 
       {/* Hero */}
-      <section className="relative pt-40 pb-32 px-8 sm:px-16 lg:px-32 overflow-hidden">
+      <section className="relative pt-40 pb-40 px-8 sm:px-16 lg:px-32 overflow-hidden">
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, #001525 0%, #000 65%)' }} />
         <div className="relative z-10 max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Our Story</p>

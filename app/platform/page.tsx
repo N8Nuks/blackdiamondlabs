@@ -33,24 +33,6 @@ export default function Platform() {
         </div>
       </section>
 
-      {/* Status bar */}
-      <section className="px-6 sm:px-12 lg:px-20 py-6" style={{ background: '#050505', borderTop: '1px solid #ffffff08', borderBottom: '1px solid #ffffff08' }}>
-        <div className="max-w-4xl mx-auto flex flex-wrap items-center gap-8">
-          <div className="flex items-center gap-3">
-            <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-xs text-white/50 uppercase tracking-wider">Platform in final build</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: '#00CFFF' }} />
-            <span className="text-xs text-white/50 uppercase tracking-wider">Grassroots Fantasy launching now</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="h-2 w-2 rounded-full bg-yellow-400" />
-            <span className="text-xs text-white/50 uppercase tracking-wider">7 products in development</span>
-          </div>
-        </div>
-      </section>
-
       {/* Eight pillars — portal style */}
       <section className="py-24 px-6 sm:px-12 lg:px-20">
         <div className="max-w-6xl mx-auto">

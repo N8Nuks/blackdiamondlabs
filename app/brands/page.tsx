@@ -101,8 +101,7 @@ export default function Brands() {
               const sc = statusStyle(brand.status)
               return (
                 <div key={brand.name}
-                  className="flex flex-col rounded-2xl border border-white/8 bg-white/[0.03] p-8 hover:bg-white/[0.06] transition-all duration-300 cursor-pointer"
-                  onClick={() => brand.href !== '#' && window.open(brand.href, '_blank')}>
+                  className="flex flex-col rounded-2xl border border-white/8 bg-white/[0.03] p-8 hover:bg-white/[0.06] transition-all duration-300">
                   <div className="flex items-center gap-2 mb-8">
                     <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: sc.dot }} />
                     <span className="text-xs font-bold uppercase tracking-widest" style={{ color: sc.text }}>{brand.status}</span>

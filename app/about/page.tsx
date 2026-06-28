@@ -28,7 +28,7 @@ export default function About() {
           <h2 className="text-3xl sm:text-4xl font-black text-white mb-16">Built by people who played the game.</h2>
 
           <div className="grid sm:grid-cols-2 gap-6 mb-6">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-6">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-3">
               <div>
                 <h3 className="text-xl font-black text-white mb-2">Nathan Nukunuku</h3>
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Vision & Execution</p>
@@ -39,7 +39,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-6">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-3">
               <div>
                 <h3 className="text-xl font-black text-white mb-2">Katrina Nukunuku</h3>
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Heart & Purpose</p>
@@ -71,7 +71,7 @@ export default function About() {
               { word: 'Diamond', desc: 'Celebrates the playing fields around the world that shaped their lives through sport.' },
               { word: 'Labs', desc: 'Represents our commitment to continuous research, development, and innovation — creating intelligent technology that helps unlock the untapped potential of minor sports.' },
             ].map(item => (
-              <div key={item.word} className="flex flex-col gap-6 p-8 rounded-2xl border border-white/8 bg-white/[0.02]">
+              <div key={item.word} className="flex flex-col gap-3 p-8 rounded-2xl border border-white/8 bg-white/[0.02]">
                 <h3 className="text-4xl font-black" style={{ color: '#00CFFF' }}>{item.word}</h3>
                 <div className="h-px w-8" style={{ backgroundColor: '#00CFFF30' }} />
                 <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
@@ -88,14 +88,14 @@ export default function About() {
           <h2 className="text-3xl sm:text-4xl font-black text-white mb-16">Our purpose. Our method.</h2>
 
           <div className="grid sm:grid-cols-2 gap-6">
-            <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-6">
+            <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-3">
               <h3 className="text-xl font-black text-white">Why?</h3>
               <div className="h-px w-8" style={{ backgroundColor: '#00CFFF30' }} />
               <p className="text-sm text-white/40 leading-relaxed" >
                 We want to give back to the sports community that made us into the driven and successful individuals we are. Promoting excellence and being better every day.
               </p>
             </div>
-            <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-6">
+            <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-3">
               <h3 className="text-xl font-black text-white">How?</h3>
               <div className="h-px w-8" style={{ backgroundColor: '#00CFFF30' }} />
               <p className="text-sm text-white/40 leading-relaxed" >

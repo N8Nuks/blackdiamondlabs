@@ -33,7 +33,7 @@ export default function About() {
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-8">
               <div>
                 <h3 className="text-2xl font-black text-white mb-2">Nathan Nukunuku</h3>
-                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Vision & Ideas</p>
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Vision & Execution</p>
               </div>
               <div className="h-px w-12" style={{ backgroundColor: '#00CFFF30' }} />
               <p className="text-sm text-white/40 leading-relaxed">

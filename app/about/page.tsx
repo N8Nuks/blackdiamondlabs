@@ -7,7 +7,7 @@ export default function About() {
       <Nav />
 
       {/* Hero */}
-      <section className="relative pt-40 pb-40 px-8 sm:px-16 lg:px-32 overflow-hidden">
+      <section className="relative pt-40 pb-48 px-8 sm:px-16 lg:px-32 overflow-hidden">
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, #001525 0%, #000 65%)' }} />
         <div className="relative z-10 max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Our Story</p>
@@ -22,10 +22,10 @@ export default function About() {
       </section>
 
       {/* Meet the Founders */}
-      <section className="px-8 sm:px-16 lg:px-32 py-24" style={{ borderTop: '1px solid #ffffff08' }}>
+      <section className="px-8 sm:px-16 lg:px-32 py-32" style={{ borderTop: '1px solid #ffffff08' }}>
         <div className="max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Meet the Founders</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-16">Built by people who know the game.</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-24">Built by people who know the game.</h2>
 
           <div className="grid sm:grid-cols-2 gap-6 mb-6">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-3">
@@ -60,10 +60,10 @@ export default function About() {
       </section>
 
       {/* The Name */}
-      <section className="px-8 sm:px-16 lg:px-32 py-24" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
+      <section className="px-8 sm:px-16 lg:px-32 py-32" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
         <div className="max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>The Name</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-16">Why Black Diamond Labs?</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-24">Why Black Diamond Labs?</h2>
 
           <div className="grid sm:grid-cols-3 gap-6">
             {[
@@ -82,10 +82,10 @@ export default function About() {
       </section>
 
       {/* Why and How */}
-      <section className="px-8 sm:px-16 lg:px-32 py-24" style={{ borderTop: '1px solid #ffffff08' }}>
+      <section className="px-8 sm:px-16 lg:px-32 py-32" style={{ borderTop: '1px solid #ffffff08' }}>
         <div className="max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Why and How</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-16">Our purpose. Our method.</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-24">Our purpose. Our method.</h2>
 
           <div className="grid sm:grid-cols-2 gap-6">
             <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-3">

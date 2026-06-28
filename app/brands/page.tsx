@@ -27,8 +27,8 @@ function BrandName({ name }: { name: string }) {
 
 export default function Brands() {
   const brands = [
-    { name: 'Grassroots Fantasy', tagline: 'Built for the game you love.', taglineColor: '#2d9e4e', desc: 'Fantasy league platform for the Northern Fastpitch Series — collect player cards, build your squad, score points based on real game results.', status: 'Pending', href: 'https://grassrootsfantasy.co.nz', accent: '#2d9e4e' },
-    { name: 'LegacyMint', tagline: 'Your Legacy. Their Dream.', taglineColor: '#FFD700', desc: 'NFT fundraising platform — creating and sharing lasting digital legacies, stories, moments, and memories built to endure.', status: 'Pending', href: 'https://legacymint.club', accent: '#2596be' },
+    { name: 'Grassroots Fantasy', tagline: 'Built for the game you love.', taglineColor: '#2d9e4e', desc: 'Fantasy league platform for the Northern Fastpitch Series — collect player cards, build your squad, score points based on real game results.', status: 'Pending', href: 'https://www.grassrootsfantasy.co.nz', accent: '#2d9e4e' },
+    { name: 'LegacyMint', tagline: 'Your Legacy. Their Dream.', taglineColor: '#FFD700', desc: 'NFT fundraising platform — creating and sharing lasting digital legacies, stories, moments, and memories built to endure.', status: 'Pending', href: 'https://www.legacymint.club', accent: '#2596be' },
     { name: 'FutureProof Solutions', tagline: 'Built for what comes next.', taglineColor: '#C0C0C0', desc: 'Financial diversification education for individuals, teams, and organisations. Cryptocurrency, token creation, Vault27 and Alchemy Pay.', status: 'In Development', href: '#', accent: '#FFD700' },
     { name: 'SnapTrack', tagline: 'Track every skill. Build every athlete.', taglineColor: '#00CFFF', desc: 'Skill performance education app built for athletes who want to measure their development.', status: 'In Development', href: '#', accent: '#00CFFF' },
     { name: 'Black Diamond AI', tagline: 'Your AI. Trained on sport.', taglineColor: '#A78BFA', desc: 'An AI assistant trained specifically on minor sports. Build plans, analyse games, generate proposals — just ask.', status: 'In Development', href: '#', accent: '#A78BFA' },
@@ -100,7 +100,9 @@ export default function Brands() {
             {rest.map(brand => {
               const sc = statusStyle(brand.status)
               return (
-                <div key={brand.name} className="flex flex-col rounded-2xl border border-white/8 bg-white/[0.03] p-8 hover:bg-white/[0.06] transition-all duration-300">
+                <div key={brand.name}
+                  className="flex flex-col rounded-2xl border border-white/8 bg-white/[0.03] p-8 hover:bg-white/[0.06] transition-all duration-300 cursor-pointer"
+                  onClick={() => brand.href !== '#' && window.open(brand.href, '_blank')}>
                   <div className="flex items-center gap-2 mb-8">
                     <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: sc.dot }} />
                     <span className="text-xs font-bold uppercase tracking-widest" style={{ color: sc.text }}>{brand.status}</span>
@@ -109,6 +111,12 @@ export default function Brands() {
                   <p className="text-xs font-semibold italic mb-5" style={{ color: brand.taglineColor }}>{brand.tagline}</p>
                   <p className="text-xs text-white/30 leading-relaxed flex-1">{brand.desc}</p>
                   <div className="mt-8 h-px" style={{ backgroundColor: brand.accent + '25' }} />
+                  {brand.href !== '#' && (
+                    <a href={brand.href} target="_blank" rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-white/40 hover:text-white transition-colors">
+                      Visit platform →
+                    </a>
+                  )}
                 </div>
               )
             })}

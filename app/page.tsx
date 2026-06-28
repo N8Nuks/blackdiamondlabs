@@ -96,7 +96,7 @@ export default function Home() {
           ))}
 
           {/* Left — text */}
-          <div className="relative z-10 w-full lg:w-1/2 px-6 sm:px-10 lg:px-16 pt-28 pb-16 lg:pt-0 lg:pb-0 flex flex-col justify-center">
+          <div className="relative z-10 w-full lg:w-1/2 px-10 sm:px-14 lg:px-20 pt-28 pb-16 lg:pt-0 lg:pb-0 flex flex-col justify-center">
 
             <p className="opacity-0 animate-fade-up text-[0.6rem] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-4 sm:mb-6"
               style={{ color: '#00CFFF' }}>

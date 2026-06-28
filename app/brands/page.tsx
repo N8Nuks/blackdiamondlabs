@@ -56,7 +56,7 @@ export default function Brands() {
       <Nav />
 
       {/* Hero */}
-      <section className="relative pt-40 pb-24 px-6 sm:px-16 lg:px-24 overflow-hidden">
+      <section className="relative pt-40 pb-24 px-8 sm:px-16 lg:px-32 overflow-hidden">
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, #001525 0%, #000 65%)' }} />
         <div className="relative z-10 max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Our Brands</p>
@@ -70,7 +70,7 @@ export default function Brands() {
         </div>
       </section>
 
-      <section className="px-6 sm:px-16 lg:px-24 pb-32">
+      <section className="px-8 sm:px-16 lg:px-32 pb-32">
         <div className="max-w-5xl mx-auto">
 
           {/* Live — featured */}

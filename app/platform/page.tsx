@@ -34,7 +34,7 @@ export default function Platform() {
       </section>
 
       {/* Eight pillars — portal style */}
-      <section className="py-24 px-6 sm:px-12 lg:px-20">
+      <section className="py-24 px-8 sm:px-16 lg:px-32">
         <div className="max-w-6xl mx-auto">
           <div className="mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
             <div>
@@ -86,7 +86,7 @@ export default function Platform() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 sm:px-12 lg:px-20" style={{ background: '#050505', borderTop: '1px solid #ffffff08' }}>
+      <section className="py-20 px-8 sm:px-16 lg:px-32" style={{ background: '#050505', borderTop: '1px solid #ffffff08' }}>
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
           <div>
             <h2 className="text-2xl font-black text-white mb-2">See what we're building.</h2>

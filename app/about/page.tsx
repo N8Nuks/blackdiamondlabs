@@ -91,14 +91,14 @@ export default function About() {
             <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-6">
               <h3 className="text-xl font-black text-white">Why?</h3>
               <div className="h-px w-8" style={{ backgroundColor: '#00CFFF30' }} />
-              <p className="text-sm text-white/40 leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+              <p className="text-sm text-white/40 leading-relaxed" >
                 We want to give back to the sports community that made us into the driven and successful individuals we are. Promoting excellence and being better every day.
               </p>
             </div>
             <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-6">
               <h3 className="text-xl font-black text-white">How?</h3>
               <div className="h-px w-8" style={{ backgroundColor: '#00CFFF30' }} />
-              <p className="text-sm text-white/40 leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+              <p className="text-sm text-white/40 leading-relaxed" >
                 Providing innovative platforms that enable sporting organisations and communities to gain market share in the User Digital Space (UDS), to educate and promote to their user bases at varying levels and ultimately, to build a sustainable digital future for sports communities.
               </p>
             </div>

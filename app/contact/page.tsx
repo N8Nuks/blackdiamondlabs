@@ -15,9 +15,23 @@ export default function Contact() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const submit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false)
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (res.ok) setSubmitted(true)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inputClass = "w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-white/30 transition-colors"

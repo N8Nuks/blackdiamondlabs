@@ -15,8 +15,11 @@ export default function Footer() {
           animation: shimmer 4s linear infinite;
         }
       `}</style>
-      <footer className="border-t border-white/5 px-12 py-8 bg-black">
-        <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
+
+      <footer className="border-t border-white/5 px-12 py-6 bg-black">
+        <div className="mx-auto max-w-6xl flex items-center justify-between">
+
+          {/* Logo left */}
           <div className="flex items-center gap-3">
             <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
               <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#00CFFF" strokeWidth="1.5" fill="none"/>
@@ -26,11 +29,13 @@ export default function Footer() {
             </svg>
             <span className="text-sm silver-shimmer">Black Diamond Labs</span>
           </div>
-          <div className="flex items-center gap-6 text-xs">
-            <a href="https://grassrootsfantasy.co.nz" className="silver-shimmer hover:opacity-80 transition-opacity">Grassroots Fantasy</a>
-            <a href="mailto:info@blackdiamondlabs.co.nz" className="silver-shimmer hover:opacity-80 transition-opacity">info@blackdiamondlabs.co.nz</a>
-          </div>
-          <p className="text-xs silver-shimmer">© 2026 Black Diamond Labs</p>
+
+          {/* Email right */}
+          <a href="mailto:info@blackdiamondlabs.co.nz"
+            className="text-xs silver-shimmer hover:opacity-80 transition-opacity">
+            info@blackdiamondlabs.co.nz
+          </a>
+
         </div>
       </footer>
     </>

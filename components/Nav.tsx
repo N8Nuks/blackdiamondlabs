@@ -14,7 +14,7 @@ export default function Nav() {
       </a>
       <div className="flex items-center gap-10">
         {['Brands','About','Platform','Contact'].map(item => (
-          <a key={item} href={item === 'Brands' ? '/#brands' : item === 'About' ? '/about' : item === 'Contact' ? 'mailto:info@blackdiamondlabs.co.nz' : item === 'Platform' ? '/platform' : '#'}
+          <a key={item} href={item === 'Brands' ? '/brands' : item === 'About' ? '/about' : item === 'Contact' ? 'mailto:info@blackdiamondlabs.co.nz' : item === 'Platform' ? '/platform' : '#'}
             className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors hidden md:block">
             {item}
           </a>

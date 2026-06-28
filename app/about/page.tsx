@@ -15,24 +15,22 @@ export default function About() {
             About<br />BDL<span style={{ color: '#00CFFF' }}>.</span>
           </h1>
           <div className="h-px w-24 mb-10" style={{ backgroundColor: '#00CFFF40' }} />
-          <p className="text-base sm:text-lg text-white/40 leading-relaxed max-w-xl">
+          <p className="text-base text-white/40 leading-relaxed max-w-xl">
             Black Diamond Labs exists to unlock the untapped potential of minor sports by creating excitement, expanding opportunity, and building sustainable prosperity for athletes, fans, clubs, and communities through intelligent technology.
           </p>
         </div>
       </section>
 
-      {/* Meet the Founders — FIRST */}
-      <section className="px-6 sm:px-16 lg:px-24 pb-32" style={{ borderTop: '1px solid #ffffff08' }}>
-        <div className="max-w-5xl mx-auto pt-24">
+      {/* Meet the Founders */}
+      <section className="px-6 sm:px-16 lg:px-24 py-24" style={{ borderTop: '1px solid #ffffff08' }}>
+        <div className="max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Meet the Founders</p>
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-20">
-            Built by people<br />who played the game.
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-16">Built by people who played the game.</h2>
 
           <div className="grid sm:grid-cols-2 gap-6 mb-6">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-8">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-6">
               <div>
-                <h3 className="text-2xl font-black text-white mb-2">Nathan Nukunuku</h3>
+                <h3 className="text-xl font-black text-white mb-2">Nathan Nukunuku</h3>
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Vision & Execution</p>
               </div>
               <div className="h-px w-12" style={{ backgroundColor: '#00CFFF30' }} />
@@ -41,9 +39,9 @@ export default function About() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-8">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-6">
               <div>
-                <h3 className="text-2xl font-black text-white mb-2">Katrina Nukunuku</h3>
+                <h3 className="text-xl font-black text-white mb-2">Katrina Nukunuku</h3>
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Heart & Purpose</p>
               </div>
               <div className="h-px w-12" style={{ backgroundColor: '#00CFFF30' }} />
@@ -53,21 +51,19 @@ export default function About() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-12 sm:p-16 text-center">
-            <p className="text-xl sm:text-2xl font-black text-white/50 leading-relaxed italic max-w-2xl mx-auto">
+          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-10 sm:p-14 text-center">
+            <p className="text-base sm:text-lg font-semibold text-white/40 leading-relaxed italic max-w-2xl mx-auto">
               "Nathan brings the ideas, Katrina brings the heart. Our kids bring the inspiration to do the work — and our passion for sport brings the drive to succeed."
             </p>
           </div>
         </div>
       </section>
 
-      {/* The Name — SECOND */}
-      <section className="px-6 sm:px-16 lg:px-24 pb-32" style={{ borderTop: '1px solid #ffffff08' }}>
-        <div className="max-w-5xl mx-auto pt-24">
+      {/* The Name */}
+      <section className="px-6 sm:px-16 lg:px-24 py-24" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
+        <div className="max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>The Name</p>
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-20">
-            Why Black<br />Diamond Labs?
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-16">Why Black Diamond Labs?</h2>
 
           <div className="grid sm:grid-cols-3 gap-6">
             {[
@@ -75,8 +71,8 @@ export default function About() {
               { word: 'Diamond', desc: 'Celebrates the playing fields around the world that shaped their lives through sport.' },
               { word: 'Labs', desc: 'Represents our commitment to continuous research, development, and innovation — creating intelligent technology that helps unlock the untapped potential of minor sports.' },
             ].map(item => (
-              <div key={item.word} className="flex flex-col gap-8 p-10 rounded-2xl border border-white/8 bg-white/[0.02]">
-                <h3 className="text-5xl font-black" style={{ color: '#00CFFF' }}>{item.word}</h3>
+              <div key={item.word} className="flex flex-col gap-6 p-8 rounded-2xl border border-white/8 bg-white/[0.02]">
+                <h3 className="text-4xl font-black" style={{ color: '#00CFFF' }}>{item.word}</h3>
                 <div className="h-px w-8" style={{ backgroundColor: '#00CFFF30' }} />
                 <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
               </div>
@@ -85,13 +81,28 @@ export default function About() {
         </div>
       </section>
 
-      {/* Why and How — THIRD */}
-      <section className="px-6 sm:px-16 lg:px-24 py-32" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-8" style={{ color: '#00CFFF' }}>Why and How</p>
-          <blockquote className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight max-w-3xl mx-auto mb-10">
-            "Why? We want to give back to the sports community that made us into the driven and successful individuals we are. Promoting excellence and being better every day."
-          </blockquote>
+      {/* Why and How */}
+      <section className="px-6 sm:px-16 lg:px-24 py-24" style={{ borderTop: '1px solid #ffffff08' }}>
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Why and How</p>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-16">Our purpose. Our method.</h2>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-6">
+              <h3 className="text-xl font-black text-white">Why?</h3>
+              <div className="h-px w-8" style={{ backgroundColor: '#00CFFF30' }} />
+              <p className="text-sm text-white/40 leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+                We want to give back to the sports community that made us into the driven and successful individuals we are. Promoting excellence and being better every day.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-6">
+              <h3 className="text-xl font-black text-white">How?</h3>
+              <div className="h-px w-8" style={{ backgroundColor: '#00CFFF30' }} />
+              <p className="text-sm text-white/40 leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+                Providing innovative platforms that enable sporting organisations and communities to gain market share in the User Digital Space (UDS), to educate and promote to their user bases at varying levels and ultimately, to build a sustainable digital future for sports communities.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

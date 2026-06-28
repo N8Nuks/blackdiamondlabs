@@ -90,10 +90,10 @@ export default function About() {
         <div className="max-w-5xl mx-auto text-center">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-8" style={{ color: '#00CFFF' }}>What We Believe</p>
           <blockquote className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight max-w-3xl mx-auto mb-10">
-            "Simply that they are helping others to be better."
+            "We must give back to a sport or community that helped shape the people we are."
           </blockquote>
           <p className="text-sm text-white/25 max-w-md mx-auto leading-relaxed">
-            That is what we want every person to feel when they interact with a Black Diamond Labs product. Not impressed. Not entertained. Better.
+            That is the belief that drives every decision at Black Diamond Labs — from the platforms we build to the communities we serve.
           </p>
         </div>
       </section>

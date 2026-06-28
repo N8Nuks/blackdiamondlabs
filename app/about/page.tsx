@@ -48,7 +48,7 @@ export default function About() {
               </div>
               <div className="h-px w-12" style={{ backgroundColor: '#00CFFF30' }} />
               <p className="text-sm text-white/40 leading-relaxed">
-                New Zealand representative in softball and a high school netball player. Katrina brings the heart. Her passion for community and people shapes the soul of every platform BDL creates.
+                Katrina is a long time member of the New Zealand White Sox and attended multiple World Championships. Katrina has a lot of success at Club and Regional level in Softball. A keen high school netball player also, Katrina brings the heart to this company. Her passion for community and people shapes the soul of every platform BDL creates.
               </p>
             </div>
           </div>

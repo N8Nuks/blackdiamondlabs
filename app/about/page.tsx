@@ -7,121 +7,92 @@ export default function About() {
       <Nav />
 
       {/* Hero */}
-      <section className="relative pt-36 pb-20 px-6 sm:px-12 lg:px-20 overflow-hidden">
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, #001a2e 0%, #000 70%)' }} />
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#00CFFF' }}>
-            Our Story
-          </p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-none mb-8 text-white">
-            About<br />Black Diamond<br />Labs<span style={{ color: '#00CFFF' }}>.</span>
+      <section className="relative pt-40 pb-32 px-6 sm:px-16 lg:px-24 overflow-hidden">
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, #001525 0%, #000 65%)' }} />
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Our Story</p>
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black leading-none mb-10 text-white">
+            About<br />BDL<span style={{ color: '#00CFFF' }}>.</span>
           </h1>
-          <p className="text-lg sm:text-xl text-white/50 leading-relaxed max-w-2xl">
+          <div className="h-px w-24 mb-10" style={{ backgroundColor: '#00CFFF40' }} />
+          <p className="text-base sm:text-lg text-white/40 leading-relaxed max-w-xl">
             Black Diamond Labs exists to unlock the untapped potential of minor sports by creating excitement, expanding opportunity, and building sustainable prosperity for athletes, fans, clubs, and communities through intelligent technology.
           </p>
         </div>
       </section>
 
-      {/* The name */}
-      <section className="py-20 px-6 sm:px-12 lg:px-20" style={{ borderTop: '1px solid #ffffff08' }}>
-        <div className="max-w-4xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#00CFFF' }}>
-              The Name
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-black text-white mb-6">
-              Why Black Diamond Labs?
-            </h2>
-            <div className="space-y-5 text-white/50 leading-relaxed">
-              <p>
-                <span className="text-white font-semibold">"Black"</span> honours the legacy of representing New Zealand — including Nathan's two decades with the Black Sox and the privilege both Nathan and Katrina have had of wearing the black jersey.
-              </p>
-              <p>
-                <span className="text-white font-semibold">"Diamond"</span> celebrates the playing fields around the world that shaped their lives through sport.
-              </p>
-              <p>
-                <span className="text-white font-semibold">"Labs"</span> represents our commitment to continuous research, development, and innovation — creating intelligent technology that helps unlock the untapped potential of minor sports.
-              </p>
-            </div>
-          </div>
-
-          {/* Diamond accent */}
-          <div className="flex items-center justify-center">
-            <svg viewBox="0 0 300 320" fill="none" width="260" height="280" style={{ opacity: 0.6 }}>
-              <defs>
-                <radialGradient id="aTableGrad" cx="50%" cy="40%" r="50%">
-                  <stop offset="0%" stopColor="#cccccc" stopOpacity="0.2"/>
-                  <stop offset="100%" stopColor="#000000" stopOpacity="0.9"/>
-                </radialGradient>
-                <radialGradient id="aCuletGlow" cx="50%" cy="100%" r="30%">
-                  <stop offset="0%" stopColor="#00CFFF" stopOpacity="0.9"/>
-                  <stop offset="100%" stopColor="#00CFFF" stopOpacity="0"/>
-                </radialGradient>
-              </defs>
-              <polygon points="100,40 150,28 200,40 210,80 150,90 90,80" fill="url(#aTableGrad)" stroke="#00CFFF" strokeWidth="0.6" strokeOpacity="0.6"/>
-              <polygon points="40,140 90,80 150,90 80,150" fill="#050505" stroke="#00CFFF" strokeWidth="0.5" strokeOpacity="0.4"/>
-              <polygon points="260,140 210,80 150,90 220,150" fill="#0a0a0a" stroke="#00CFFF" strokeWidth="0.5" strokeOpacity="0.4"/>
-              <polygon points="40,140 80,150 150,300" fill="#030303" stroke="#00CFFF" strokeWidth="0.6" strokeOpacity="0.45"/>
-              <polygon points="80,150 150,90 150,300" fill="#060606" stroke="#00CFFF" strokeWidth="0.5" strokeOpacity="0.4"/>
-              <polygon points="150,90 220,150 150,300" fill="#080808" stroke="#00CFFF" strokeWidth="0.5" strokeOpacity="0.4"/>
-              <polygon points="220,150 260,140 150,300" fill="#040404" stroke="#00CFFF" strokeWidth="0.6" strokeOpacity="0.45"/>
-              <path d="M60,57 L100,28 L150,28 L200,28 L240,57 L260,140 L220,150 L150,300 L80,150 L40,140 Z" fill="none" stroke="#00CFFF" strokeWidth="1" strokeOpacity="0.6"/>
-              <ellipse cx="150" cy="298" rx="5" ry="5" fill="#00CFFF" opacity="0.9" filter="url(#culetFilter)"/>
-              <polygon points="40,140 150,300 260,140 150,90" fill="url(#aCuletGlow)" opacity="0.06"/>
-            </svg>
-          </div>
-        </div>
-      </section>
-
-      {/* Founders */}
-      <section className="py-20 px-6 sm:px-12 lg:px-20" style={{ background: '#050505', borderTop: '1px solid #ffffff08' }}>
-        <div className="max-w-4xl mx-auto">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#00CFFF' }}>
-            The Founders
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-12">
-            Built by people who played the game.
+      {/* Meet the Founders — FIRST */}
+      <section className="px-6 sm:px-16 lg:px-24 pb-32" style={{ borderTop: '1px solid #ffffff08' }}>
+        <div className="max-w-5xl mx-auto pt-24">
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Meet the Founders</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-20">
+            Built by people<br />who played the game.
           </h2>
 
-          <div className="grid sm:grid-cols-2 gap-8 mb-12">
-            {/* Nathan */}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
-              <h3 className="text-xl font-black text-white mb-1">Nathan Nukunuku</h3>
-              <p className="text-xs uppercase tracking-widest mb-4" style={{ color: '#00CFFF' }}>Co-Founder — Vision & Ideas</p>
+          <div className="grid sm:grid-cols-2 gap-6 mb-6">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-8">
+              <div>
+                <h3 className="text-2xl font-black text-white mb-2">Nathan Nukunuku</h3>
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Vision & Ideas</p>
+              </div>
+              <div className="h-px w-12" style={{ backgroundColor: '#00CFFF30' }} />
               <p className="text-sm text-white/40 leading-relaxed">
-                Two decades representing New Zealand with the Black Sox. A dual sportsman who played softball and rugby into his late 20s. Nathan brings the ideas — and a lifetime of lived experience in grassroots sport — to everything BDL builds.
+                Two decades representing New Zealand with the Black Sox. A dual sportsman who played both softball and rugby into his late 20s. Nathan brings the ideas — and a lifetime of lived experience in grassroots sport — to everything BDL builds.
               </p>
             </div>
 
-            {/* Katrina */}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
-              <h3 className="text-xl font-black text-white mb-1">Katrina Nukunuku</h3>
-              <p className="text-xs uppercase tracking-widest mb-4" style={{ color: '#00CFFF' }}>Co-Founder — Heart & Purpose</p>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-8">
+              <div>
+                <h3 className="text-2xl font-black text-white mb-2">Katrina Nukunuku</h3>
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#00CFFF' }}>Co-Founder — Heart & Purpose</p>
+              </div>
+              <div className="h-px w-12" style={{ backgroundColor: '#00CFFF30' }} />
               <p className="text-sm text-white/40 leading-relaxed">
-                New Zealand representative in softball and a high school netball player, Katrina brings the heart. Her passion for community and sport shapes the soul of every platform BDL creates.
+                New Zealand representative in softball and a high school netball player. Katrina brings the heart. Her passion for community and people shapes the soul of every platform BDL creates.
               </p>
             </div>
           </div>
 
-          {/* Family */}
-          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 text-center">
-            <p className="text-base text-white/50 leading-relaxed italic max-w-xl mx-auto">
+          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-12 sm:p-16 text-center">
+            <p className="text-xl sm:text-2xl font-black text-white/50 leading-relaxed italic max-w-2xl mx-auto">
               "Nathan brings the ideas, Katrina brings the heart. Our kids bring the inspiration to do the work — and our passion for sport brings the drive to succeed."
             </p>
           </div>
         </div>
       </section>
 
-      {/* Mission */}
-      <section className="py-20 px-6 sm:px-12 lg:px-20" style={{ borderTop: '1px solid #ffffff08' }}>
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] mb-6" style={{ color: '#00CFFF' }}>
-            What We Believe
-          </p>
-          <blockquote className="text-2xl sm:text-3xl font-black text-white leading-snug mb-8 max-w-3xl mx-auto">
+      {/* The Name — SECOND */}
+      <section className="px-6 sm:px-16 lg:px-24 pb-32" style={{ borderTop: '1px solid #ffffff08' }}>
+        <div className="max-w-5xl mx-auto pt-24">
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>The Name</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-20">
+            Why Black<br />Diamond Labs?
+          </h2>
+
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              { word: 'Black', desc: 'Honours the legacy of representing New Zealand — including Nathan\'s two decades with the Black Sox and the privilege both Nathan and Katrina have had of wearing the black jersey.' },
+              { word: 'Diamond', desc: 'Celebrates the playing fields around the world that shaped their lives through sport.' },
+              { word: 'Labs', desc: 'Represents our commitment to continuous research, development, and innovation — creating intelligent technology that helps unlock the untapped potential of minor sports.' },
+            ].map(item => (
+              <div key={item.word} className="flex flex-col gap-8 p-10 rounded-2xl border border-white/8 bg-white/[0.02]">
+                <h3 className="text-5xl font-black" style={{ color: '#00CFFF' }}>{item.word}</h3>
+                <div className="h-px w-8" style={{ backgroundColor: '#00CFFF30' }} />
+                <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What We Believe — THIRD */}
+      <section className="px-6 sm:px-16 lg:px-24 py-32" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
+        <div className="max-w-5xl mx-auto text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-8" style={{ color: '#00CFFF' }}>What We Believe</p>
+          <blockquote className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight max-w-3xl mx-auto mb-10">
             "Simply that they are helping others to be better."
           </blockquote>
-          <p className="text-sm text-white/30 max-w-lg mx-auto leading-relaxed">
+          <p className="text-sm text-white/25 max-w-md mx-auto leading-relaxed">
             That is what we want every person to feel when they interact with a Black Diamond Labs product. Not impressed. Not entertained. Better.
           </p>
         </div>

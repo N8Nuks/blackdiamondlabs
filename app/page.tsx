@@ -113,7 +113,7 @@ export default function Home() {
             </p>
 
             <div className="opacity-0 animate-fade-up delay-3">
-              <a href="#brands" className="gold-btn">
+              <a href="/brands" className="gold-btn">
                 Explore Our Brands
                 <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
                   <path d="M1 5h12M9 1l4 4-4 4" stroke="#00CFFF" strokeWidth="1.5" strokeLinecap="round"/>

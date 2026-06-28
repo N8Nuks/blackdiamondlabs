@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     await resend.emails.send({
-      from: 'BDL Contact <onboarding@resend.dev>',
+      from: 'BDL Contact <contact@blackdiamondlabs.co.nz>',
       to: 'info@blackdiamondlabs.co.nz',
       replyTo: email,
       subject: `New Idea Submission — ${name}`,

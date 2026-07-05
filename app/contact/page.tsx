@@ -45,11 +45,11 @@ export default function Contact() {
       <section className="relative pt-40 pb-24 px-8 sm:px-16 lg:px-32 overflow-hidden">
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, #001525 0%, #000 65%)' }} />
         <div className="relative z-10 max-w-5xl mx-auto">
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Get In Touch</p>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#C7CEDA' }}>Get In Touch</p>
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black leading-none mb-10 text-white">
-            Contact<br />BDL<span style={{ color: '#00CFFF' }}>.</span>
+            Contact<br />BDL<span style={{ color: '#C7CEDA' }}>.</span>
           </h1>
-          <div className="h-px w-24 mb-10" style={{ backgroundColor: '#00CFFF40' }} />
+          <div className="h-px w-24 mb-10" style={{ backgroundColor: 'rgba(255,255,255,0.25)' }} />
           <p className="text-base text-white/40 leading-relaxed max-w-xl">
             Have a question, a partnership idea, or want to pitch us your vision? We'd love to hear from you.
           </p>
@@ -62,26 +62,26 @@ export default function Contact() {
           {/* Left — contact info */}
           <div className="flex flex-col gap-8">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Direct Contact</p>
+              <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#C7CEDA' }}>Direct Contact</p>
               <a href="mailto:info@blackdiamondlabs.co.nz"
                 className="text-sm text-white/50 hover:text-white transition-colors">
                 info@blackdiamondlabs.co.nz
               </a>
             </div>
 
-            <div className="h-px w-12" style={{ backgroundColor: '#00CFFF20' }} />
+            <div className="h-px w-12" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }} />
 
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.35em] mb-4" style={{ color: '#00CFFF' }}>Have an Idea?</p>
+              <p className="text-xs font-bold uppercase tracking-[0.35em] mb-4" style={{ color: '#C7CEDA' }}>Have an Idea?</p>
               <p className="text-sm text-white/30 leading-relaxed">
                 We're always looking for the next platform to build. If you have an idea that could unlock the potential of a sport or community, submit it using the form and we'll review it.
               </p>
             </div>
 
-            <div className="h-px w-12" style={{ backgroundColor: '#00CFFF20' }} />
+            <div className="h-px w-12" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }} />
 
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.35em] mb-4" style={{ color: '#00CFFF' }}>Based In</p>
+              <p className="text-xs font-bold uppercase tracking-[0.35em] mb-4" style={{ color: '#C7CEDA' }}>Based In</p>
               <p className="text-sm text-white/30">Auckland, New Zealand</p>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function Contact() {
 
                 {/* Section 1 — Your details */}
                 <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-8 flex flex-col gap-6">
-                  <p className="text-xs font-bold uppercase tracking-[0.35em]" style={{ color: '#00CFFF' }}>Your Details</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.35em]" style={{ color: '#C7CEDA' }}>Your Details</p>
 
                   <div>
                     <label className={labelClass} style={{ color: '#ffffff60' }}>Full Name *</label>
@@ -124,7 +124,7 @@ export default function Contact() {
 
                 {/* Section 2 — The idea */}
                 <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-8 flex flex-col gap-6">
-                  <p className="text-xs font-bold uppercase tracking-[0.35em]" style={{ color: '#00CFFF' }}>Your Idea</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.35em]" style={{ color: '#C7CEDA' }}>Your Idea</p>
 
                   <div>
                     <label className={labelClass} style={{ color: '#ffffff60' }}>What sport or community is your idea for? *</label>
@@ -181,7 +181,7 @@ export default function Contact() {
                 <button type="submit"
                   className="self-start inline-flex items-center gap-3 border border-white/20 px-10 py-4 text-sm font-bold text-white hover:bg-white/5 hover:border-white/40 transition-all duration-200">
                   Submit Your Idea
-                  <span style={{ color: '#00CFFF' }}>◆</span>
+                  <span style={{ color: '#C7CEDA' }}>◆</span>
                 </button>
 
               </form>

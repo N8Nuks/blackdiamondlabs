@@ -3,13 +3,13 @@ import Footer from '@/components/Footer'
 
 export default function Platform() {
   const pillars = [
-    { number: '01', name: 'Competition Hub', desc: 'The engine of the sport.', features: 'Fixtures · Scoring · Ladders · Finals · Tournaments', color: '#00CFFF' },
-    { number: '02', name: 'Athlete Performance', desc: 'Helping athletes improve.', features: 'Training Plans · AI Coaching · Video Analysis · Skill Tracking', color: '#00CFFF' },
-    { number: '03', name: 'Club & League Operations', desc: 'Helping organisations save time.', features: 'Registrations · Payments · Scheduling · Compliance', color: '#00CFFF' },
-    { number: '04', name: 'Fan Experience', desc: 'Creating excitement.', features: 'Live Streaming · Highlights · Fantasy · Social Feeds', color: '#00CFFF' },
-    { number: '05', name: 'Commercial Engine', desc: 'Creating prosperity.', features: 'Sponsorship · Ticketing · Merchandise · Crowdfunding', color: '#00CFFF' },
-    { number: '06', name: 'Data & Intelligence', desc: 'The platform\'s competitive advantage.', features: 'AI Insights · Analytics · Benchmarking · Intelligence', color: '#00CFFF' },
-    { number: '07', name: 'Community', desc: 'The social layer.', features: 'Teams · Messaging · Events · Recognition · Volunteers', color: '#00CFFF' },
+    { number: '01', name: 'Competition Hub', desc: 'The engine of the sport.', features: 'Fixtures · Scoring · Ladders · Finals · Tournaments', color: '#C7CEDA' },
+    { number: '02', name: 'Athlete Performance', desc: 'Helping athletes improve.', features: 'Training Plans · AI Coaching · Video Analysis · Skill Tracking', color: '#C7CEDA' },
+    { number: '03', name: 'Club & League Operations', desc: 'Helping organisations save time.', features: 'Registrations · Payments · Scheduling · Compliance', color: '#C7CEDA' },
+    { number: '04', name: 'Fan Experience', desc: 'Creating excitement.', features: 'Live Streaming · Highlights · Fantasy · Social Feeds', color: '#C7CEDA' },
+    { number: '05', name: 'Commercial Engine', desc: 'Creating prosperity.', features: 'Sponsorship · Ticketing · Merchandise · Crowdfunding', color: '#C7CEDA' },
+    { number: '06', name: 'Data & Intelligence', desc: 'The platform\'s competitive advantage.', features: 'AI Insights · Analytics · Benchmarking · Intelligence', color: '#C7CEDA' },
+    { number: '07', name: 'Community', desc: 'The social layer.', features: 'Teams · Messaging · Events · Recognition · Volunteers', color: '#C7CEDA' },
     { number: '08', name: 'Black Diamond AI', desc: 'Your AI. Trained on sport.', features: 'Training Plans · Game Analysis · Scheduling · Proposals', color: '#FFD700', highlight: true },
   ]
 
@@ -21,11 +21,11 @@ export default function Platform() {
       <section className="relative pt-36 pb-20 px-6 sm:px-12 lg:px-20 overflow-hidden">
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, #001a2e 0%, #000 70%)' }} />
         <div className="relative z-10 max-w-4xl mx-auto">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#00CFFF' }}>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#C7CEDA' }}>
             The Platform
           </p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-none mb-8 text-white">
-            One ecosystem.<br />Any sport<span style={{ color: '#00CFFF' }}>.</span>
+            One ecosystem.<br />Any sport<span style={{ color: '#C7CEDA' }}>.</span>
           </h1>
           <p className="text-lg sm:text-xl text-white/50 leading-relaxed max-w-2xl">
             Black Diamond Labs connects athletes, clubs, fans, competitions, and commercial opportunities in one intelligent ecosystem — built from the ground up for minor sports.
@@ -38,7 +38,7 @@ export default function Platform() {
         <div className="max-w-6xl mx-auto">
           <div className="mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.3em] mb-3" style={{ color: '#00CFFF' }}>
+              <p className="text-xs font-bold uppercase tracking-[0.3em] mb-3" style={{ color: '#C7CEDA' }}>
                 Eight Pillars
               </p>
               <h2 className="text-3xl sm:text-4xl font-black text-white">

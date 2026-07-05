@@ -48,7 +48,7 @@ export default function Nav() {
           onClick={() => setOpen(false)}>
           {links.map(l => (
             <a key={l.label} href={l.href}
-              className="text-3xl font-black text-white hover:text-cyan-400 transition-colors uppercase tracking-widest"
+              className="text-3xl font-black text-white hover:text-white transition-colors uppercase tracking-widest"
               onClick={() => setOpen(false)}>
               {l.label}
             </a>

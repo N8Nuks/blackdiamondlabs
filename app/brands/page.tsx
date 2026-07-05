@@ -30,14 +30,14 @@ export default function Brands() {
     { name: 'Grassroots Fantasy', tagline: 'Built for the game you love.', taglineColor: '#2d9e4e', desc: 'Fantasy League platform — support your club, collect player cards, build your squad, score points based on real game results.', status: 'Pending', href: 'https://www.grassrootsfantasy.co.nz', accent: '#2d9e4e' },
     { name: 'LegacyMint', tagline: 'Your Legacy. Their Dream.', taglineColor: '#FFD700', desc: 'NFT fundraising platform — creating and sharing lasting digital legacies, stories, moments, and memories built to endure.', status: 'Pending', href: 'https://www.legacymint.club', accent: '#2596be' },
     { name: 'FutureProof Solutions', tagline: 'Built for what comes next.', taglineColor: '#C0C0C0', desc: 'Diversification and Blockchain education for individuals, teams, and organisations. Fiat, Cryptocurrency, Precious Metals, RWA token creation, blockchain creation options - its all out there ready to be known.', status: 'In Development', href: '#', accent: '#FFD700' },
-    { name: 'SnapTrack', tagline: 'Track every skill. Build every athlete.', taglineColor: '#00CFFF', desc: 'Skill performance education app built for athletes who want to measure their development.', status: 'In Development', href: '#', accent: '#00CFFF' },
+    { name: 'SnapTrack', tagline: 'Track every skill. Build every athlete.', taglineColor: '#C7CEDA', desc: 'Skill performance education app built for athletes who want to measure their development.', status: 'In Development', href: '#', accent: '#C7CEDA' },
     { name: 'Black Diamond AI', tagline: 'Your AI. Trained on sport.', taglineColor: '#A78BFA', desc: 'An AI assistant trained specifically on minor sports. Build plans, analyse games, generate proposals — just ask.', status: 'In Development', href: '#', accent: '#A78BFA' },
-    { name: 'Stat-You Hub', tagline: 'Every stat. Every competition. One place.', taglineColor: '#00CFFF', desc: 'A permanent digital profile for every athlete — every stat from every competition, across an entire career.', status: 'In Development', href: '#', accent: '#00CFFF' },
+    { name: 'Stat-You Hub', tagline: 'Every stat. Every competition. One place.', taglineColor: '#C7CEDA', desc: 'A permanent digital profile for every athlete — every stat from every competition, across an entire career.', status: 'In Development', href: '#', accent: '#C7CEDA' },
     { name: 'Sport-Tube', tagline: 'Live sport. For everyone.', taglineColor: '#F87171', desc: 'Live streaming built specifically for minor sports competitions — putting every game in front of every fan.', status: 'In Development', href: '#', accent: '#F87171' },
   ]
 
   const statusStyle = (s: string) => {
-    if (s === 'Live') return { text: '#00CFFF', dot: '#00CFFF' }
+    if (s === 'Live') return { text: '#C7CEDA', dot: '#C7CEDA' }
     if (s === 'Pending') return { text: '#FFD700', dot: '#FFD700' }
     return { text: '#555555', dot: '#333333' }
   }
@@ -59,11 +59,11 @@ export default function Brands() {
       <section className="relative pt-40 pb-24 px-8 sm:px-16 lg:px-32 overflow-hidden">
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, #001525 0%, #000 65%)' }} />
         <div className="relative z-10 max-w-5xl mx-auto">
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#00CFFF' }}>Our Brands</p>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#C7CEDA' }}>Our Brands</p>
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black leading-none mb-10 text-white">
-            BDL<br />Brands<span style={{ color: '#00CFFF' }}>.</span>
+            BDL<br />Brands<span style={{ color: '#C7CEDA' }}>.</span>
           </h1>
-          <div className="h-px w-24 mb-10" style={{ backgroundColor: '#00CFFF40' }} />
+          <div className="h-px w-24 mb-10" style={{ backgroundColor: 'rgba(255,255,255,0.25)' }} />
           <p className="text-base sm:text-lg text-white/40 leading-relaxed max-w-xl">
             Every Black Diamond Labs brand is built for a specific community — connected through one intelligent platform.
           </p>

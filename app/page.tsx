@@ -8,8 +8,8 @@ export default function Home() {
       <style>{`
         body { background: #000; }
         @keyframes diamond-glow {
-          0%, 100% { filter: drop-shadow(0 0 20px #00CFFF30) drop-shadow(0 40px 60px #00CFFF20); }
-          50% { filter: drop-shadow(0 0 40px #00CFFF60) drop-shadow(0 40px 80px #00CFFF40); }
+          0%, 100% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)) drop-shadow(0 40px 60px rgba(255,255,255,0.15)); }
+          50% { filter: drop-shadow(0 0 40px #C7CEDA60) drop-shadow(0 40px 80px rgba(255,255,255,0.25)); }
         }
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
@@ -40,8 +40,8 @@ export default function Home() {
           display: inline-flex;
           align-items: center;
           gap: 12px;
-          border: 1px solid #00CFFF;
-          color: #00CFFF;
+          border: 1px solid #C7CEDA;
+          color: #C7CEDA;
           font-size: 0.65rem;
           font-weight: 800;
           letter-spacing: 0.18em;
@@ -52,8 +52,8 @@ export default function Home() {
           white-space: nowrap;
         }
         .gold-btn:hover {
-          background: #00CFFF10;
-          box-shadow: 0 0 30px #00CFFF20;
+          background: rgba(255,255,255,0.1);
+          box-shadow: 0 0 30px rgba(255,255,255,0.15);
         }
         .floating-label {
           position: absolute;
@@ -72,7 +72,7 @@ export default function Home() {
         .floating-label .line {
           width: 20px;
           height: 1px;
-          background: #00CFFF60;
+          background: #C7CEDA60;
         }
       `}</style>
 
@@ -84,7 +84,7 @@ export default function Home() {
 
           {/* Starfield */}
           {[...Array(35)].map((_, i) => (
-            <div key={i} className="animate-dot absolute rounded-full bg-cyan-400"
+            <div key={i} className="animate-dot absolute rounded-full bg-white"
               style={{
                 width: i % 4 === 0 ? 2 : 1,
                 height: i % 4 === 0 ? 2 : 1,
@@ -99,13 +99,13 @@ export default function Home() {
           <div className="relative z-10 w-full lg:w-1/2 px-10 sm:px-14 lg:px-20 pt-28 pb-16 lg:pt-0 lg:pb-0 flex flex-col justify-center">
 
             <p className="opacity-0 animate-fade-up text-[0.6rem] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-4 sm:mb-6"
-              style={{ color: '#00CFFF' }}>
+              style={{ color: '#C7CEDA' }}>
               Technology for sport at ground level
             </p>
 
             <h1 className="opacity-0 animate-fade-up delay-1 font-black leading-none mb-0"
               style={{ fontSize: 'clamp(2.8rem, 8vw, 5.5rem)' }}>
-              Black<br />Diamond<br />Labs<span style={{ color: '#00CFFF' }}>.</span>
+              Black<br />Diamond<br />Labs<span style={{ color: '#C7CEDA' }}>.</span>
             </h1>
 
             <p className="opacity-0 animate-fade-up delay-2 text-sm sm:text-base text-white/40 leading-relaxed mb-8 sm:mb-10 max-w-xs sm:max-w-sm mt-6 sm:mt-8">
@@ -116,7 +116,7 @@ export default function Home() {
               <a href="/brands" className="gold-btn">
                 Explore Our Brands
                 <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-                  <path d="M1 5h12M9 1l4 4-4 4" stroke="#00CFFF" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M1 5h12M9 1l4 4-4 4" stroke="#C7CEDA" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
               </a>
             </div>
@@ -130,7 +130,7 @@ export default function Home() {
                 { icon: '◎', label: 'Scalable Platform', sub: 'Ready for the future' },
               ].map((p) => (
                 <div key={p.label} className="flex flex-col gap-1.5">
-                  <span className="text-base" style={{ color: '#00CFFF' }}>{p.icon}</span>
+                  <span className="text-base" style={{ color: '#C7CEDA' }}>{p.icon}</span>
                   <span className="text-[0.6rem] font-bold uppercase tracking-wider text-white/60">{p.label}</span>
                   <span className="text-[0.6rem] text-white/30">{p.sub}</span>
                 </div>
@@ -164,13 +164,13 @@ export default function Home() {
 
             {/* Glow rings */}
             <div className="animate-ring absolute" style={{ bottom: '18%', left: '50%', transform: 'translateX(-50%)' }}>
-              <div style={{ width: 300, height: 30, borderRadius: '50%', border: '1px solid #00CFFF40', background: 'radial-gradient(ellipse, #00CFFF10, transparent)' }} />
+              <div style={{ width: 300, height: 30, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.25)', background: 'radial-gradient(ellipse, rgba(255,255,255,0.1), transparent)' }} />
             </div>
             <div className="animate-ring absolute" style={{ bottom: '16%', left: '50%', transform: 'translateX(-50%)', animationDelay: '0.5s' }}>
-              <div style={{ width: 400, height: 20, borderRadius: '50%', border: '1px solid #00CFFF20' }} />
+              <div style={{ width: 400, height: 20, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.15)' }} />
             </div>
             <div className="animate-ring absolute" style={{ bottom: '14%', left: '50%', transform: 'translateX(-50%)', animationDelay: '1s' }}>
-              <div style={{ width: 500, height: 14, borderRadius: '50%', border: '1px solid #00CFFF15' }} />
+              <div style={{ width: 500, height: 14, borderRadius: '50%', border: '1px solid #C7CEDA15' }} />
             </div>
 
             {/* Diamond */}
@@ -270,7 +270,7 @@ export default function Home() {
           `}</style>
           <div className="mx-auto max-w-6xl">
             <div className="mb-12 sm:mb-16">
-              <p className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: '#00CFFF' }}>Our Brands</p>
+              <p className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: '#C7CEDA' }}>Our Brands</p>
             </div>
             <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               <BrandCard

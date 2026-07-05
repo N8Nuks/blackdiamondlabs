@@ -275,6 +275,7 @@ export default function Home() {
             <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               <BrandCard
                 name="Grassroots Fantasy"
+                hideLink
                 tagline="Built for the game you love."
                 href="https://grassrootsfantasy.co.nz"
                 status="live"

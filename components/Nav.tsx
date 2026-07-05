@@ -17,14 +17,8 @@ export default function Nav() {
 
         {/* Logo */}
         <a href="/" className="flex items-center gap-3">
-          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-            <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#00CFFF" strokeWidth="1.5" fill="none"/>
-            <line x1="16" y1="2" x2="16" y2="16" stroke="#00CFFF" strokeWidth="0.8"/>
-            <line x1="2" y1="10" x2="16" y2="16" stroke="#00CFFF" strokeWidth="0.6"/>
-            <line x1="30" y1="10" x2="16" y2="16" stroke="#00CFFF" strokeWidth="0.6"/>
-          </svg>
-          <span className="text-xs font-black text-white tracking-wider hidden sm:block">BDL</span>
-          <span className="text-sm font-semibold text-white/60 hidden lg:block">Black Diamond Labs</span>
+          <img src="/logo-mark.png" alt="Black Diamond Labs" className="h-9 w-auto" />
+          <span className="text-sm font-semibold tracking-widest text-white/80 hidden sm:block">Black Diamond Labs</span>
         </a>
 
         {/* Desktop links */}

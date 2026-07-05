@@ -80,7 +80,7 @@ export default function Home() {
         <Nav />
 
         {/* Hero */}
-        <section className="relative min-h-screen flex items-center overflow-hidden">
+        <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
 
           {/* Starfield */}
           {[...Array(35)].map((_, i) => (

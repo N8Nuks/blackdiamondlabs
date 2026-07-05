@@ -89,7 +89,7 @@ export default function Contact() {
           {/* Right — form */}
           <div className="lg:col-span-2">
             {submitted ? (
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-12 text-center flex flex-col gap-6">
+              <div className="rounded-2xl border border-white/5 bg-white/[0.015] p-12 text-center flex flex-col gap-6">
                 <div className="text-4xl">◆</div>
                 <h2 className="text-2xl font-black text-white">Idea received.</h2>
                 <p className="text-sm text-white/40 leading-relaxed max-w-sm mx-auto">
@@ -100,7 +100,7 @@ export default function Contact() {
               <form onSubmit={submit} className="flex flex-col gap-8">
 
                 {/* Section 1 — Your details */}
-                <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-8 flex flex-col gap-6">
+                <div className="rounded-2xl border border-white/5 bg-white/[0.015] p-8 flex flex-col gap-6">
                   <p className="text-xs font-bold uppercase tracking-[0.35em]" style={{ color: '#C7CEDA' }}>Your Details</p>
 
                   <div>
@@ -123,7 +123,7 @@ export default function Contact() {
                 </div>
 
                 {/* Section 2 — The idea */}
-                <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-8 flex flex-col gap-6">
+                <div className="rounded-2xl border border-white/5 bg-white/[0.015] p-8 flex flex-col gap-6">
                   <p className="text-xs font-bold uppercase tracking-[0.35em]" style={{ color: '#C7CEDA' }}>Your Idea</p>
 
                   <div>

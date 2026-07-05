@@ -31,7 +31,7 @@ export default function About() {
           <h2 className="text-3xl sm:text-4xl font-black text-white mb-14">Built by people who know the game.</h2>
 
           <div className="grid sm:grid-cols-2 gap-6 mb-6">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-3">
+            <div className="rounded-2xl border border-white/5 bg-white/[0.015] p-10 flex flex-col gap-3">
               <div>
                 <h3 className="text-xl font-black mb-2" style={{ background: "linear-gradient(90deg,#9AA4B2,#FFFFFF,#9AA4B2,#FFFFFF,#9AA4B2)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", animation: "shimmer 3s linear infinite" }}>Nathan Nukunuku</h3>
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#C7CEDA' }}>Co-Founder — Vision & Execution</p>
@@ -42,7 +42,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-3">
+            <div className="rounded-2xl border border-white/5 bg-white/[0.015] p-10 flex flex-col gap-3">
               <div>
                 <h3 className="text-xl font-black mb-2" style={{ background: "linear-gradient(90deg,#9AA4B2,#FFFFFF,#9AA4B2,#FFFFFF,#9AA4B2)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", animation: "shimmer 3s linear infinite" }}>Katrina Nukunuku</h3>
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#C7CEDA' }}>Co-Founder — Heart & Purpose</p>
@@ -69,8 +69,8 @@ export default function About() {
               { word: 'Diamond', desc: 'Celebrates the playing fields around the world that shaped their lives through sport.' },
               { word: 'Labs', desc: 'Represents our commitment to continuous research, development, and innovation — creating intelligent technology that helps unlock the untapped potential of minor sports.' },
             ].map(item => (
-              <div key={item.word} className="flex flex-col gap-3 p-8 rounded-2xl border border-white/8 bg-white/[0.02]">
-                <h3 className="text-4xl font-black" style={{ color: '#C7CEDA' }}>{item.word}</h3>
+              <div key={item.word} className="flex flex-col gap-3 p-8 rounded-2xl border border-white/5 bg-white/[0.015]">
+                <h3 className="text-4xl font-black" style={{ background: "linear-gradient(90deg,#9AA4B2,#FFFFFF,#C7CEDA,#FFFFFF,#9AA4B2)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", animation: "shimmer 3s linear infinite" }}>{item.word}</h3>
                 <div className="h-px w-8" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }} />
                 <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
               </div>
@@ -86,14 +86,14 @@ export default function About() {
           <h2 className="text-3xl sm:text-4xl font-black text-white mb-14">Our purpose. Our method.</h2>
 
           <div className="grid sm:grid-cols-2 gap-6">
-            <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-3">
+            <div className="rounded-2xl border border-white/5 bg-white/[0.015] p-10 flex flex-col gap-3">
               <h3 className="text-xl font-black text-white">Why?</h3>
               <div className="h-px w-8" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }} />
               <p className="text-sm text-white/40 leading-relaxed" >
                 We want to give back to the sports community that made us into the driven and successful individuals we are. Promoting excellence and being better every day.
               </p>
             </div>
-            <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-3">
+            <div className="rounded-2xl border border-white/5 bg-white/[0.015] p-10 flex flex-col gap-3">
               <h3 className="text-xl font-black text-white">How?</h3>
               <div className="h-px w-8" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }} />
               <p className="text-sm text-white/40 leading-relaxed" >

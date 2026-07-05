@@ -8,10 +8,9 @@ export default function About() {
 
       {/* Hero */}
       <section className="relative pt-40 pb-48 px-8 sm:px-16 lg:px-32 overflow-hidden">
-        <div className="absolute inset-0">
-          <img src="/about-bg.jpeg" alt="" className="w-full h-full object-cover object-[70%_20%]" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.82) 45%, rgba(0,0,0,0.45) 100%)' }} />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 55%, #000 100%)' }} />
+        <div className="fixed inset-0 z-0">
+          <img src="/about-bg.jpeg" alt="" className="w-full h-full object-cover object-[70%_35%]" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.15) 100%)' }} />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#C7CEDA' }}>Our Story</p>
@@ -20,16 +19,16 @@ export default function About() {
           </h1>
           <div className="h-px w-24 mb-10" style={{ backgroundColor: 'rgba(255,255,255,0.25)' }} />
           <p className="text-base text-white/40 leading-relaxed max-w-xl">
-            Black Diamond Labs exists to unlock the untapped potential of minor sports by creating excitement, expanding opportunity, and building sustainable prosperity for athletes, fans, clubs, and communities through intelligent technology.
+            Unlocking the untapped potential of grassroots sport through intelligent technology.
           </p>
         </div>
       </section>
 
       {/* Meet the Founders */}
-      <section className="px-8 sm:px-16 lg:px-32 py-32" style={{ borderTop: '1px solid #ffffff08' }}>
+      <section className="relative z-10 bg-black px-8 sm:px-16 lg:px-32 py-24" style={{ borderTop: '1px solid #ffffff08' }}>
         <div className="max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#C7CEDA' }}>Meet the Founders</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-24">Built by people who know the game.</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-14">Built by people who know the game.</h2>
 
           <div className="grid sm:grid-cols-2 gap-6 mb-6">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10 flex flex-col gap-3">
@@ -55,19 +54,14 @@ export default function About() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-10 sm:p-14 text-center">
-            <p className="text-base sm:text-lg font-semibold text-white/40 leading-relaxed italic max-w-2xl mx-auto">
-              "Nathan brings the ideas, Katrina brings the heart. Our kids bring the inspiration to do the work — and our passion for sport brings the drive to succeed."
-            </p>
           </div>
-        </div>
       </section>
 
       {/* The Name */}
-      <section className="px-8 sm:px-16 lg:px-32 py-32" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
+      <section className="relative z-10 px-8 sm:px-16 lg:px-32 py-24" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
         <div className="max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#C7CEDA' }}>The Name</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-24">Why Black Diamond Labs?</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-14">Why Black Diamond Labs?</h2>
 
           <div className="grid sm:grid-cols-3 gap-6">
             {[
@@ -86,10 +80,10 @@ export default function About() {
       </section>
 
       {/* Why and How */}
-      <section className="px-8 sm:px-16 lg:px-32 py-32" style={{ borderTop: '1px solid #ffffff08' }}>
+      <section className="relative z-10 bg-black px-8 sm:px-16 lg:px-32 py-24" style={{ borderTop: '1px solid #ffffff08' }}>
         <div className="max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#C7CEDA' }}>Why and How</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-24">Our purpose. Our method.</h2>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-14">Our purpose. Our method.</h2>
 
           <div className="grid sm:grid-cols-2 gap-6">
             <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-10 flex flex-col gap-3">
@@ -110,7 +104,7 @@ export default function About() {
         </div>
       </section>
 
-      <Footer />
+      <div className="relative z-10 bg-black"><Footer /></div>
     </main>
   )
 }

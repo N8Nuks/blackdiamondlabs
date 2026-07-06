@@ -83,7 +83,7 @@ export default function CoachNate() {
     }
   }
 
-  const gold: React.CSSProperties = { background: 'linear-gradient(90deg,#E8C77A,#FFD700)' }
+  const gold: React.CSSProperties = { background: 'linear-gradient(90deg,#C7CEDA,#F4F7FB)' }
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">

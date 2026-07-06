@@ -89,7 +89,7 @@ export default function Brands() {
                   <p className="text-sm text-white/40 leading-relaxed max-w-lg">{brand.desc}</p>
                 </div>
                 <a href={brand.href} className="shrink-0 inline-flex items-center gap-3 border px-8 py-4 text-sm font-bold text-white hover:bg-white/5 transition-all duration-200" style={{ borderColor: brand.accent }}>
-                  Visit Platform →
+                  <span style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Enter Platform →</span>
                 </a>
               </div>
             )

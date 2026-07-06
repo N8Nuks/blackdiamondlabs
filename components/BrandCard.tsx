@@ -13,11 +13,12 @@ interface BrandCardProps {
   nameStyle?: string
   larger?: boolean
   hideLink?: boolean
+  linkGold?: boolean
 }
 
 export default function BrandCard({
   name, edition, tagline, taglineSplit, description, href, status, accentColor,
-  nameSplit, taglineStyle, hideEdition, nameStyle, larger, hideLink
+  nameSplit, taglineStyle, hideEdition, nameStyle, larger, hideLink, linkGold
 }: BrandCardProps) {
   const isLive = status === 'live'
 
@@ -90,7 +91,7 @@ export default function BrandCard({
 
       {isLive && !hideLink && (
         <a href={href} className="mt-8 inline-flex items-center justify-center text-sm font-semibold text-white/60 hover:text-white transition-colors">
-          Enter Platform <span className="ml-2">→</span>
+          <span style={linkGold ? { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' } : undefined}>Enter Platform →</span>
         </a>
       )}
     </div>

@@ -140,7 +140,7 @@ export default function Home() {
           </div>
 
           {/* Right — diamond (desktop only) */}
-          <div className="hidden lg:flex w-1/2 items-center justify-center relative" style={{ minHeight: '100vh' }}>
+          <div className="hidden lg:flex w-1/2 items-center justify-center relative" style={{ minHeight: '100vh', transform: 'translateY(-110px)' }}>
 
             <div className="floating-label opacity-0 animate-fade-up delay-4" style={{ top: '22%', left: '5%' }}>
               <span>Data Driven<br/>Decisions</span>
@@ -194,6 +194,7 @@ export default function Home() {
             <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
               <BrandCard
                 name="Black Diamond AI"
+                linkGold
                 nameSplit={{ first: "Black Diamond ", second: "AI", secondColor: "#FFD700" }}
                 tagline="Coach Nate — LIVE now for Founding Members."
                 taglineStyle={{ color: "#E8C77A" }}

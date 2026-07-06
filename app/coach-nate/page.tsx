@@ -113,7 +113,13 @@ export default function CoachNate() {
     <main className="min-h-screen bg-black text-white flex flex-col relative">
       {apiKey && <canvas id="bdai-rain" className="fixed inset-0 w-full h-full" style={{ opacity: 0.16, pointerEvents: 'none' }} />}
       <Nav />
-      <section className="flex-1 flex flex-col pt-28 pb-10 px-4 sm:px-8 max-w-3xl mx-auto w-full">
+      {!apiKey && (
+        <div className="fixed inset-0 z-0">
+          <img src="/about-bg.jpeg" alt="" className="w-full h-full object-cover object-[70%_30%]" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.88) 55%, #000 100%)' }} />
+        </div>
+      )}
+      <section className="relative z-10 flex-1 flex flex-col pt-28 pb-10 px-4 sm:px-8 max-w-3xl mx-auto w-full">
         {pageError && (
           <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-xs text-red-300">
             Page error: {pageError}

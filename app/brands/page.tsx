@@ -99,6 +99,7 @@ export default function Brands() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {rest.map(brand => {
               const sc = statusStyle(brand.status)
+              const blurred = (brand as any).blur
               return (
                 <div key={brand.name}
                   className="flex flex-col rounded-2xl border border-white/8 bg-white/[0.03] p-8 hover:bg-white/[0.06] transition-all duration-300">
@@ -106,14 +107,14 @@ export default function Brands() {
                     <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: sc.dot }} />
                     <span className="text-xs font-bold uppercase tracking-widest" style={{ color: sc.text }}>{brand.status}</span>
                   </div>
-                  <h2 className="text-lg font-black mb-2"><BrandName name={brand.name} /></h2>
-                  <p className="text-xs font-semibold italic mb-5" style={{ color: brand.taglineColor }}>{brand.tagline}</p>
-                  <p className="text-xs text-white/30 leading-relaxed flex-1">{brand.desc}</p>
+                  <h2 className="text-lg font-black mb-2" style={blurred ? { filter: "blur(7px)", userSelect: "none" } : undefined}><BrandName name={brand.name} /></h2>
+                  <p className="text-xs font-semibold italic mb-5" style={{ color: brand.taglineColor, ...(blurred ? { filter: "blur(5px)", userSelect: "none" } : {}) }}>{brand.tagline}</p>
+                  <p className="text-xs text-white/30 leading-relaxed flex-1" style={blurred ? { filter: "blur(5px)", userSelect: "none" } : undefined}>{brand.desc}</p>
                   <div className="mt-8 h-px" style={{ backgroundColor: brand.accent + '25' }} />
                   {brand.href !== '#' && (
                     <a href={brand.href} target="_blank" rel="noopener noreferrer"
                       className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-white/40 hover:text-white transition-colors">
-                      Visit platform →
+                      Enter Platform →
                     </a>
                   )}
                 </div>

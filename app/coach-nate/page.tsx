@@ -9,10 +9,10 @@ const KEY_STORE = 'bdai-member-key'
 const STRIPE = { member: '', team: '', club: '', assoc: '' }
 
 const TIERS = [
-  { id: 'member', name: 'Opening Day Patron', monthly: 29, annual: 290, blurb: 'Opening special — rate locked for life. Moves to Individual at $40/mo · $400/yr.', fair: '40 questions per day' },
-  { id: 'team', name: 'Team', monthly: 59, annual: 590, blurb: 'One coaching staff, one squad. Shared access for your team.', fair: '3 member keys' },
-  { id: 'club', name: 'Club', monthly: 99, annual: 990, blurb: 'Club development pathways and Elite coaching aide always on hand.', fair: '5 member keys' },
-  { id: 'assoc', name: 'Association', monthly: 225, annual: 2250, blurb: 'Tool kit must have for Representative Coaches and Development Officers.', fair: '15 member keys' },
+  { id: 'member', btn: 'linear-gradient(90deg,#0F7A4D,#34D399,#A7F3D0,#34D399,#0F7A4D)', name: 'Opening Day Patron', monthly: 29, annual: 290, blurb: 'Opening special — rate locked for life. Moves to Individual at $40/mo · $400/yr.', fair: '40 questions per day' },
+  { id: 'team', btn: 'linear-gradient(90deg,#8C5A2B,#CD7F32,#F0C08A,#CD7F32,#8C5A2B)', name: 'Team', monthly: 59, annual: 590, blurb: 'One coaching staff, one squad. Shared access for your team.', fair: '3 member keys' },
+  { id: 'club', btn: 'linear-gradient(90deg,#9AA4B2,#C7CEDA,#F4F7FB,#C7CEDA,#9AA4B2)', name: 'Club', monthly: 99, annual: 990, blurb: 'Club development pathways and Elite coaching aide always on hand.', fair: '5 member keys' },
+  { id: 'assoc', btn: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', name: 'Association', monthly: 225, annual: 2250, blurb: 'Tool kit must have for Representative Coaches and Development Officers.', fair: '15 member keys' },
 ]
 
 type Msg = { role: 'user' | 'assistant'; content: string }
@@ -164,8 +164,8 @@ export default function CoachNate() {
 
         {/* Pricing */}
         <div className="mt-16" style={{ display: apiKey ? 'none' : undefined }}>
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: '#E8C77A' }}>Founding Pricing</p>
-          <h2 className="text-2xl sm:text-3xl font-black text-center mb-2">Back the build. Lock your rate.</h2>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: '#E8C77A' }}>Price of Greatness</p>
+          <h2 className="text-2xl sm:text-3xl font-black text-center mb-2">Back the Coach. Lock your rate.</h2>
           <p className="text-xs text-white/40 text-center mb-10">All prices NZD. Annual = two months free. Fair Use Policy applies to keep Coach Nate fast for everyone.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {TIERS.map(t => (
@@ -176,7 +176,7 @@ export default function CoachNate() {
                 <p className="text-xs text-white/40 mb-1">or ${t.annual}/yr</p>
                 <p className="text-[11px] mb-4" style={{ color: '#E8C77A' }}>{t.fair}</p>
                 <a href={STRIPE[t.id as keyof typeof STRIPE] || '/contact'}
-                  className="rounded-lg py-2.5 text-center text-xs font-bold uppercase tracking-widest text-black" style={gold}>
+                  className="rounded-lg py-2.5 text-center text-xs font-bold uppercase tracking-widest text-black" style={{ background: (t as any).btn, backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>
                   {STRIPE[t.id as keyof typeof STRIPE] ? 'Subscribe' : 'Get in touch'}
                 </a>
               </div>

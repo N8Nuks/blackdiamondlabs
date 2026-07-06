@@ -9,10 +9,10 @@ const KEY_STORE = 'bdai-member-key'
 const STRIPE = { member: '', team: '', club: '', assoc: '' }
 
 const TIERS = [
-  { id: 'member', name: 'Founding Member', monthly: 29, annual: 290, blurb: 'One coach in your pocket. Full access to Coach Nate.', fair: '40 questions per day' },
+  { id: 'member', name: 'Opening Day Patron', monthly: 29, annual: 290, blurb: 'Opening special — rate locked for life. Moves to Individual at $40/mo · $400/yr.', fair: '40 questions per day' },
   { id: 'team', name: 'Team', monthly: 59, annual: 590, blurb: 'One coaching staff, one squad. Shared access for your team.', fair: '3 member keys' },
-  { id: 'club', name: 'Club', monthly: 99, annual: 990, blurb: 'Every team under your roof, covered.', fair: '5 member keys' },
-  { id: 'assoc', name: 'Association', monthly: 225, annual: 2250, blurb: 'Regional access for your member clubs.', fair: '15 member keys' },
+  { id: 'club', name: 'Club', monthly: 99, annual: 990, blurb: 'Club development pathways and Elite coaching aide always on hand.', fair: '5 member keys' },
+  { id: 'assoc', name: 'Association', monthly: 225, annual: 2250, blurb: 'Tool kit must have for Representative Coaches and Development Officers.', fair: '15 member keys' },
 ]
 
 type Msg = { role: 'user' | 'assistant'; content: string }

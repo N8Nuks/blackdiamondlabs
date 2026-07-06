@@ -46,6 +46,30 @@ export default function CoachNate() {
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs, busy])
 
+  useEffect(() => {
+    if (!apiKey) return
+    const c = document.getElementById('bdai-rain') as HTMLCanvasElement | null
+    if (!c) return
+    const x = c.getContext('2d')!
+    const fit = () => { c.width = window.innerWidth; c.height = window.innerHeight }
+    fit(); window.addEventListener('resize', fit)
+    const chars = 'アイウエオカキクケコサシスセソKHRBI643SO'.split('')
+    const fs = 16
+    const drops: number[] = Array.from({ length: Math.floor(window.innerWidth / fs) }, () => Math.random() * -100)
+    const t = setInterval(() => {
+      x.fillStyle = 'rgba(0,0,0,0.08)'; x.fillRect(0, 0, c.width, c.height)
+      x.font = fs + 'px monospace'
+      for (let i = 0; i < drops.length; i++) {
+        x.fillStyle = i % 9 === 0 ? '#E8C77A' : '#C7CEDA'
+        x.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs)
+        if (drops[i] * fs > c.height && Math.random() > 0.975) drops[i] = 0
+        drops[i]++
+      }
+    }, 55)
+    return () => { clearInterval(t); window.removeEventListener('resize', fit) }
+  }, [apiKey])
+
+
   const saveKey = () => {
     const k = (keyRef.current?.value || '').trim()   // read the DOM directly: autofill-proof
     if (!k) { setError('Type or paste your key first.'); return }
@@ -87,18 +111,7 @@ export default function CoachNate() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col relative">
-      {apiKey && (
-        <>
-          <canvas id="bdai-rain" className="fixed inset-0 w-full h-full" style={{ opacity: 0.16, pointerEvents: 'none' }} />
-          <script dangerouslySetInnerHTML={{ __html: `
-(function(){function boot(){var c=document.getElementById('bdai-rain');if(!c)return;var x=c.getContext('2d');function fit(){c.width=innerWidth;c.height=innerHeight}fit();addEventListener('resize',fit);
-var chars='アイウエオカキクケコサシスセソKHRBI643SO'.split('');var fs=16;var cols=Math.floor(innerWidth/fs);var drops=[];for(var i=0;i<cols;i++)drops[i]=Math.random()*-100;
-setInterval(function(){x.fillStyle='rgba(0,0,0,0.08)';x.fillRect(0,0,c.width,c.height);x.font=fs+'px monospace';
-for(var i=0;i<drops.length;i++){var ch=chars[Math.floor(Math.random()*chars.length)];x.fillStyle=(i%9===0)?'#E8C77A':'#C7CEDA';x.fillText(ch,i*fs,drops[i]*fs);if(drops[i]*fs>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++;}},55);}
-if(document.readyState==='loading')addEventListener('DOMContentLoaded',boot);else boot();})();
-` }} />
-        </>
-      )}
+      {apiKey && <canvas id="bdai-rain" className="fixed inset-0 w-full h-full" style={{ opacity: 0.16, pointerEvents: 'none' }} />}
       <Nav />
       <section className="flex-1 flex flex-col pt-28 pb-10 px-4 sm:px-8 max-w-3xl mx-auto w-full">
         {pageError && (

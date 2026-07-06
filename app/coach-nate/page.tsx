@@ -36,7 +36,7 @@ export default function CoachNate() {
     window.addEventListener('error', onErr)
     try { const k = localStorage.getItem(KEY_STORE); if (k) setApiKey(k) } catch {}
     const ctrl = new AbortController()
-    const t = setTimeout(() => ctrl.abort(), 6000)
+    const t = setTimeout(() => ctrl.abort(), 3500)
     fetch(API + '/health', { signal: ctrl.signal })
       .then(r => { setOnline(r.ok ? 'online' : 'offline'); if (!r.ok) setHealthNote('HTTP ' + r.status) })
       .catch(e => { setOnline('offline'); setHealthNote(e.name === 'AbortError' ? 'timed out' : String(e.message || e)) })
@@ -132,8 +132,8 @@ export default function CoachNate() {
           </h1>
           {!apiKey && <p className="text-sm text-white/40 mt-3">Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond.</p>}
           <p className="text-xs mt-2" style={{ color: online === 'offline' ? '#f87171' : online === 'online' ? '#4ade80' : '#facc15' }}>
-            {online === 'checking' ? '● Checking service…' : online === 'online' ? '● Online' : '● Offline (' + healthNote + ')'}
-            {!jsAlive && ' — page still waking up'}
+            {online === 'checking' ? '' : online === 'online' ? '● Online' : '● Service resting — chat may be unavailable'}
+            
           </p>
         </div>
 

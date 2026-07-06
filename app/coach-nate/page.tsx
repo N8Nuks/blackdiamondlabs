@@ -215,7 +215,7 @@ export default function CoachNate() {
           </div>
         </div>
       </section>
-      <Footer />
+      {!apiKey && <Footer />}
     </main>
   )
 }

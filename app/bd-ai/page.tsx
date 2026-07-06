@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 const goldText: React.CSSProperties = { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }
 
 const COMING = [
-  { name: 'Coach ██████', sport: 'Rugby', tag: 'Set piece. Game management. The grind.' },
+  { name: 'The Legend', sport: 'Fastpitch Softball', tag: 'The name says it all. Coming soon.', show: true },
   { name: 'Coach ██████', sport: 'Netball', tag: 'Court craft. Combinations. Composure.' },
   { name: 'Coach ██████', sport: 'Basketball', tag: 'Spacing. Reads. Winning habits.' },
 ]
@@ -50,7 +50,7 @@ export default function BDAI() {
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#C7CEDA' }} />
                 <span className="text-xs font-bold uppercase tracking-widest text-white/40">Coming to the diamond</span>
               </div>
-              <h2 className="text-2xl font-black mb-1" style={{ filter: 'blur(6px)', userSelect: 'none' }}>{c.name}</h2>
+              <h2 className="text-2xl font-black mb-1" style={(c as any).show ? undefined : { filter: 'blur(6px)', userSelect: 'none' }}>{c.name}</h2>
               <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">{c.sport}</p>
               <p className="text-sm text-white/30 leading-relaxed flex-1" style={{ filter: 'blur(4px)', userSelect: 'none' }}>{c.tag}</p>
               <span className="mt-6 text-sm font-bold text-white/25">In development</span>

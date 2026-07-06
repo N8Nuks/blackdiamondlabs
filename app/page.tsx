@@ -199,7 +199,7 @@ export default function Home() {
                 tagline="Coach Nate — LIVE now for Founding Members."
                 taglineStyle={{ color: "#E8C77A" }}
                 description="An AI coaching assistant built on two decades at the top of the game. Game plans, training, in-game calls, the mental side."
-                href="/coach-nate"
+                href="/bd-ai"
                 status="live"
                 accentColor="#E8C77A"
                 hideEdition={true}

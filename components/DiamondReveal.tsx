@@ -102,13 +102,13 @@ export default function DiamondReveal() {
           <path d="M185,72 L260,180 L335,72" stroke="#67E8F9" strokeWidth="0.5" strokeOpacity="0.4" fill="none"/>
           <path d="M260,72 L260,180" stroke="#67E8F9" strokeWidth="0.4" strokeOpacity="0.3" fill="none"/>
           <path d="M30,238 L490,238" stroke="#67E8F9" strokeWidth="0.6" strokeOpacity="0.45" fill="none"/>
-          <path d="M185,72 L335,72 L422,150 L490,238 L260,502 L30,238 L98,150 Z" fill="none" stroke="#22D3EE" strokeWidth="1.4" strokeOpacity="0.8" filter="url(#edgeGlow)"/>
+          <path d="M185,72 L335,72 L422,150 L490,238 L260,502 L30,238 L98,150 Z" fill="none" stroke="#22D3EE" strokeWidth="1.4" strokeOpacity="0.8" filter={mobile ? undefined : "url(#edgeGlow)"}/>
           <ellipse cx="260" cy="512" rx="130" ry="14" fill="none" stroke="#22D3EE" strokeWidth="0.7" strokeOpacity="0.35"/>
           <ellipse cx="260" cy="518" rx="190" ry="11" fill="none" stroke="#22D3EE" strokeWidth="0.5" strokeOpacity="0.2"/>
           <ellipse cx="260" cy="524" rx="240" ry="9" fill="none" stroke="#22D3EE" strokeWidth="0.3" strokeOpacity="0.12"/>
-          <circle cx="260" cy="500" r="24" fill="url(#culetGlow)" filter="url(#culetFilter)" style={{ animation: 'bdPulse 1.8s ease-in-out infinite' }}/>
+          <circle cx="260" cy="500" r="24" fill="url(#culetGlow)" filter={mobile ? undefined : "url(#culetFilter)"} style={{ animation: mobile ? undefined : 'bdPulse 1.8s ease-in-out infinite' }}/>
           <circle cx="260" cy="502" r="2.5" fill="#E0FCFF"/>
-          <circle cx="260" cy="502" r="10" fill="none" stroke="#22D3EE" strokeWidth="1.2" style={{ transformBox: 'fill-box', transformOrigin: 'center', animation: 'bdRing 1.8s ease-out infinite' }}/>
+          <circle cx="260" cy="502" r="10" fill="none" stroke="#22D3EE" strokeWidth="1.2" style={{ transformBox: 'fill-box', transformOrigin: 'center', animation: mobile ? undefined : 'bdRing 1.8s ease-out infinite' }}/>
           <circle cx="260" cy="502" r="32" fill="transparent" style={{ cursor: 'pointer' }} onClick={crack}/>
         </g>
       </svg>

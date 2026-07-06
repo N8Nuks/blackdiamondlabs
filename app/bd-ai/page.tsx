@@ -38,7 +38,7 @@ export default function BDAI() {
             <h2 className="text-2xl font-black mb-1">Coach <span style={goldText}>Nate</span></h2>
             <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Fastpitch Softball — International Icon & Provincial & Club GOAT Status</p>
             <p className="text-sm text-white/40 leading-relaxed flex-1">
-              Two decades dominating at the Elite level of the game. Game plans, training, in-game calls, mental application, Rep selections, Scouting & more. All built from a real WINNING coaching record and not generic advice. What it takes to win will be at your fingertips.
+              Two decades dominating at the Elite level of the game. Game plans, training, in-game calls, mental application, Rep selections, Scouting & more. All built from a real WINNING coaching record and not generic advice. What it takes to win, at your fingertips.
             </p>
             <span className="mt-6 text-sm font-bold" style={goldText}>Enter Platform →</span>
           </a>

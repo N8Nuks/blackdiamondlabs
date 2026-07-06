@@ -81,7 +81,7 @@ export default function Home() {
         <Nav />
 
         {/* Hero */}
-        <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
+        <section className="relative min-h-screen flex flex-col lg:flex-row items-center pt-32 pb-20 overflow-hidden">
 
           {/* Starfield */}
           {[...Array(35)].map((_, i) => (
@@ -136,6 +136,13 @@ export default function Home() {
                   <span className="text-[0.6rem] text-white/30">{p.sub}</span>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Mobile diamond */}
+          <div className="lg:hidden relative z-10 w-full flex justify-center" style={{ height: 400, overflow: 'visible' }}>
+            <div style={{ transform: 'scale(0.62)', transformOrigin: 'top center' }}>
+              <DiamondReveal />
             </div>
           </div>
 

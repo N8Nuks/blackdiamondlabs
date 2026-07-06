@@ -5,32 +5,52 @@ import Footer from '@/components/Footer'
 
 const API = 'https://api.blackdiamondlabs.co.nz'
 const KEY_STORE = 'bdai-member-key'
+// Stripe Payment Links — paste each URL between the quotes when created; empty = button goes to /contact
+const STRIPE = { member: '', team: '', club: '', assoc: '' }
+
+const TIERS = [
+  { id: 'member', name: 'Founding Member', monthly: 29, annual: 290, blurb: 'One coach in your pocket. Full access to Coach Nate.', fair: '40 questions per day' },
+  { id: 'team', name: 'Team', monthly: 59, annual: 590, blurb: 'One coaching staff, one squad. Shared access for your team.', fair: '3 member keys' },
+  { id: 'club', name: 'Club', monthly: 99, annual: 990, blurb: 'Every team under your roof, covered.', fair: '5 member keys' },
+  { id: 'assoc', name: 'Association', monthly: 225, annual: 2250, blurb: 'Regional access for your member clubs.', fair: '15 member keys' },
+]
 
 type Msg = { role: 'user' | 'assistant'; content: string }
 
 export default function CoachNate() {
   const [apiKey, setApiKey] = useState('')
-  const [keyInput, setKeyInput] = useState('')
-  const [online, setOnline] = useState<boolean | null>(null)
+  const [online, setOnline] = useState<'checking' | 'online' | 'offline'>('checking')
+  const [healthNote, setHealthNote] = useState('')
+  const [jsAlive, setJsAlive] = useState(false)
+  const [pageError, setPageError] = useState('')
   const [msgs, setMsgs] = useState<Msg[]>([])
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const keyRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    setJsAlive(true)
+    const onErr = (e: ErrorEvent) => setPageError(String(e.message || e.error || 'Unknown page error'))
+    window.addEventListener('error', onErr)
     try { const k = localStorage.getItem(KEY_STORE); if (k) setApiKey(k) } catch {}
-    fetch(API + '/health').then(r => setOnline(r.ok)).catch(() => setOnline(false))
+    const ctrl = new AbortController()
+    const t = setTimeout(() => ctrl.abort(), 6000)
+    fetch(API + '/health', { signal: ctrl.signal })
+      .then(r => { setOnline(r.ok ? 'online' : 'offline'); if (!r.ok) setHealthNote('HTTP ' + r.status) })
+      .catch(e => { setOnline('offline'); setHealthNote(e.name === 'AbortError' ? 'timed out' : String(e.message || e)) })
+      .finally(() => clearTimeout(t))
+    return () => window.removeEventListener('error', onErr)
   }, [])
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs, busy])
 
   const saveKey = () => {
-    const k = keyInput.trim()
-    if (!k) return
+    const k = (keyRef.current?.value || '').trim()   // read the DOM directly: autofill-proof
+    if (!k) { setError('Type or paste your key first.'); return }
     setApiKey(k)
     try { localStorage.setItem(KEY_STORE, k) } catch {}
-    setKeyInput('')
     setError('')
   }
 
@@ -52,20 +72,28 @@ export default function CoachNate() {
         body: JSON.stringify({ message, history }),
       })
       if (r.status === 401) { setError('That key is invalid or inactive. Check it and sign in again.'); signOut(); return }
-      if (!r.ok) { setError('Coach Nate is having trouble right now (' + r.status + '). Try again shortly.'); return }
+      if (r.status === 429) { const d = await r.json().catch(() => null); setError(d?.detail || 'Daily fair-use limit reached — resets at midnight UTC.'); return }
+      if (!r.ok) { setError('Coach Nate is having trouble right now (HTTP ' + r.status + '). Try again shortly.'); return }
       const data = await r.json()
       setMsgs(m => [...m, { role: 'assistant', content: data.reply }])
-    } catch {
-      setError('Could not reach Black Diamond AI. Check your connection and try again.')
+    } catch (e) {
+      setError('Could not reach Black Diamond AI (' + String((e as Error).message || e) + '). Check your connection and try again.')
     } finally {
       setBusy(false)
     }
   }
 
+  const gold: React.CSSProperties = { background: 'linear-gradient(90deg,#E8C77A,#FFD700)' }
+
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
       <Nav />
       <section className="flex-1 flex flex-col pt-28 pb-10 px-4 sm:px-8 max-w-3xl mx-auto w-full">
+        {pageError && (
+          <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-xs text-red-300">
+            Page error: {pageError}
+          </div>
+        )}
         <div className="mb-6 text-center">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2" style={{ color: '#E8C77A' }}>Black Diamond AI</p>
           <h1 className="text-4xl sm:text-5xl font-black">
@@ -74,31 +102,29 @@ export default function CoachNate() {
           <p className="text-sm text-white/40 mt-3">
             Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond.
           </p>
-          <p className="text-xs mt-2" style={{ color: online === false ? '#f87171' : '#4ade80' }}>
-            {online === null ? 'Checking service…' : online ? '● Online' : '● Offline — try again soon'}
+          <p className="text-xs mt-2" style={{ color: online === 'offline' ? '#f87171' : online === 'online' ? '#4ade80' : '#facc15' }}>
+            {online === 'checking' ? '● Checking service…' : online === 'online' ? '● Online' : '● Offline (' + healthNote + ')'}
+            {!jsAlive && ' — page still waking up'}
           </p>
         </div>
 
         {!apiKey ? (
           <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 max-w-md mx-auto w-full text-center">
-            <h2 className="text-lg font-black mb-2">Founding Members</h2>
+            <h2 className="text-lg font-black mb-2">Members</h2>
             <p className="text-sm text-white/40 mb-6">Enter your member key to talk with Coach Nate.</p>
             <input
+              ref={keyRef}
               type="password"
-              value={keyInput}
-              onChange={e => setKeyInput(e.target.value)}
+              autoComplete="off"
               onKeyDown={e => e.key === 'Enter' && saveKey()}
               placeholder="Your access key"
               className="w-full rounded-lg bg-black border border-white/15 px-4 py-3 text-sm mb-4 focus:outline-none focus:border-white/40"
             />
-            <button onClick={saveKey}
-              className="w-full rounded-lg py-3 text-sm font-bold uppercase tracking-widest text-black"
-              style={{ background: 'linear-gradient(90deg,#E8C77A,#FFD700)' }}>
+            <button onClick={saveKey} className="w-full rounded-lg py-3 text-sm font-bold uppercase tracking-widest text-black" style={gold}>
               Enter
             </button>
-            <p className="text-xs text-white/30 mt-6">
-              Not a member yet? <a href="/contact" className="underline hover:text-white">Get in touch</a> about Founding Membership.
-            </p>
+            {error && <p className="text-xs text-red-400 mt-3">{error}</p>}
+            <p className="text-xs text-white/30 mt-6">Not a member yet? Pricing below — or <a href="/contact" className="underline hover:text-white">get in touch</a>.</p>
           </div>
         ) : (
           <>
@@ -130,17 +156,35 @@ export default function CoachNate() {
                 rows={2}
                 className="flex-1 rounded-xl bg-black border border-white/15 px-4 py-3 text-sm resize-none focus:outline-none focus:border-white/40"
               />
-              <button onClick={send} disabled={busy || !input.trim()}
-                className="rounded-xl px-5 text-sm font-bold text-black disabled:opacity-40"
-                style={{ background: 'linear-gradient(90deg,#E8C77A,#FFD700)' }}>
+              <button onClick={send} disabled={busy || !input.trim()} className="rounded-xl px-5 text-sm font-bold text-black disabled:opacity-40" style={gold}>
                 Send
               </button>
             </div>
-            <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-3 self-end transition-colors">
-              Sign out
-            </button>
+            <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-3 self-end transition-colors">Sign out</button>
           </>
         )}
+
+        {/* Pricing */}
+        <div className="mt-16">
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: '#E8C77A' }}>Founding Pricing</p>
+          <h2 className="text-2xl sm:text-3xl font-black text-center mb-2">Back the build. Lock your rate.</h2>
+          <p className="text-xs text-white/40 text-center mb-10">All prices NZD. Annual = two months free. Fair Use Policy applies to keep Coach Nate fast for everyone.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {TIERS.map(t => (
+              <div key={t.id} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 flex flex-col">
+                <h3 className="font-black text-lg">{t.name}</h3>
+                <p className="text-xs text-white/40 mt-1 mb-4 flex-1">{t.blurb}</p>
+                <p className="text-3xl font-black">${t.monthly}<span className="text-sm font-semibold text-white/40">/mo</span></p>
+                <p className="text-xs text-white/40 mb-1">or ${t.annual}/yr</p>
+                <p className="text-[11px] mb-4" style={{ color: '#E8C77A' }}>{t.fair}</p>
+                <a href={STRIPE[t.id as keyof typeof STRIPE] || '/contact'}
+                  className="rounded-lg py-2.5 text-center text-xs font-bold uppercase tracking-widest text-black" style={gold}>
+                  {STRIPE[t.id as keyof typeof STRIPE] ? 'Subscribe' : 'Get in touch'}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
       <Footer />
     </main>

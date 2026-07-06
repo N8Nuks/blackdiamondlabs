@@ -17,9 +17,11 @@ const FACETS = [
 
 export default function DiamondReveal() {
   const [revealed, setRevealed] = useState(false)
+  const [mobile, setMobile] = useState(false)
   const [shatter, setShatter] = useState(false)
 
   useEffect(() => {
+    setMobile(window.matchMedia('(max-width: 1023px)').matches)
     try {
       if (localStorage.getItem('bdl-diamond-opened') === new Date().toDateString()) setRevealed(true)
     } catch {}
@@ -31,7 +33,7 @@ export default function DiamondReveal() {
     setTimeout(() => {
       setRevealed(true)
       try { localStorage.setItem('bdl-diamond-opened', new Date().toDateString()) } catch {}
-    }, 950)
+    }, mobile ? 450 : 950)
   }
 
   if (revealed) {
@@ -49,12 +51,12 @@ export default function DiamondReveal() {
           @keyframes bdTwinkle { 0%,100% { opacity: 0; transform: scale(.2) rotate(0deg); } 50% { opacity: 1; transform: scale(1) rotate(180deg); } }
           @keyframes bdHalo { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         `}</style>
-        <div style={{ position: 'absolute', width: 420, height: 420, borderRadius: '50%', background: 'conic-gradient(from 0deg, transparent 0deg, rgba(199,206,218,0.14) 20deg, transparent 60deg, transparent 180deg, rgba(232,199,122,0.12) 200deg, transparent 240deg)', animation: 'bdHalo 14s linear infinite', filter: 'blur(2px)' }} />
-        {sparks.map(([x, y, sc, dl], i) => (
+        {!mobile && <div style={{ position: 'absolute', width: 420, height: 420, borderRadius: '50%', background: 'conic-gradient(from 0deg, transparent 0deg, rgba(199,206,218,0.14) 20deg, transparent 60deg, transparent 180deg, rgba(232,199,122,0.12) 200deg, transparent 240deg)', animation: 'bdHalo 14s linear infinite', filter: 'blur(2px)' }} />}
+        {!mobile && sparks.map(([x, y, sc, dl], i) => (
           <span key={i} style={{ position: 'absolute', left: x + '%', top: y + '%', fontSize: 10 + sc * 8, color: i % 3 === 2 ? '#E8C77A' : '#EDF2FA', textShadow: '0 0 8px rgba(235,242,250,.9), 0 0 18px rgba(199,206,218,.6)', animation: 'bdTwinkle ' + (2.6 + (i % 4) * 0.7) + 's ease-in-out ' + dl + 's infinite', pointerEvents: 'none', userSelect: 'none' }}>{i % 2 ? '\u2727' : '\u2726'}</span>
         ))}
-        <div style={{ animation: 'bdFloat 6s ease-in-out infinite', position: 'relative', left: 18 }}>
-          <img src="/logo-mark.png" alt="Black Diamond Labs" style={{ width: 430, maxWidth: '90%', animation: 'bdReveal .8s ease-out both, bdAura 3.2s ease-in-out .8s infinite' }} />
+        <div style={{ animation: mobile ? 'none' : 'bdFloat 6s ease-in-out infinite', position: 'relative', left: mobile ? 0 : 18 }}>
+          <img src="/logo-mark.png" alt="Black Diamond Labs" style={{ width: 430, maxWidth: '90%', animation: mobile ? 'bdReveal .6s ease-out both' : 'bdReveal .8s ease-out both, bdAura 3.2s ease-in-out .8s infinite', filter: mobile ? 'drop-shadow(0 0 20px rgba(214,222,235,.5))' : undefined }} />
         </div>
       </div>
     )
@@ -63,8 +65,8 @@ export default function DiamondReveal() {
   const facetStyle = (t: string): React.CSSProperties => ({
     transformBox: 'fill-box',
     transformOrigin: 'center',
-    transition: 'transform .95s cubic-bezier(.45,0,1,1), opacity .95s ease-in',
-    transform: shatter ? t : 'none',
+    transition: mobile ? 'opacity .4s ease-out' : 'transform .95s cubic-bezier(.45,0,1,1), opacity .95s ease-in',
+    transform: shatter && !mobile ? t : 'none',
     opacity: shatter ? 0 : 1,
   })
   const fadeStyle: React.CSSProperties = { opacity: shatter ? 0 : 1, transition: 'opacity .45s ease-out' }

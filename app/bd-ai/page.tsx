@@ -36,9 +36,9 @@ export default function BDAI() {
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#4ade80' }}>Live — Pilot Coach</span>
             </div>
             <h2 className="text-2xl font-black mb-1">Coach <span style={goldText}>Nate</span></h2>
-            <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Fastpitch Softball — NZ Black Sox</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Fastpitch Softball — NZ Black Sox Legend</p>
             <p className="text-sm text-white/40 leading-relaxed flex-1">
-              Two decades at the top of the game. Game plans, training, in-game calls, the mental side — built on a real coaching record, not generic advice.
+              Two decades dominating at the Elite level of the game brings you Game plans, training, in-game calls, the mental side and much more — built on a real WINNING coaching record, not generic advice.
             </p>
             <span className="mt-6 text-sm font-bold" style={goldText}>Enter Platform →</span>
           </a>

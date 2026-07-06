@@ -221,7 +221,15 @@ export default function Home() {
           </div>
         </section>
 
-                <Footer />
+                <section className="px-6 sm:px-12 py-16 text-center" style={{ borderTop: '1px solid #ffffff08' }}>
+        <h2 className="text-2xl sm:text-3xl font-black mb-3">Got an idea? <span style={{ color: '#C7CEDA' }}>We build for grassroots sport.</span></h2>
+        <p className="text-sm text-white/40 mb-8 max-w-md mx-auto">A platform your sport needs. A coach AI in your code. Bring it to the Labs.</p>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <a href="/contact" className="border border-white/20 px-8 py-3.5 text-sm font-bold text-white hover:bg-white/5 transition-all">Submit an Idea</a>
+          <a href="/contact#coach" className="px-8 py-3.5 text-sm font-bold text-white rounded-none" style={{ background: 'linear-gradient(90deg,#5B21B6,#8B5CF6,#A78BFA,#8B5CF6,#5B21B6)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>Become a BDL Coach</a>
+        </div>
+      </section>
+      <Footer />
       </main>
     </>
   )

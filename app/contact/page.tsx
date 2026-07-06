@@ -190,7 +190,50 @@ export default function Contact() {
         </div>
       </section>
 
+      <CoachSection />
       <Footer />
     </main>
+  )
+}
+
+
+function CoachSection() {
+  const [f, setF] = useState({ name: '', email: '', phone: '', sport: '', record: '', why: '' })
+  const [sent, setSent] = useState(false)
+  const [err, setErr] = useState(false)
+  const ic = "w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-white/30 transition-colors"
+  const h = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setF({ ...f, [e.target.name]: e.target.value })
+  const go = async (e: React.FormEvent) => {
+    e.preventDefault(); setErr(false)
+    const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...f, type: 'coach' }) }).catch(() => null)
+    if (r && r.ok) setSent(true); else setErr(true)
+  }
+  return (
+    <section id="coach" className="px-6 sm:px-12 py-20" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
+      <div className="max-w-2xl mx-auto">
+        <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#8B5CF6' }}>Become a BDL Coach</p>
+        <h2 className="text-3xl font-black mb-3">Your knowledge could coach thousands.</h2>
+        <p className="text-sm text-white/40 mb-10">Proven coaches earn the majority share of every subscription to their own AI. Tell us who you are and what you have won.</p>
+        {sent ? (
+          <p className="text-sm" style={{ color: '#A78BFA' }}>Application received — we will be in touch. Ka pai.</p>
+        ) : (
+          <form onSubmit={go} className="flex flex-col gap-5">
+            <input name="name" required value={f.name} onChange={h} placeholder="Full name" className={ic} />
+            <div className="grid sm:grid-cols-2 gap-5">
+              <input name="email" type="email" required value={f.email} onChange={h} placeholder="Email" className={ic} />
+              <input name="phone" value={f.phone} onChange={h} placeholder="Phone (optional)" className={ic} />
+            </div>
+            <input name="sport" required value={f.sport} onChange={h} placeholder="Your sport" className={ic} />
+            <textarea name="record" required value={f.record} onChange={h} rows={4} placeholder="Your coaching record — titles, teams, rep honours, years at the top" className={ic + ' resize-none'} />
+            <textarea name="why" required value={f.why} onChange={h} rows={3} placeholder="Why would athletes subscribe to your coaching AI?" className={ic + ' resize-none'} />
+            {err && <p className="text-xs text-red-400">Something went wrong — try again or email info@blackdiamondlabs.co.nz</p>}
+            <button type="submit" className="self-start rounded-lg px-10 py-4 text-sm font-bold uppercase tracking-widest text-white"
+              style={{ background: 'linear-gradient(90deg,#5B21B6,#8B5CF6,#A78BFA,#8B5CF6,#5B21B6)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>
+              Apply to Coach
+            </button>
+          </form>
+        )}
+      </div>
+    </section>
   )
 }

@@ -96,12 +96,10 @@ export default function CoachNate() {
         )}
         <div className="mb-6 text-center">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2" style={{ color: '#E8C77A' }}>Black Diamond AI</p>
-          <h1 className="text-4xl sm:text-5xl font-black">
+          <h1 className={apiKey ? "text-2xl font-black" : "text-4xl sm:text-5xl font-black"}>
             Coach <span style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Nate</span>
           </h1>
-          <p className="text-sm text-white/40 mt-3">
-            Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond.
-          </p>
+          {!apiKey && <p className="text-sm text-white/40 mt-3">Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond.</p>}
           <p className="text-xs mt-2" style={{ color: online === 'offline' ? '#f87171' : online === 'online' ? '#4ade80' : '#facc15' }}>
             {online === 'checking' ? '● Checking service…' : online === 'online' ? '● Online' : '● Offline (' + healthNote + ')'}
             {!jsAlive && ' — page still waking up'}
@@ -128,7 +126,7 @@ export default function CoachNate() {
           </div>
         ) : (
           <>
-            <div className="flex-1 rounded-2xl border border-white/10 bg-white/[0.015] p-4 sm:p-6 overflow-y-auto mb-4" style={{ minHeight: 320, maxHeight: '55vh' }}>
+            <div className="flex-1 rounded-2xl border border-white/10 bg-white/[0.015] p-4 sm:p-6 overflow-y-auto mb-4" style={{ minHeight: 320, height: apiKey ? 'calc(100vh - 330px)' : undefined }}>
               {msgs.length === 0 && (
                 <p className="text-sm text-white/30 text-center mt-12">
                   Kia ora — what are we working on today? Batting order, a spiralling hitter, game plan for the weekend?
@@ -165,7 +163,7 @@ export default function CoachNate() {
         )}
 
         {/* Pricing */}
-        <div className="mt-16">
+        <div className="mt-16" style={{ display: apiKey ? 'none' : undefined }}>
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: '#E8C77A' }}>Founding Pricing</p>
           <h2 className="text-2xl sm:text-3xl font-black text-center mb-2">Back the build. Lock your rate.</h2>
           <p className="text-xs text-white/40 text-center mb-10">All prices NZD. Annual = two months free. Fair Use Policy applies to keep Coach Nate fast for everyone.</p>

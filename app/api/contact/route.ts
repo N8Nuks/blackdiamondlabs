@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     const coachHtml = `
-        <h2>BDL Coach Application</h2>
+        <h2>BDAI Coach Application</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
@@ -22,9 +22,9 @@ export async function POST(req: Request) {
       `
     await resend.emails.send({
       from: 'BDL Contact <contact@blackdiamondlabs.co.nz>',
-      to: 'info@blackdiamondlabs.co.nz',
+      to: body.type === 'coach' ? 'bdai_coachingapplication@blackdiamondlabs.co.nz' : 'info@blackdiamondlabs.co.nz',
       replyTo: email,
-      subject: body.type === 'coach' ? `BDL Coach Application — ${name}` : `New Idea Submission — ${name}`,
+      subject: body.type === 'coach' ? `BDAI Coach Application — ${name}` : `New Idea Submission — ${name}`,
       html: body.type === 'coach' ? coachHtml : `
         <h2>New Idea Submission — Black Diamond Labs</h2>
         <p><strong>Name:</strong> ${name}</p>

@@ -211,7 +211,7 @@ function CoachSection() {
   return (
     <section id="coach" className="px-6 sm:px-12 py-20" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
       <div className="max-w-2xl mx-auto">
-        <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#8B5CF6' }}>Become a BDL Coach</p>
+        <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#8B5CF6' }}>Become a BDAI Coach</p>
         <h2 className="text-3xl font-black mb-3">Your knowledge could coach thousands.</h2>
         <p className="text-sm text-white/40 mb-10">Proven coaches earn the majority share of every subscription to their own AI. Tell us who you are and what you have won.</p>
         {sent ? (

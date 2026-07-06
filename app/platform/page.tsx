@@ -10,7 +10,7 @@ export default function Platform() {
     { number: '05', name: 'Commercial Engine', desc: 'Creating prosperity.', features: 'Sponsorship · Ticketing · Merchandise · Crowdfunding', color: '#C7CEDA' },
     { number: '06', name: 'Data & Intelligence', desc: 'The platform\'s competitive advantage.', features: 'AI Insights · Analytics · Benchmarking · Intelligence', color: '#C7CEDA' },
     { number: '07', name: 'Community', desc: 'The social layer.', features: 'Teams · Messaging · Events · Recognition · Volunteers', color: '#C7CEDA' },
-    { number: '08', name: 'Black Diamond AI', desc: 'Your AI. Trained on sport.', features: 'Training Plans · Game Analysis · Scheduling · Proposals', color: '#FFD700', highlight: true },
+    { number: '08', name: 'Black Diamond AI', desc: 'Legendary Coaching in your pocket', features: 'Training Plans · Game Analysis · Scheduling · Proposals', color: '#FFD700', highlight: true },
   ]
 
   return (

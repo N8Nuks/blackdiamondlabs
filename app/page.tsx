@@ -226,7 +226,7 @@ export default function Home() {
         <p className="text-sm text-white/40 mb-8 max-w-md mx-auto">A platform your sport needs. A coach AI in your code. Bring it to the Labs.</p>
         <div className="flex flex-wrap gap-4 justify-center">
           <a href="/contact" className="border border-white/20 px-8 py-3.5 text-sm font-bold text-white hover:bg-white/5 transition-all">Submit an Idea</a>
-          <a href="/contact#coach" className="px-8 py-3.5 text-sm font-bold text-white rounded-none" style={{ background: 'linear-gradient(90deg,#5B21B6,#8B5CF6,#A78BFA,#8B5CF6,#5B21B6)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>Become a BDL Coach</a>
+          <a href="/contact#coach" className="px-8 py-3.5 text-sm font-bold text-white rounded-none" style={{ background: 'linear-gradient(90deg,#5B21B6,#8B5CF6,#A78BFA,#8B5CF6,#5B21B6)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>Become a BDAI Coach</a>
         </div>
       </section>
       <Footer />

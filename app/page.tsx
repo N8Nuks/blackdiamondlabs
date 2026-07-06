@@ -206,6 +206,7 @@ export default function Home() {
               />
               <BrandCard
                 name="Grassroots Fantasy"
+                description="Fantasy League platform — support your club, collect player cards, build your squad, score points based on real game results."
                 hideLink
                 tagline="Built for the game you love."
                 href="https://grassrootsfantasy.co.nz"

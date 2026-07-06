@@ -90,7 +90,7 @@ export default function BrandCard({
 
       {isLive && !hideLink && (
         <a href={href} className="mt-8 inline-flex items-center justify-center text-sm font-semibold text-white/60 hover:text-white transition-colors">
-          Visit platform <span className="ml-2">→</span>
+          Enter Platform <span className="ml-2">→</span>
         </a>
       )}
     </div>

@@ -82,8 +82,8 @@ export default function BDAI() {
             </div>
           </div>
           <a href="mailto:info@blackdiamondlabs.co.nz?subject=BDL%20Coach%20Application"
-            className="inline-block rounded-lg px-10 py-4 text-sm font-bold uppercase tracking-widest text-black"
-            style={{ background: 'linear-gradient(90deg,#C7CEDA,#F4F7FB)' }}>
+            className="inline-block rounded-lg px-10 py-4 text-sm font-bold uppercase tracking-widest text-white"
+            style={{ background: 'linear-gradient(90deg,#5B21B6,#8B5CF6,#A78BFA,#8B5CF6,#5B21B6)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite', boxShadow: '0 0 24px rgba(139,92,246,0.35)' }}>
             Apply to become a BDL Coach
           </a>
         </div>

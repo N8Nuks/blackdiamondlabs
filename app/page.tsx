@@ -1,3 +1,4 @@
+import DiamondReveal from '@/components/DiamondReveal'
 import BrandCard from '@/components/BrandCard'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -174,89 +175,7 @@ export default function Home() {
             </div>
 
             {/* Diamond */}
-            <div className="animate-diamond relative z-10" style={{ width: 520, height: 540 }}>
-              <svg viewBox="0 0 520 540" fill="none" xmlns="http://www.w3.org/2000/svg" width="520" height="540">
-                <defs>
-                  <radialGradient id="gTable" cx="50%" cy="35%" r="65%">
-                    <stop offset="0%" stopColor="#d6d6d6" stopOpacity="0.85"/>
-                    <stop offset="55%" stopColor="#5a5a5a" stopOpacity="0.6"/>
-                    <stop offset="100%" stopColor="#0a0a0a" stopOpacity="0.95"/>
-                  </radialGradient>
-                  <linearGradient id="gBezelL" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#bdbdbd" stopOpacity="0.8"/>
-                    <stop offset="100%" stopColor="#1a1a1a" stopOpacity="0.95"/>
-                  </linearGradient>
-                  <linearGradient id="gBezelR" x1="100%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#bdbdbd" stopOpacity="0.8"/>
-                    <stop offset="100%" stopColor="#1a1a1a" stopOpacity="0.95"/>
-                  </linearGradient>
-                  <linearGradient id="gCrownL" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#6a6a6a" stopOpacity="0.6"/>
-                    <stop offset="100%" stopColor="#050505" stopOpacity="1"/>
-                  </linearGradient>
-                  <linearGradient id="gCrownR" x1="100%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#6a6a6a" stopOpacity="0.6"/>
-                    <stop offset="100%" stopColor="#050505" stopOpacity="1"/>
-                  </linearGradient>
-                  <linearGradient id="gMidL" x1="0%" y1="0%" x2="60%" y2="100%">
-                    <stop offset="0%" stopColor="#909090" stopOpacity="0.55"/>
-                    <stop offset="100%" stopColor="#0a0a0a" stopOpacity="1"/>
-                  </linearGradient>
-                  <linearGradient id="gMidR" x1="100%" y1="0%" x2="40%" y2="100%">
-                    <stop offset="0%" stopColor="#909090" stopOpacity="0.55"/>
-                    <stop offset="100%" stopColor="#0a0a0a" stopOpacity="1"/>
-                  </linearGradient>
-                  <linearGradient id="gPavInL" x1="50%" y1="0%" x2="50%" y2="100%">
-                    <stop offset="0%" stopColor="#3a3a3a" stopOpacity="0.65"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
-                  </linearGradient>
-                  <linearGradient id="gPavInR" x1="50%" y1="0%" x2="50%" y2="100%">
-                    <stop offset="0%" stopColor="#3a3a3a" stopOpacity="0.65"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
-                  </linearGradient>
-                  <linearGradient id="gPavOutL" x1="0%" y1="0%" x2="80%" y2="100%">
-                    <stop offset="0%" stopColor="#181818" stopOpacity="0.8"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
-                  </linearGradient>
-                  <linearGradient id="gPavOutR" x1="100%" y1="0%" x2="20%" y2="100%">
-                    <stop offset="0%" stopColor="#181818" stopOpacity="0.8"/>
-                    <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
-                  </linearGradient>
-                  <radialGradient id="culetGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="#FFD700" stopOpacity="1"/>
-                    <stop offset="60%" stopColor="#FFD700" stopOpacity="0.25"/>
-                    <stop offset="100%" stopColor="#FFD700" stopOpacity="0"/>
-                  </radialGradient>
-                  <filter id="culetFilter" x="-150%" y="-150%" width="400%" height="400%">
-                    <feGaussianBlur stdDeviation="5"/>
-                  </filter>
-                  <filter id="edgeGlow">
-                    <feGaussianBlur stdDeviation="1.4" result="b"/>
-                    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                  </filter>
-                </defs>
-                <polygon points="185,72 335,72 345,165 260,180 175,165" fill="url(#gTable)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="185,72 98,150 175,165" fill="url(#gBezelL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="98,150 30,238 148,238 175,165" fill="url(#gCrownL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="175,165 148,238 260,238 260,180" fill="url(#gMidL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="335,72 422,150 345,165" fill="url(#gBezelR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="422,150 490,238 372,238 345,165" fill="url(#gCrownR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="345,165 372,238 260,238 260,180" fill="url(#gMidR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="30,238 148,238 260,502" fill="url(#gPavOutL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="148,238 260,238 260,502" fill="url(#gPavInL)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="260,238 372,238 260,502" fill="url(#gPavInR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <polygon points="372,238 490,238 260,502" fill="url(#gPavOutR)" stroke="#E8C77A" strokeWidth="0.8" strokeOpacity="0.55"/>
-                <path d="M185,72 L260,180 L335,72" stroke="#E8C77A" strokeWidth="0.5" strokeOpacity="0.4" fill="none"/>
-                <path d="M260,72 L260,180" stroke="#E8C77A" strokeWidth="0.4" strokeOpacity="0.3" fill="none"/>
-                <path d="M30,238 L490,238" stroke="#E8C77A" strokeWidth="0.6" strokeOpacity="0.45" fill="none"/>
-                <path d="M185,72 L335,72 L422,150 L490,238 L260,502 L30,238 L98,150 Z" fill="none" stroke="#FFD700" strokeWidth="1.4" strokeOpacity="0.8" filter="url(#edgeGlow)"/>
-                <circle cx="260" cy="500" r="22" fill="url(#culetGlow)" filter="url(#culetFilter)"/>
-                <circle cx="260" cy="502" r="2.5" fill="#FFF6D5"/>
-                <ellipse cx="260" cy="512" rx="130" ry="14" fill="none" stroke="#FFD700" strokeWidth="0.7" strokeOpacity="0.35"/>
-                <ellipse cx="260" cy="518" rx="190" ry="11" fill="none" stroke="#FFD700" strokeWidth="0.5" strokeOpacity="0.2"/>
-                <ellipse cx="260" cy="524" rx="240" ry="9" fill="none" stroke="#FFD700" strokeWidth="0.3" strokeOpacity="0.12"/>
-              </svg>
-            </div>
+            <DiamondReveal />
           </div>
         </section>
 

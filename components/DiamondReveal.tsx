@@ -37,7 +37,7 @@ export default function DiamondReveal() {
   if (revealed) {
     return (
       <div className="relative z-10 flex items-center justify-center" style={{ width: 520, height: 540, maxWidth: '100%' }}>
-        <style>{'@keyframes bdReveal { from { transform: scale(.45); opacity: 0; } to { transform: scale(1); opacity: 1; } } @keyframes bdAura { 0%, 100% { filter: drop-shadow(0 0 14px rgba(199,206,218,.35)); } 50% { filter: drop-shadow(0 0 36px rgba(235,240,248,.8)); } }'}</style>
+        <style>{'@keyframes bdReveal { from { transform: scale(.45); opacity: 0; } to { transform: scale(1); opacity: 1; } } @keyframes bdAura { 0%, 100% { filter: drop-shadow(0 0 22px rgba(214,222,235,.65)) drop-shadow(0 0 55px rgba(199,206,218,.35)); } 50% { filter: drop-shadow(0 0 40px rgba(240,245,252,1)) drop-shadow(0 0 90px rgba(220,228,240,.7)); } }'}</style>
         <img src="/logo-mark.png" alt="Black Diamond Labs" style={{ width: 430, maxWidth: '90%', animation: 'bdReveal .8s ease-out both, bdAura 3.2s ease-in-out .8s infinite' }} />
       </div>
     )

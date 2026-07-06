@@ -191,7 +191,19 @@ export default function Home() {
             <div className="mb-12 sm:mb-16">
               <p className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: '#C7CEDA' }}>Our Brands</p>
             </div>
-            <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
+              <BrandCard
+                name="Black Diamond AI"
+                nameSplit={{ first: "Black Diamond ", second: "AI", secondColor: "#FFD700" }}
+                tagline="Coach Nate — LIVE now for Founding Members."
+                taglineStyle={{ color: "#E8C77A" }}
+                description="An AI coaching assistant built on two decades at the top of the game. Game plans, training, in-game calls, the mental side."
+                href="/coach-nate"
+                status="live"
+                accentColor="#E8C77A"
+                hideEdition={true}
+                larger={true}
+              />
               <BrandCard
                 name="Grassroots Fantasy"
                 hideLink
@@ -203,36 +215,7 @@ export default function Home() {
                 hideEdition={true}
                 larger={true}
               />
-              <BrandCard
-                name="LegacyMint"
-                tagline="Your Legacy, Their Dream."
-                taglineSplit={{ first: "Your Legacy,", firstColor: "#FFD700", second: "Their Dream.", secondColor: "#98FFD0" }}
-                description="A platform for creating and sharing lasting digital legacies — stories, moments, and memories built to endure."
-                href="#"
-                status="soon"
-                accentColor="#A78BFA"
-                nameSplit={{ first: "LEGACY", second: "MINT", secondColor: "#98FFD0" }}
-                hideEdition={true}
-              />
-              <BrandCard
-                name="FutureProof Solutions"
-                tagline="Built for what comes next."
-                description="Technology consulting helping organisations adapt and thrive."
-                href="#"
-                status="soon"
-                accentColor="#C0C0C0"
-                nameStyle="futureproof"
-                taglineStyle={{
-                  background: "linear-gradient(90deg,#888,#fff,#ccc,#fff,#888)",
-                  backgroundSize: "200% auto",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  animation: "shimmer 3s linear infinite",
-                }}
-                hideEdition={true}
-              />
-            </div>
+              </div>
           </div>
         </section>
 

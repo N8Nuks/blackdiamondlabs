@@ -37,7 +37,7 @@ export default function Brands() {
   ]
 
   const statusStyle = (s: string) => {
-    if (s === 'Live') return { text: '#C7CEDA', dot: '#C7CEDA' }
+    if (s === 'Live') return { text: '#4ade80', dot: '#4ade80' }
     if (s === 'Pending') return { text: '#FFD700', dot: '#FFD700' }
     return { text: '#555555', dot: '#333333' }
   }

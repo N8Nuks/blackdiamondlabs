@@ -96,7 +96,7 @@ export default function DiamondReveal() {
           <filter id="edgeGlow"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         </defs>
         {FACETS.map((f, i) => (
-          <polygon key={i} points={f.pts} fill={f.fill} stroke="#67E8F9" strokeWidth="0.8" strokeOpacity="0.55" style={facetStyle(f.t)} />
+          <polygon key={i} points={f.pts} fill={mobile ? "#0b0f14" : f.fill} stroke="#67E8F9" strokeWidth="0.8" strokeOpacity="0.55" style={facetStyle(f.t)} />
         ))}
         <g style={fadeStyle}>
           <path d="M185,72 L260,180 L335,72" stroke="#67E8F9" strokeWidth="0.5" strokeOpacity="0.4" fill="none"/>

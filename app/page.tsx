@@ -97,7 +97,7 @@ export default function Home() {
           ))}
 
           {/* Left — text */}
-          <div className="relative z-10 w-full lg:w-1/2 px-10 sm:px-14 lg:px-20 pt-28 pb-16 lg:pt-0 lg:pb-0 flex flex-col justify-center">
+          <div className="relative z-10 w-full lg:w-1/2 px-10 sm:px-14 lg:px-20 pt-4 pb-16 lg:pt-0 lg:pb-0 flex flex-col justify-center">
 
             <p className="opacity-0 animate-fade-up text-[0.6rem] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-4 sm:mb-6"
               style={{ color: '#C7CEDA' }}>
@@ -140,7 +140,7 @@ export default function Home() {
           </div>
 
           {/* Mobile diamond */}
-          <div className="lg:hidden relative z-10 w-full flex justify-center" style={{ height: 400, overflow: 'visible' }}>
+          <div className="lg:hidden order-first relative z-10 w-full flex justify-center" style={{ height: 400, overflow: 'visible' }}>
             <div style={{ transform: 'scale(0.62)', transformOrigin: 'top center' }}>
               <DiamondReveal />
             </div>

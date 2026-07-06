@@ -83,10 +83,22 @@ export default function CoachNate() {
     }
   }
 
-  const gold: React.CSSProperties = { background: 'linear-gradient(90deg,#C7CEDA,#F4F7FB)' }
+  const gold: React.CSSProperties = { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col">
+    <main className="min-h-screen bg-black text-white flex flex-col relative">
+      {apiKey && (
+        <>
+          <canvas id="bdai-rain" className="fixed inset-0 w-full h-full" style={{ opacity: 0.16, pointerEvents: 'none' }} />
+          <script dangerouslySetInnerHTML={{ __html: `
+(function(){function boot(){var c=document.getElementById('bdai-rain');if(!c)return;var x=c.getContext('2d');function fit(){c.width=innerWidth;c.height=innerHeight}fit();addEventListener('resize',fit);
+var chars='アイウエオカキクケコサシスセソKHRBI643SO'.split('');var fs=16;var cols=Math.floor(innerWidth/fs);var drops=[];for(var i=0;i<cols;i++)drops[i]=Math.random()*-100;
+setInterval(function(){x.fillStyle='rgba(0,0,0,0.08)';x.fillRect(0,0,c.width,c.height);x.font=fs+'px monospace';
+for(var i=0;i<drops.length;i++){var ch=chars[Math.floor(Math.random()*chars.length)];x.fillStyle=(i%9===0)?'#E8C77A':'#C7CEDA';x.fillText(ch,i*fs,drops[i]*fs);if(drops[i]*fs>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++;}},55);}
+if(document.readyState==='loading')addEventListener('DOMContentLoaded',boot);else boot();})();
+` }} />
+        </>
+      )}
       <Nav />
       <section className="flex-1 flex flex-col pt-28 pb-10 px-4 sm:px-8 max-w-3xl mx-auto w-full">
         {pageError && (
@@ -126,7 +138,7 @@ export default function CoachNate() {
           </div>
         ) : (
           <>
-            <div className="flex-1 rounded-2xl border border-white/10 bg-white/[0.015] p-4 sm:p-6 overflow-y-auto mb-4" style={{ minHeight: 320, height: apiKey ? 'calc(100vh - 330px)' : undefined }}>
+            <div className="flex-1 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto mb-4"  style={{ minHeight: 320, height: apiKey ? 'calc(100vh - 330px)' : undefined, background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
               {msgs.length === 0 && (
                 <p className="text-sm text-white/30 text-center mt-12">
                   Kia ora — what are we working on today? Batting order, a spiralling hitter, game plan for the weekend?
@@ -134,8 +146,8 @@ export default function CoachNate() {
               )}
               {msgs.map((m, i) => (
                 <div key={i} className={`mb-4 flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${m.role === 'user' ? 'bg-white/10' : 'border border-white/10'}`}
-                    style={m.role === 'assistant' ? { background: 'rgba(232,199,122,0.06)' } : undefined}>
+                  <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${m.role === 'user' ? 'bg-white/15 border border-white/10' : 'border'}`}
+                    style={m.role === 'assistant' ? { background: 'rgba(232,199,122,0.12)', borderColor: 'rgba(232,199,122,0.35)', boxShadow: '0 0 18px rgba(232,199,122,0.12)' } : undefined}>
                     {m.role === 'assistant' && <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#E8C77A' }}>Coach Nate</p>}
                     {m.content}
                   </div>

@@ -40,7 +40,7 @@ export default function BDAI() {
             <p className="text-sm text-white/40 leading-relaxed flex-1">
               Two decades dominating at the Elite level of the game. Game plans, training, in-game calls, mental application, Rep selections, Scouting & more. All built from a real WINNING coaching record and not generic advice. What it takes to win, at your fingertips.
             </p>
-            <span className="mt-6 text-sm font-bold" style={goldText}>Enter Platform →</span>
+            <span className="mt-6 text-sm font-bold" style={goldText}>Enter Access Area →</span>
           </a>
 
           {/* Coming slots */}

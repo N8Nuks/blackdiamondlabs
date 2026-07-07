@@ -108,11 +108,11 @@ export default function Home() {
               <img src="/wordmark.svg" alt="Black Diamond Labs" className="w-full max-w-xl h-auto" style={{ marginLeft: '-1.8%' }} />
             </h1>
 
-            <p className="opacity-0 animate-fade-up delay-2 text-sm lg:text-[15px] text-white/40 leading-relaxed mb-8 sm:mb-10 w-full max-w-xl whitespace-nowrap overflow-hidden mt-6 sm:mt-8">
-              Building digital platforms for grassroots sport communities.
+            <p className="opacity-0 animate-fade-up delay-2 text-sm lg:text-[15px] text-white/40 leading-relaxed mb-8 sm:mb-10 w-full max-w-xl text-center lg:whitespace-nowrap mt-6 sm:mt-8">
+              Building digital platforms for grassroots Sports and their communities.
             </p>
 
-            <div className="opacity-0 animate-fade-up delay-3">
+            <div className="opacity-0 animate-fade-up delay-3 w-full max-w-xl flex justify-center">
               <a href="/brands" className="gold-btn">
                 Explore Our Brands
                 <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
@@ -122,14 +122,14 @@ export default function Home() {
             </div>
 
             {/* Pillars — desktop only */}
-            <div className="opacity-0 animate-fade-up delay-5 mt-16 sm:mt-20 hidden sm:grid grid-cols-2 gap-6 max-w-xs">
+            <div className="opacity-0 animate-fade-up delay-5 mt-16 sm:mt-20 hidden sm:grid grid-cols-4 gap-6 w-full max-w-xl">
               {[
                 { icon: '◈', label: 'Community First', sub: 'Grassroots at our core' },
                 { icon: '◉', label: 'Data Insights', sub: 'Smarter decisions' },
                 { icon: '◆', label: 'Secure & Reliable', sub: 'Built to perform' },
                 { icon: '◎', label: 'Scalable Platform', sub: 'Ready for the future' },
               ].map((p) => (
-                <div key={p.label} className="flex flex-col gap-1.5">
+                <div key={p.label} className="flex flex-col gap-1.5 items-center text-center">
                   <span className="text-base" style={{ color: '#C7CEDA' }}>{p.icon}</span>
                   <span className="text-[0.6rem] font-bold uppercase tracking-wider text-white/60">{p.label}</span>
                   <span className="text-[0.6rem] text-white/30">{p.sub}</span>

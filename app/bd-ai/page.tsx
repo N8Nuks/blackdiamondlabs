@@ -16,9 +16,9 @@ export default function BDAI() {
       <style>{`@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }`}</style>
 
       {/* Hero */}
-      <section className="pt-36 pb-16 px-6 sm:px-12 text-center">
+      <section className="relative z-10 pt-36 pb-16 px-6 sm:px-12 text-center">
         <div className="fixed inset-0 z-0 pointer-events-none">
-          <img src="/bdai-bg.jpg" alt="" className="w-full h-full object-cover" />
+          <img src="/bdai-bg.jpg" alt="" className="w-full h-full object-contain object-top" style={{ objectPosition: 'center 15%' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.88) 100%)' }} />
         </div>
         <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#E8C77A' }}>Black Diamond AI</p>
@@ -29,7 +29,7 @@ export default function BDAI() {
       </section>
 
       {/* Coach grid */}
-      <section className="px-6 sm:px-12 pb-20">
+      <section className="relative z-10 px-6 sm:px-12 pb-20">
         <div className="max-w-5xl mx-auto grid gap-5 sm:grid-cols-2">
 
           {/* Coach Nate — live */}
@@ -64,7 +64,7 @@ export default function BDAI() {
       </section>
 
       {/* Become a coach */}
-      <section className="px-6 sm:px-12 py-20" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
+      <section className="relative z-10 px-6 sm:px-12 py-20" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#E8C77A' }}>For Coaches</p>
           <h2 className="text-3xl sm:text-4xl font-black mb-5">Your knowledge. <span style={goldText}>Available whenever needed.</span></h2>

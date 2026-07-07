@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       `
     await resend.emails.send({
       from: 'BDL Contact <contact@blackdiamondlabs.co.nz>',
-      to: body.type === 'coach' ? 'bdai_coachingapplication@blackdiamondlabs.co.nz' : 'info@blackdiamondlabs.co.nz',
+      to: 'info@blackdiamondlabs.co.nz',
       replyTo: email,
       subject: body.type === 'coach' ? `BDAI Coach Application — ${name}` : `New Idea Submission — ${name}`,
       html: body.type === 'coach' ? coachHtml : `

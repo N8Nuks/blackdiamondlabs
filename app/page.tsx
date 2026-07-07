@@ -99,7 +99,7 @@ export default function Home() {
           {/* Left — text */}
           <div className="relative z-10 w-full lg:w-1/2 px-10 sm:px-14 lg:px-20 pt-4 pb-16 lg:pt-0 lg:pb-0 flex flex-col justify-center">
 
-            <p className="opacity-0 animate-fade-up text-[0.6rem] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-4 sm:mb-6"
+            <p className="opacity-0 animate-fade-up text-[0.6rem] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-4 sm:mb-6 w-full max-w-xl text-center"
               style={{ color: '#C7CEDA' }}>
               Technology for sport at ground level
             </p>
@@ -108,8 +108,8 @@ export default function Home() {
               <img src="/wordmark.svg" alt="Black Diamond Labs" className="w-full max-w-xl h-auto" style={{ marginLeft: '-1.8%' }} />
             </h1>
 
-            <p className="opacity-0 animate-fade-up delay-2 text-sm sm:text-base text-white/40 leading-relaxed mb-8 sm:mb-10 max-w-xs sm:max-w-sm mt-6 sm:mt-8">
-              Building digital platforms for<br />grassroots sport communities.
+            <p className="opacity-0 animate-fade-up delay-2 text-sm lg:text-[15px] text-white/40 leading-relaxed mb-8 sm:mb-10 w-full max-w-xl whitespace-nowrap overflow-hidden mt-6 sm:mt-8">
+              Building digital platforms for grassroots sport communities.
             </p>
 
             <div className="opacity-0 animate-fade-up delay-3">

@@ -104,9 +104,8 @@ export default function Home() {
               Technology for sport at ground level
             </p>
 
-            <h1 className="opacity-0 animate-fade-up delay-1 font-black leading-none mb-0"
-              style={{ fontSize: 'clamp(2.8rem, 8vw, 5.5rem)' }}>
-              Black<br />Diamond<br />Labs<span style={{ color: '#C7CEDA' }}>.</span>
+            <h1 className="opacity-0 animate-fade-up delay-1 mb-0">
+              <img src="/wordmark.svg" alt="Black Diamond Labs" className="w-full max-w-md h-auto" />
             </h1>
 
             <p className="opacity-0 animate-fade-up delay-2 text-sm sm:text-base text-white/40 leading-relaxed mb-8 sm:mb-10 max-w-xs sm:max-w-sm mt-6 sm:mt-8">

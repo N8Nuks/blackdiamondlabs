@@ -19,7 +19,7 @@ export default function Nav() {
         {/* Logo */}
         <a href="/" className="flex items-center gap-3">
           <img src="/logo-mark.png" alt="Black Diamond Labs" className="h-9 w-auto" />
-          <span className="text-sm font-semibold tracking-widest text-white/80 hidden sm:block">Black Diamond Labs</span>
+          <img src="/wordmark.svg" alt="Black Diamond Labs" className="h-7 w-auto hidden sm:block" />
         </a>
 
         {/* Desktop links */}

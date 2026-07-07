@@ -105,7 +105,7 @@ export default function Home() {
             </p>
 
             <h1 className="opacity-0 animate-fade-up delay-1 mb-0">
-              <img src="/wordmark.svg" alt="Black Diamond Labs" className="w-full max-w-md h-auto" />
+              <img src="/wordmark.svg" alt="Black Diamond Labs" className="w-full max-w-xl h-auto" style={{ marginLeft: '-1.8%' }} />
             </h1>
 
             <p className="opacity-0 animate-fade-up delay-2 text-sm sm:text-base text-white/40 leading-relaxed mb-8 sm:mb-10 max-w-xs sm:max-w-sm mt-6 sm:mt-8">

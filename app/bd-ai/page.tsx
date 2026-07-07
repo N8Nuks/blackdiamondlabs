@@ -4,9 +4,9 @@ import Footer from '@/components/Footer'
 const goldText: React.CSSProperties = { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }
 
 const COMING = [
-  { name: 'The Legend', sport: 'Fastpitch Softball', tag: 'The name says it all. Coming soon.', show: true },
-  { name: 'Coach ██████', sport: 'Netball', tag: 'Court craft. Combinations. Composure.' },
-  { name: 'Coach ██████', sport: 'Basketball', tag: 'Spacing. Reads. Winning habits.' },
+  { name: 'The Legend', sport: 'Fastpitch Softball', tag: 'The name says it all. Coming soon.', show: true, venue: 'BDAI Diamond' },
+  { name: 'Coach ██████', sport: 'Netball', tag: 'Court craft. Combinations. Composure.', venue: 'BDAI Court' },
+  { name: 'Coach ██████', sport: 'Basketball', tag: 'Spacing. Reads. Winning habits.', venue: 'BDAI Court' },
 ]
 
 export default function BDAI() {
@@ -48,7 +48,7 @@ export default function BDAI() {
             <div key={c.sport} className="rounded-2xl border border-white/8 bg-white/[0.02] p-8 flex flex-col">
               <div className="flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#C7CEDA' }} />
-                <span className="text-xs font-bold uppercase tracking-widest text-white/40">Coming to the diamond</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-white/40">Coming to the {c.venue}</span>
               </div>
               <h2 className="text-2xl font-black mb-1" style={(c as any).show ? undefined : { filter: 'blur(6px)', userSelect: 'none' }}>{c.name}</h2>
               <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">{c.sport}</p>

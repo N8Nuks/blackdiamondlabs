@@ -5,7 +5,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
 
   const links = [
-    { label: 'BD AI', href: '/bd-ai' },
+    { label: 'BDAI', href: '/bd-ai' },
     { label: 'Brands', href: '/brands' },
     { label: 'About', href: '/about' },
     { label: 'Platform', href: '/platform' },

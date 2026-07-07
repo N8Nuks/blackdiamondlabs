@@ -112,7 +112,7 @@ export default function Home() {
               Building digital platforms for grassroots Sports and their communities.
             </p>
 
-            <div className="opacity-0 animate-fade-up delay-3 w-full max-w-xl flex justify-center">
+            <div className="opacity-0 animate-fade-up delay-3 w-full max-w-xl flex justify-center" style={{ transform: 'translateZ(0)', isolation: 'isolate' }}>
               <a href="/brands" className="gold-btn">
                 Explore Our Brands
                 <svg width="14" height="10" viewBox="0 0 14 10" fill="none">

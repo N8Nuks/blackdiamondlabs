@@ -53,8 +53,8 @@ export default function Home() {
           white-space: nowrap;
         }
         .gold-btn:hover {
-          background: rgba(255,255,255,0.1);
-          box-shadow: 0 0 30px rgba(255,255,255,0.15);
+          border-color: #ffffff;
+          color: #ffffff;
         }
         .floating-label {
           position: absolute;

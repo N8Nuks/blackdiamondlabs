@@ -9,7 +9,7 @@ export default function About() {
       {/* Hero */}
       <section className="relative pt-40 pb-48 px-8 sm:px-16 lg:px-32 overflow-hidden">
         <div className="fixed inset-0 z-0">
-          <img src="/about-bg.jpeg" alt="" className="w-full h-full object-cover object-[70%_35%]" />
+          <img src="/about-bg-new.jpg" alt="" className="w-full h-full object-cover object-[70%_35%]" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.15) 100%)' }} />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto">

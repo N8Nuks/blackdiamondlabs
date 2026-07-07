@@ -11,15 +11,15 @@ const COMING = [
 
 export default function BDAI() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen text-white relative">
       <Nav />
       <style>{`@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }`}</style>
 
       {/* Hero */}
       <section className="pt-36 pb-16 px-6 sm:px-12 text-center">
-        <div className="absolute inset-0">
+        <div className="fixed inset-0 z-0 pointer-events-none">
           <img src="/bdai-bg.jpg" alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.78) 60%, #000 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.88) 100%)' }} />
         </div>
         <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#E8C77A' }}>Black Diamond AI</p>
         <h1 className="text-4xl sm:text-6xl font-black mb-4">Real coaches. <span style={goldText}>Always on.</span></h1>

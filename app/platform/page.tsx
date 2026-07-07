@@ -14,7 +14,7 @@ export default function Platform() {
   ]
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen text-white relative">
       <Nav />
 
       {/* Hero */}
@@ -23,7 +23,6 @@ export default function Platform() {
           <img src="/platform-bg.jpg" alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.88) 100%)' }} />
         </div>
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, #001a2e 0%, #000 70%)' }} />
         <div className="relative z-10 max-w-4xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#C7CEDA' }}>
             The Platform
@@ -38,7 +37,7 @@ export default function Platform() {
       </section>
 
       {/* Eight pillars — portal style */}
-      <section className="py-24 px-8 sm:px-16 lg:px-32">
+      <section className="relative z-10 bg-black py-24 px-8 sm:px-16 lg:px-32">
         <div className="max-w-6xl mx-auto">
           <div className="mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
             <div>

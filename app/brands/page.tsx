@@ -57,9 +57,7 @@ export default function Brands() {
 
       {/* Hero */}
       <section className="relative pt-40 pb-24 px-8 sm:px-16 lg:px-32 overflow-hidden">
-        <div className="absolute inset-0">
-          <img src="/brands-mosaic.jpg" alt="" className="w-full h-full object-cover" />
-        </div>
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, #001525 0%, #000 65%)' }} />
         <div className="relative z-10 max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#C7CEDA' }}>Our Brands</p>
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black leading-none mb-10 text-white">

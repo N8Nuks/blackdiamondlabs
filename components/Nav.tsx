@@ -26,7 +26,7 @@ export default function Nav() {
         <div className="hidden md:flex items-center gap-10">
           {links.map(l => (
             <a key={l.label} href={l.href}
-              className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors">
+              className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors font-display">
               {l.label}
             </a>
           ))}

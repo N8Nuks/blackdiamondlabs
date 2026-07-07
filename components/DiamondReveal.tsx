@@ -46,13 +46,12 @@ export default function DiamondReveal() {
     return (
       <div className="relative z-10 flex items-center justify-center" style={{ width: 520, height: 540, maxWidth: '100%' }}>
         <style>{`
-          @keyframes bdReveal { from { transform: scale(.45); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+          @keyframes bdReveal { 0% { transform: scale(.3); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 80% { transform: scale(.97); } 100% { transform: scale(1); opacity: 1; } }
           @keyframes bdAura { 0%, 100% { filter: drop-shadow(0 0 22px rgba(214,222,235,.65)) drop-shadow(0 0 55px rgba(199,206,218,.35)); } 50% { filter: drop-shadow(0 0 40px rgba(240,245,252,1)) drop-shadow(0 0 90px rgba(220,228,240,.7)); } }
           @keyframes bdFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
           @keyframes bdTwinkle { 0%,100% { opacity: 0; transform: scale(.2) rotate(0deg); } 50% { opacity: 1; transform: scale(1) rotate(180deg); } }
           @keyframes bdHalo { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         `}</style>
-        {!mobile && <div style={{ position: 'absolute', width: 420, height: 420, borderRadius: '50%', background: 'conic-gradient(from 0deg, transparent 0deg, rgba(199,206,218,0.14) 20deg, transparent 60deg, transparent 180deg, rgba(232,199,122,0.12) 200deg, transparent 240deg)', animation: 'bdHalo 14s linear infinite', filter: 'blur(2px)' }} />}
         {!mobile && sparks.map(([x, y, sc, dl], i) => (
           <span key={i} style={{ position: 'absolute', left: x + '%', top: y + '%', fontSize: 10 + sc * 8, color: i % 3 === 2 ? '#E8C77A' : '#EDF2FA', textShadow: '0 0 8px rgba(235,242,250,.9), 0 0 18px rgba(199,206,218,.6)', animation: 'bdTwinkle ' + (2.6 + (i % 4) * 0.7) + 's ease-in-out ' + dl + 's infinite', pointerEvents: 'none', userSelect: 'none' }}>{i % 2 ? '\u2727' : '\u2726'}</span>
         ))}

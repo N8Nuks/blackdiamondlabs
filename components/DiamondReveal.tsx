@@ -1,4 +1,5 @@
 'use client'
+import RevealBurst from './RevealBurst'
 import React, { useEffect, useState } from 'react'
 
 const FACETS = [
@@ -55,6 +56,7 @@ export default function DiamondReveal() {
         {!mobile && sparks.map(([x, y, sc, dl], i) => (
           <span key={i} style={{ position: 'absolute', left: x + '%', top: y + '%', fontSize: 10 + sc * 8, color: i % 3 === 2 ? '#E8C77A' : '#EDF2FA', textShadow: '0 0 8px rgba(235,242,250,.9), 0 0 18px rgba(199,206,218,.6)', animation: 'bdTwinkle ' + (2.6 + (i % 4) * 0.7) + 's ease-in-out ' + dl + 's infinite', pointerEvents: 'none', userSelect: 'none' }}>{i % 2 ? '\u2727' : '\u2726'}</span>
         ))}
+        <RevealBurst mobile={mobile} />
         <div style={{ animation: mobile ? 'none' : 'bdFloat 6s ease-in-out infinite', position: 'relative', left: mobile ? 0 : 18 }}>
           <img src="/logo-mark.png" alt="Black Diamond Labs" style={{ width: 430, maxWidth: '90%', animation: mobile ? 'bdReveal .6s ease-out both' : 'bdReveal .8s ease-out both, bdAura 3.2s ease-in-out .8s infinite', filter: mobile ? 'drop-shadow(0 0 20px rgba(214,222,235,.5))' : undefined }} />
         </div>

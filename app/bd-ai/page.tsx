@@ -63,7 +63,7 @@ export default function BDAI() {
       <section className="px-6 sm:px-12 py-20" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#E8C77A' }}>For Coaches</p>
-          <h2 className="text-3xl sm:text-4xl font-black mb-5">Your knowledge. <span style={goldText}>Working while you sleep.</span></h2>
+          <h2 className="text-3xl sm:text-4xl font-black mb-5">Your learned knowledge. <span style={goldText}>Available whenever they need you</span></h2>
           <p className="text-sm text-white/40 leading-relaxed mb-10 max-w-xl mx-auto">
             Black Diamond Labs turns a lifetime of coaching into an AI assistant your athletes can reach any hour, any day — built with you, in your voice. You earn the majority share of every subscription to your coach AI. We build it, host it, and keep it fast.
           </p>

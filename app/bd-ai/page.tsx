@@ -18,7 +18,7 @@ export default function BDAI() {
       {/* Hero */}
       <section className="relative z-10 pt-36 pb-16 px-6 sm:px-12 text-center">
         <div className="fixed inset-0 z-0 pointer-events-none">
-          <img src="/bdai-bg.jpg" alt="" className="w-full h-full object-contain object-top" style={{ objectPosition: 'center 15%' }} />
+          <img src="/bdai-bg.jpg" alt="" className="w-full h-full object-cover" style={{ objectPosition: 'center 20%' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.88) 100%)' }} />
         </div>
         <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#E8C77A' }}>Black Diamond AI</p>

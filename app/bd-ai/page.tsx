@@ -78,7 +78,7 @@ export default function BDAI() {
             </div>
             <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-6">
               <h3 className="font-black text-sm mb-2" style={{ color: '#E8C77A' }}>What you earn</h3>
-              <p className="text-xs text-white/40 leading-relaxed">The majority share of your AI's subscription revenue, paid monthly. Your knowledge, your name, your upside.</p>
+              <p className="text-xs text-white/40 leading-relaxed">Profit share with BDL and your brand in multiple markets. Your knowledge, your name, your upside.</p>
             </div>
           </div>
           <a href="/contact#coach"

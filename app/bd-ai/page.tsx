@@ -21,11 +21,13 @@ export default function BDAI() {
           <img src="/bdai-bg.jpg" alt="" className="w-full h-full object-cover" style={{ objectPosition: 'center 20%' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.88) 100%)' }} />
         </div>
+        <div className="relative z-10">
         <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#E8C77A' }}>Black Diamond AI</p>
         <h1 className="text-4xl sm:text-6xl font-black mb-4">Real coaches. <span style={goldText}>Always on.</span></h1>
         <p className="text-sm text-white/40 max-w-xl mx-auto">
           AI coaching assistants built on the real knowledge of proven coaches — their game plans, their training methods, their voice. Pick your coach. Ask like you would at training.
         </p>
+        </div>
       </section>
 
       {/* Coach grid */}

@@ -59,7 +59,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="px-8 sm:px-16 lg:px-32 pb-32">
+      <section className="relative z-10 px-8 sm:px-16 lg:px-32 pb-32">
         <div className="max-w-5xl mx-auto grid lg:grid-cols-3 gap-12">
 
           {/* Left — contact info */}
@@ -212,7 +212,7 @@ function CoachSection() {
     if (r && r.ok) setSent(true); else setErr(true)
   }
   return (
-    <section id="coach" className="px-6 sm:px-12 py-20" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
+    <section id="coach" className="relative z-10 px-6 sm:px-12 py-20" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
       <div className="max-w-2xl mx-auto">
         <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#8B5CF6' }}>Become a BDAI Coach</p>
         <h2 className="text-3xl font-black mb-3">Your knowledge could coach thousands.</h2>

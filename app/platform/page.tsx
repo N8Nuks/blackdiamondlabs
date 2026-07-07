@@ -37,7 +37,7 @@ export default function Platform() {
       </section>
 
       {/* Eight pillars — portal style */}
-      <section className="relative z-10 bg-black py-24 px-8 sm:px-16 lg:px-32">
+      <section className="relative z-10 py-24 px-8 sm:px-16 lg:px-32">
         <div className="max-w-6xl mx-auto">
           <div className="mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
             <div>
@@ -55,7 +55,7 @@ export default function Platform() {
           <div className="grid gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/10 sm:grid-cols-2 lg:grid-cols-4">
             {pillars.map((p, i) => (
               <div key={p.number}
-                className={`relative flex flex-col gap-4 p-6 transition-all duration-300 hover:bg-white/5 group ${p.highlight ? 'bg-yellow-400/5' : 'bg-black'}`}>
+                className={`relative flex flex-col gap-4 p-6 transition-all duration-300 hover:bg-white/5 group ${p.highlight ? 'bg-yellow-400/5' : 'bg-black/85'}`}>
 
                 {/* Number */}
                 <span className="text-xs font-black text-white/15 tabular-nums">{p.number}</span>

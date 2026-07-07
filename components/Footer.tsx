@@ -22,7 +22,7 @@ export default function Footer() {
           {/* Logo left */}
           <div className="flex items-center gap-3">
             <img src="/logo-mark.png" alt="" className="h-6 w-auto" />
-            <span className="text-sm silver-shimmer">Black Diamond Labs</span>
+            <img src="/wordmark.svg" alt="Black Diamond Labs" className="h-6 w-auto opacity-90" />
           </div>
 
           {/* Email right */}

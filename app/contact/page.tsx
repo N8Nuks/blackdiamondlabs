@@ -43,6 +43,10 @@ export default function Contact() {
 
       {/* Hero */}
       <section className="relative pt-40 pb-24 px-8 sm:px-16 lg:px-32 overflow-hidden">
+        <div className="absolute inset-0">
+          <img src="/contact-bg.jpg" alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.78) 60%, #000 100%)' }} />
+        </div>
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, #001525 0%, #000 65%)' }} />
         <div className="relative z-10 max-w-5xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-5" style={{ color: '#C7CEDA' }}>Get In Touch</p>

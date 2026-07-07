@@ -19,6 +19,10 @@ export default function Platform() {
 
       {/* Hero */}
       <section className="relative pt-36 pb-20 px-6 sm:px-12 lg:px-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <img src="/platform-bg.jpg" alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.78) 60%, #000 100%)' }} />
+        </div>
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 0%, #001a2e 0%, #000 70%)' }} />
         <div className="relative z-10 max-w-4xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#C7CEDA' }}>

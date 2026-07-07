@@ -17,6 +17,10 @@ export default function BDAI() {
 
       {/* Hero */}
       <section className="pt-36 pb-16 px-6 sm:px-12 text-center">
+        <div className="absolute inset-0">
+          <img src="/bdai-bg.jpg" alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.78) 60%, #000 100%)' }} />
+        </div>
         <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#E8C77A' }}>Black Diamond AI</p>
         <h1 className="text-4xl sm:text-6xl font-black mb-4">Real coaches. <span style={goldText}>Always on.</span></h1>
         <p className="text-sm text-white/40 max-w-xl mx-auto">

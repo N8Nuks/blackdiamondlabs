@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 const API = 'https://api.blackdiamondlabs.co.nz'
 const KEY_STORE = 'bdai-member-key'
 // Stripe Payment Links — paste each URL between the quotes when created; empty = button goes to /contact
-const STRIPE = { member: '', team: '', club: '', assoc: '' }
+const STRIPE = { member: 'https://buy.stripe.com/test_aFa9ASarL4719uT36K53O00', team: 'https://buy.stripe.com/test_bJe9ASfM5avpePd0YC53O01', club: 'https://buy.stripe.com/test_28EfZg7fzavp6iH8r453O02', assoc: 'https://buy.stripe.com/test_00wfZg1Vf4714azbDg53O03' }
 
 const TIERS = [
   { id: 'member', btn: 'linear-gradient(90deg,#0F7A4D,#34D399,#A7F3D0,#34D399,#0F7A4D)', name: 'Opening Day Patron', monthly: 29, annual: 290, blurb: 'Opening special — rate locked for life. Moves to Individual at $40/mo · $400/yr.', fair: '40 questions per day' },

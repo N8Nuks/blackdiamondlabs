@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 
 const API = 'https://api.blackdiamondlabs.co.nz'
 const KEY_STORE = 'bdai-member-key'
+const VOICE_STORE = 'bdai-voice-on'
 // Stripe Payment Links — paste each URL between the quotes when created; empty = button goes to /contact
 const STRIPE = { member: 'https://buy.stripe.com/test_aFa9ASarL4719uT36K53O00', team: 'https://buy.stripe.com/test_bJe9ASfM5avpePd0YC53O01', club: 'https://buy.stripe.com/test_28EfZg7fzavp6iH8r453O02', assoc: 'https://buy.stripe.com/test_00wfZg1Vf4714azbDg53O03' }
 
@@ -28,15 +29,17 @@ export default function CoachNate() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [voiceOn, setVoiceOn] = useState(false)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [speaking, setSpeaking] = useState(false)
   const keyRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     setJsAlive(true)
     const onErr = (e: ErrorEvent) => setPageError(String(e.message || e.error || 'Unknown page error'))
     window.addEventListener('error', onErr)
     try { const k = localStorage.getItem(KEY_STORE); if (k) setApiKey(k) } catch {}
+    try { if (localStorage.getItem(VOICE_STORE) === '1') setVoiceOn(true) } catch {}
     const ctrl = new AbortController()
     const t = setTimeout(() => ctrl.abort(), 3500)
     fetch(API + '/health', { signal: ctrl.signal })
@@ -71,7 +74,6 @@ export default function CoachNate() {
     return () => { clearInterval(t); window.removeEventListener('resize', fit) }
   }, [apiKey])
 
-
   const saveKey = () => {
     const k = (keyRef.current?.value || '').trim()   // read the DOM directly: autofill-proof
     if (!k) { setError('Type or paste your key first.'); return }
@@ -82,8 +84,30 @@ export default function CoachNate() {
 
   const signOut = () => {
     setApiKey(''); setMsgs([])
+    audioRef.current?.pause()
     try { localStorage.removeItem(KEY_STORE) } catch {}
   }
+
+  const toggleVoice = () => {
+    unlockAudio()                       // tap = user gesture; primes audio for later autoplay
+    setVoiceOn(v => {
+      const next = !v
+      try { localStorage.setItem(VOICE_STORE, next ? '1' : '0') } catch {}
+      if (!next) { audioRef.current?.pause(); setSpeaking(false) }
+      return next
+    })
+  }
+
+  // Prime the audio element on a real user gesture so mobile browsers allow later playback.
+  const unlockAudio = () => {
+    try {
+      if (!audioRef.current) audioRef.current = new Audio()
+      const a = audioRef.current
+      a.muted = true
+      a.play().then(() => { a.pause(); a.muted = false }).catch(() => { a.muted = false })
+    } catch {}
+  }
+
   const speak = async (text: string) => {
     try {
       const r = await fetch(API + '/v1/ask-voice', {
@@ -91,18 +115,27 @@ export default function CoachNate() {
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + apiKey },
         body: JSON.stringify({ message: text }),
       })
-      if (!r.ok) return  // not voice-enabled or error → stay text-only, no noise
+      if (!r.ok) return  // not voice-enabled or upstream error → stay text-only, no noise
       const data = await r.json()
       if (!data.audio_base64) return
-      audioRef.current?.pause()
-      const audio = new Audio('data:audio/mpeg;base64,' + data.audio_base64)
+      const audio = audioRef.current || new Audio()
       audioRef.current = audio
-      audio.play().catch(() => {})
-    } catch {}
+      audio.src = 'data:audio/mpeg;base64,' + data.audio_base64
+      audio.muted = false
+      audio.volume = 1
+      audio.onplay = () => setSpeaking(true)
+      audio.onended = () => setSpeaking(false)
+      audio.onpause = () => setSpeaking(false)
+      await audio.play().catch(err => console.log('voice play blocked:', err))
+    } catch (e) {
+      console.log('voice error:', e)
+    }
   }
+
   const send = async () => {
     const message = input.trim()
     if (!message || busy) return
+    if (voiceOn) unlockAudio()          // re-prime on the send tap for reliable reply playback
     setError(''); setInput(''); setBusy(true)
     const history = msgs.slice(-20)
     setMsgs(m => [...m, { role: 'user', content: message }])
@@ -151,12 +184,12 @@ export default function CoachNate() {
           {!apiKey && <p className="text-sm text-white/40 mt-3">Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond.</p>}
           <p className="text-xs mt-2" style={{ color: online === 'offline' ? '#f87171' : online === 'online' ? '#4ade80' : '#facc15' }}>
             {online === 'checking' ? '' : online === 'online' ? '● Online' : '● Service resting — chat may be unavailable'}
-         </p>
-         {apiKey && (
-            <button onClick={() => { setVoiceOn(v => !v); audioRef.current?.pause() }}
-              className="text-xs mt-2 px-3 py-1 rounded-full border transition-colors"
+          </p>
+          {apiKey && (
+            <button onClick={toggleVoice}
+              className="text-xs mt-3 px-3 py-1 rounded-full border transition-colors"
               style={{ borderColor: voiceOn ? '#4ade80' : '#ffffff30', color: voiceOn ? '#4ade80' : '#ffffff60' }}>
-              {voiceOn ? '🔊 Coach Nate voice: ON' : '🔇 Coach Nate voice: OFF'}
+              {voiceOn ? (speaking ? '🔊 Coach Nate speaking…' : '🔊 Voice: ON') : '🔇 Voice: OFF'}
             </button>
           )}
         </div>
@@ -184,7 +217,7 @@ export default function CoachNate() {
             <div className="flex-1 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto mb-4"  style={{ minHeight: 320, height: apiKey ? 'calc(100vh - 330px)' : undefined, background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
               {msgs.length === 0 && (
                 <p className="text-sm text-white/30 text-center mt-12">
-                  Hi, How are you doing — what are we working on today? Batting order, a spiralling hitter, game plan for the weekend?
+                  Hey there — what are we working on today? Batting order, a spiralling hitter, game plan for the weekend?
                 </p>
               )}
               {msgs.map((m, i) => (

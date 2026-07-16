@@ -32,6 +32,7 @@ export default function CoachNate() {
   const [error, setError] = useState('')
   const [voiceOn, setVoiceOn] = useState(false)
   const [speaking, setSpeaking] = useState(false)
+  const [playingIdx, setPlayingIdx] = useState<number | null>(null)
   const keyRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -130,14 +131,24 @@ export default function CoachNate() {
     } catch {}
   }
 
-  const speak = async (text: string) => {
+  const speakBusy = useRef(false)
+  const speak = async (text: string, idx: number | null = null) => {
+    if (speakBusy.current) return            // ignore taps while a fetch is in flight
+    // Tapping the message that's already playing = stop it
+    if (idx !== null && playingIdx === idx && speaking) {
+      audioRef.current?.pause()
+      setPlayingIdx(null)
+      return
+    }
+    speakBusy.current = true
     try {
+      audioRef.current?.pause()              // stop anything currently playing first
       const r = await fetch(API + '/v1/ask-voice', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + apiKey },
         body: JSON.stringify({ message: text }),
       })
-      if (!r.ok) return  // not voice-enabled or upstream error → stay text-only, no noise
+      if (!r.ok) return
       const data = await r.json()
       if (!data.audio_base64) return
       const audio = audioRef.current || new Audio()
@@ -145,12 +156,14 @@ export default function CoachNate() {
       audio.src = 'data:audio/mpeg;base64,' + data.audio_base64
       audio.muted = false
       audio.volume = 1
-      audio.onplay = () => setSpeaking(true)
-      audio.onended = () => setSpeaking(false)
-      audio.onpause = () => setSpeaking(false)
+      audio.onplay = () => { setSpeaking(true); setPlayingIdx(idx) }
+      audio.onended = () => { setSpeaking(false); setPlayingIdx(null) }
+      audio.onpause = () => { setSpeaking(false); setPlayingIdx(null) }
       await audio.play().catch(err => console.log('voice play blocked:', err))
     } catch (e) {
       console.log('voice error:', e)
+    } finally {
+      speakBusy.current = false
     }
   }
 
@@ -251,13 +264,14 @@ export default function CoachNate() {
                 <div key={i} className={`mb-4 flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${m.role === 'user' ? 'bg-white/15 border border-white/10' : 'border'}`}
                     style={m.role === 'assistant' ? { background: 'rgba(232,199,122,0.12)', borderColor: 'rgba(232,199,122,0.35)', boxShadow: '0 0 18px rgba(232,199,122,0.12)' } : undefined}>
-                    {m.role === 'assistant' && (
-                      <div className="flex items-center justify-between mb-1">
-                        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#E8C77A' }}>Coach Nate</p>
-                        {member?.voice_enabled && (
-                          <button onClick={() => { unlockAudio(); speak(m.content) }}
-                            className="text-[10px] px-2 py-0.5 rounded-full border border-white/15 text-white/40 hover:text-white/80 transition-colors ml-3">
-                            🔊 Replay
+                    {member?.voice_enabled && (
+                          <button onClick={() => { unlockAudio(); speak(m.content, i) }}
+                            className={`text-[10px] px-2 py-0.5 rounded-full border transition-colors ml-3 ${
+                              playingIdx === i
+                                ? 'border-green-400/70 text-green-300'
+                                : 'border-white/15 text-white/40 hover:text-white/80'
+                            }`}>
+                            {playingIdx === i ? '⏸ Playing…' : '🔊 Replay'}
                           </button>
                         )}
                       </div>

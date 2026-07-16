@@ -27,6 +27,7 @@ export default function Admin() {
   const [newLabel, setNewLabel] = useState('')
   const [newTier, setNewTier] = useState<'user' | 'admin'>('user')
   const [minted, setMinted] = useState('')
+  const [confirm, setConfirm] = useState('')
 
   useEffect(() => {
     try { const t = localStorage.getItem(TOKEN_STORE); if (t) { setToken(t); load(t, days) } } catch {}
@@ -234,10 +235,22 @@ export default function Admin() {
                             <div className="flex flex-wrap gap-1.5">
                               <button onClick={() => act(`/admin/keys/${encodeURIComponent(k.label)}/toggle-voice`)}
                                 className="px-2 py-1 rounded border border-white/15 text-white/50 hover:text-white">voice</button>
-                              <button onClick={() => act(`/admin/keys/${encodeURIComponent(k.label)}/toggle-active`)}
-                                className="px-2 py-1 rounded border border-white/15 text-white/50 hover:text-white">{k.active ? 'kill' : 'revive'}</button>
-                              <button onClick={() => act(`/admin/keys/${encodeURIComponent(k.label)}/set-tier/${k.tier === 'admin' ? 'user' : 'admin'}`)}
-                                className="px-2 py-1 rounded border border-white/15 text-white/50 hover:text-white">tier</button>
+                              <button onClick={() => {
+                                  const id = k.label + ':active'
+                                  if (confirm === id) { setConfirm(''); act(`/admin/keys/${encodeURIComponent(k.label)}/toggle-active`) }
+                                  else setConfirm(id)
+                                }}
+                                className={`px-2 py-1 rounded border ${confirm === k.label + ':active' ? 'border-red-400 text-red-300 font-bold' : 'border-white/15 text-white/50 hover:text-white'}`}>
+                                {confirm === k.label + ':active' ? 'sure?' : (k.active ? 'kill' : 'revive')}
+                              </button>
+                              <button onClick={() => {
+                                  const id = k.label + ':tier'
+                                  if (confirm === id) { setConfirm(''); act(`/admin/keys/${encodeURIComponent(k.label)}/set-tier/${k.tier === 'admin' ? 'user' : 'admin'}`) }
+                                  else setConfirm(id)
+                                }}
+                                className={`px-2 py-1 rounded border ${confirm === k.label + ':tier' ? 'border-red-400 text-red-300 font-bold' : 'border-white/15 text-white/50 hover:text-white'}`}>
+                                {confirm === k.label + ':tier' ? 'sure?' : 'tier'}
+                              </button>
                               <button onClick={() => act(`/admin/keys/${encodeURIComponent(k.label)}/reset-today`)}
                                 className="px-2 py-1 rounded border border-white/15 text-white/50 hover:text-white">reset</button>
                             </div>

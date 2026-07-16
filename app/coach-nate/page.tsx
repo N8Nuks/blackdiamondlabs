@@ -17,9 +17,11 @@ const TIERS = [
 ]
 
 type Msg = { role: 'user' | 'assistant'; content: string }
+type Member = { label: string; tier: string; voice_enabled: boolean }
 
 export default function CoachNate() {
   const [apiKey, setApiKey] = useState('')
+  const [member, setMember] = useState<Member | null>(null)
   const [online, setOnline] = useState<'checking' | 'online' | 'offline'>('checking')
   const [healthNote, setHealthNote] = useState('')
   const [jsAlive, setJsAlive] = useState(false)
@@ -38,8 +40,18 @@ export default function CoachNate() {
     setJsAlive(true)
     const onErr = (e: ErrorEvent) => setPageError(String(e.message || e.error || 'Unknown page error'))
     window.addEventListener('error', onErr)
-    try { const k = localStorage.getItem(KEY_STORE); if (k) setApiKey(k) } catch {}
     try { if (localStorage.getItem(VOICE_STORE) === '1') setVoiceOn(true) } catch {}
+    // Restore a saved key and re-validate it so `member` is populated on return visits.
+    try {
+      const k = localStorage.getItem(KEY_STORE)
+      if (k) {
+        setApiKey(k)
+        fetch(API + '/v1/me', { headers: { Authorization: 'Bearer ' + k } })
+          .then(r => (r.ok ? r.json() : null))
+          .then(info => { if (info) setMember(info) })
+          .catch(() => {})
+      }
+    } catch {}
     const ctrl = new AbortController()
     const t = setTimeout(() => ctrl.abort(), 3500)
     fetch(API + '/health', { signal: ctrl.signal })
@@ -74,16 +86,26 @@ export default function CoachNate() {
     return () => { clearInterval(t); window.removeEventListener('resize', fit) }
   }, [apiKey])
 
-  const saveKey = () => {
+  const saveKey = async () => {
     const k = (keyRef.current?.value || '').trim()   // read the DOM directly: autofill-proof
     if (!k) { setError('Type or paste your key first.'); return }
-    setApiKey(k)
-    try { localStorage.setItem(KEY_STORE, k) } catch {}
-    setError('')
+    setError('Checking key…')
+    try {
+      const r = await fetch(API + '/v1/me', { headers: { Authorization: 'Bearer ' + k } })
+      if (r.status === 401) { setError("That key isn't valid or has been deactivated. Check for missing characters and try again."); return }
+      if (!r.ok) { setError('Coach Nate had trouble checking that key (HTTP ' + r.status + '). Try again shortly.'); return }
+      const info: Member = await r.json()
+      setMember(info)
+      setApiKey(k)
+      try { localStorage.setItem(KEY_STORE, k) } catch {}
+      setError('')
+    } catch (e) {
+      setError("Can't reach Coach Nate — connection issue, not your key. Check your internet and try again.")
+    }
   }
 
   const signOut = () => {
-    setApiKey(''); setMsgs([])
+    setApiKey(''); setMsgs([]); setMember(null)
     audioRef.current?.pause()
     try { localStorage.removeItem(KEY_STORE) } catch {}
   }
@@ -185,12 +207,17 @@ export default function CoachNate() {
           <p className="text-xs mt-2" style={{ color: online === 'offline' ? '#f87171' : online === 'online' ? '#4ade80' : '#facc15' }}>
             {online === 'checking' ? '' : online === 'online' ? '● Online' : '● Service resting — chat may be unavailable'}
           </p>
-          {apiKey && (
+          {apiKey && member?.voice_enabled && (
             <button onClick={toggleVoice}
               className="text-xs mt-3 px-3 py-1 rounded-full border transition-colors"
               style={{ borderColor: voiceOn ? '#4ade80' : '#ffffff30', color: voiceOn ? '#4ade80' : '#ffffff60' }}>
               {voiceOn ? (speaking ? '🔊 Coach Nate speaking…' : '🔊 Voice: ON') : '🔇 Voice: OFF'}
             </button>
+          )}
+          {apiKey && member && (
+            <p className="text-[10px] text-white/25 mt-1">
+              Signed in: {member.label}{member.voice_enabled ? ' · voice enabled' : ' · text only'}
+            </p>
           )}
         </div>
 

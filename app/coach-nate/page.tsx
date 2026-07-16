@@ -167,8 +167,8 @@ export default function CoachNate() {
     }
   }
 
-  const send = async () => {
-    const message = input.trim()
+  const send = async (override?: string) => {
+    const message = (override ?? input).trim()
     if (!message || busy) return
     if (voiceOn) unlockAudio()          // re-prime on the send tap for reliable reply playback
     setError(''); setInput(''); setBusy(true)
@@ -256,9 +256,26 @@ export default function CoachNate() {
           <>
             <div className="flex-1 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto mb-4"  style={{ minHeight: 320, height: apiKey ? 'calc(100vh - 330px)' : undefined, background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
               {msgs.length === 0 && (
-                <p className="text-sm text-white/30 text-center mt-12">
-                  Hey there — what are we working on today? Batting order, a spiralling hitter, game plan for the weekend?
-                </p>
+                <div className="text-center mt-10">
+                  <p className="text-sm text-white/30 mb-6">
+                    Hey there — what are we working on today?
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2 px-2">
+                    {[
+                      'Build me a batting order',
+                      'My hitter is in a slump',
+                      'Design a 90-minute training session',
+                      'Game plan for the weekend',
+                      'Help me read the rise ball',
+                      'How do I handle a tough sideline parent?',
+                    ].map(c => (
+                      <button key={c} onClick={() => send(c)}
+                        className="text-xs px-3 py-2 rounded-full border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition-colors">
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               )}
               {msgs.map((m, i) => (
                 <div key={i} className={`mb-4 flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -302,12 +319,31 @@ export default function CoachNate() {
                   ⏹ Stop
                 </button>
               )}
-              <button onClick={send} disabled={busy || !input.trim()} className="rounded-xl px-5 text-sm font-bold text-black disabled:opacity-40" style={gold}>
+              <button onClick={() => send()} disabled={busy || !input.trim()} className="rounded-xl px-5 text-sm font-bold text-black disabled:opacity-40" style={gold}>
                 Send
               </button>
             </div>
             <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-3 self-end transition-colors">Sign out</button>
-          </>
+          </><div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex items-center justify-between">
+              <div>
+                <p className="text-xs font-bold" style={{ color: '#E8C77A' }}>Member downloads</p>
+                <p className="text-[11px] text-white/40">Hitting Notebook — 100 Swings companion</p>
+              </div>
+              <button onClick={async () => {
+                  try {
+                    const r = await fetch(API + '/v1/downloads/hitting-notebook', { headers: { Authorization: 'Bearer ' + apiKey } })
+                    if (!r.ok) { setError(r.status === 404 ? 'Notebook coming very soon — check back!' : 'Download failed (' + r.status + ')'); return }
+                    const blob = await r.blob()
+                    const url = URL.createObjectURL(blob)
+                    const a = document.createElement('a')
+                    a.href = url; a.download = 'Coach-Nate-Hitting-Notebook.pdf'; a.click()
+                    URL.revokeObjectURL(url)
+                  } catch { setError('Download failed — connection issue.') }
+                }}
+                className="text-xs px-4 py-2 rounded-lg border border-white/20 text-white/60 hover:text-white">
+                ⬇ Download
+              </button>
+            </div>
         )}
 
         {/* Pricing */}

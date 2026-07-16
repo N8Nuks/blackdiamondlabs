@@ -251,7 +251,17 @@ export default function CoachNate() {
                 <div key={i} className={`mb-4 flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${m.role === 'user' ? 'bg-white/15 border border-white/10' : 'border'}`}
                     style={m.role === 'assistant' ? { background: 'rgba(232,199,122,0.12)', borderColor: 'rgba(232,199,122,0.35)', boxShadow: '0 0 18px rgba(232,199,122,0.12)' } : undefined}>
-                    {m.role === 'assistant' && <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#E8C77A' }}>Coach Nate</p>}
+                    {m.role === 'assistant' && (
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#E8C77A' }}>Coach Nate</p>
+                        {member?.voice_enabled && (
+                          <button onClick={() => { unlockAudio(); speak(m.content) }}
+                            className="text-[10px] px-2 py-0.5 rounded-full border border-white/15 text-white/40 hover:text-white/80 transition-colors ml-3">
+                            🔊 Replay
+                          </button>
+                        )}
+                      </div>
+                    )}
                     {m.content}
                   </div>
                 </div>
@@ -269,6 +279,12 @@ export default function CoachNate() {
                 rows={2}
                 className="flex-1 rounded-xl bg-black border border-white/15 px-4 py-3 text-sm resize-none focus:outline-none focus:border-white/40"
               />
+              {speaking && (
+                <button onClick={() => { audioRef.current?.pause(); setSpeaking(false) }}
+                  className="rounded-xl px-4 text-sm font-bold border border-red-400/50 text-red-300">
+                  ⏹ Stop
+                </button>
+              )}
               <button onClick={send} disabled={busy || !input.trim()} className="rounded-xl px-5 text-sm font-bold text-black disabled:opacity-40" style={gold}>
                 Send
               </button>

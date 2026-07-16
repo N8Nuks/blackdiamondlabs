@@ -264,7 +264,10 @@ export default function CoachNate() {
                 <div key={i} className={`mb-4 flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${m.role === 'user' ? 'bg-white/15 border border-white/10' : 'border'}`}
                     style={m.role === 'assistant' ? { background: 'rgba(232,199,122,0.12)', borderColor: 'rgba(232,199,122,0.35)', boxShadow: '0 0 18px rgba(232,199,122,0.12)' } : undefined}>
-                    {member?.voice_enabled && (
+                    {m.role === 'assistant' && (
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#E8C77A' }}>Coach Nate</p>
+                        {member?.voice_enabled && (
                           <button onClick={() => { unlockAudio(); speak(m.content, i) }}
                             className={`text-[10px] px-2 py-0.5 rounded-full border transition-colors ml-3 ${
                               playingIdx === i

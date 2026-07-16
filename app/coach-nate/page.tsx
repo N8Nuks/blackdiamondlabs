@@ -27,6 +27,8 @@ export default function CoachNate() {
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [voiceOn, setVoiceOn] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const keyRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
 
@@ -82,7 +84,22 @@ export default function CoachNate() {
     setApiKey(''); setMsgs([])
     try { localStorage.removeItem(KEY_STORE) } catch {}
   }
-
+  const speak = async (text: string) => {
+    try {
+      const r = await fetch(API + '/v1/ask-voice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + apiKey },
+        body: JSON.stringify({ message: text }),
+      })
+      if (!r.ok) return  // not voice-enabled or error → stay text-only, no noise
+      const data = await r.json()
+      if (!data.audio_base64) return
+      audioRef.current?.pause()
+      const audio = new Audio('data:audio/mpeg;base64,' + data.audio_base64)
+      audioRef.current = audio
+      audio.play().catch(() => {})
+    } catch {}
+  }
   const send = async () => {
     const message = input.trim()
     if (!message || busy) return
@@ -100,6 +117,7 @@ export default function CoachNate() {
       if (!r.ok) { setError('Coach Nate is having trouble right now (HTTP ' + r.status + '). Try again shortly.'); return }
       const data = await r.json()
       setMsgs(m => [...m, { role: 'assistant', content: data.reply }])
+      if (voiceOn) speak(data.reply)
     } catch (e) {
       setError('Could not reach Black Diamond AI (' + String((e as Error).message || e) + '). Check your connection and try again.')
     } finally {
@@ -133,8 +151,14 @@ export default function CoachNate() {
           {!apiKey && <p className="text-sm text-white/40 mt-3">Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond.</p>}
           <p className="text-xs mt-2" style={{ color: online === 'offline' ? '#f87171' : online === 'online' ? '#4ade80' : '#facc15' }}>
             {online === 'checking' ? '' : online === 'online' ? '● Online' : '● Service resting — chat may be unavailable'}
-            
-          </p>
+         </p>
+         {apiKey && (
+            <button onClick={() => { setVoiceOn(v => !v); audioRef.current?.pause() }}
+              className="text-xs mt-2 px-3 py-1 rounded-full border transition-colors"
+              style={{ borderColor: voiceOn ? '#4ade80' : '#ffffff30', color: voiceOn ? '#4ade80' : '#ffffff60' }}>
+              {voiceOn ? '🔊 Coach Nate voice: ON' : '🔇 Coach Nate voice: OFF'}
+            </button>
+          )}
         </div>
 
         {!apiKey ? (
@@ -160,7 +184,7 @@ export default function CoachNate() {
             <div className="flex-1 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto mb-4"  style={{ minHeight: 320, height: apiKey ? 'calc(100vh - 330px)' : undefined, background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
               {msgs.length === 0 && (
                 <p className="text-sm text-white/30 text-center mt-12">
-                  Kia ora — what are we working on today? Batting order, a spiralling hitter, game plan for the weekend?
+                  Hi, How are you doing — what are we working on today? Batting order, a spiralling hitter, game plan for the weekend?
                 </p>
               )}
               {msgs.map((m, i) => (

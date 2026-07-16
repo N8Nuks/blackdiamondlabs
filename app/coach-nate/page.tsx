@@ -324,7 +324,7 @@ export default function CoachNate() {
               </button>
             </div>
             <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-3 self-end transition-colors">Sign out</button>
-          </><div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex items-center justify-between">
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex items-center justify-between">
               <div>
                 <p className="text-xs font-bold" style={{ color: '#E8C77A' }}>Member downloads</p>
                 <p className="text-[11px] text-white/40">Hitting Notebook — 100 Swings companion</p>
@@ -344,6 +344,7 @@ export default function CoachNate() {
                 ⬇ Download
               </button>
             </div>
+          </>  
         )}
 
         {/* Pricing */}

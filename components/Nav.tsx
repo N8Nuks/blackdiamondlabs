@@ -6,6 +6,7 @@ export default function Nav() {
 
   const links = [
     { label: 'BDAI', href: '/bd-ai' },
+    { label: 'Performance', href: '/performance' },
     { label: 'Brands', href: '/brands' },
     { label: 'About', href: '/about' },
     { label: 'Platform', href: '/platform' },

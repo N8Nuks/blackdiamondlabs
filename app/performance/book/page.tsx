@@ -82,6 +82,11 @@ export default function Book() {
   return (
     <main className="min-h-screen text-white relative">
       <Nav />
+      <noscript>
+        <div style={{ padding: '140px 24px 24px', textAlign: 'center', fontSize: 14, color: '#f87171', fontWeight: 700 }}>
+          This booking form needs JavaScript, which your browser or network is blocking. Please book from a personal device, or contact info@blackdiamondlabs.co.nz and we&apos;ll book you in directly.
+        </div>
+      </noscript>
       <style>{`@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }`}</style>
       <section className="relative z-10 pt-36 pb-24 px-6">
         <div className="max-w-2xl mx-auto">

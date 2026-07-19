@@ -224,6 +224,18 @@ export default function Home() {
                 larger={true}
               />
               <BrandCard
+                name="Black Diamond Performance"
+                nameSplit={{ first: "Black Diamond ", second: "Performance", secondColor: "#C7CEDA" }}
+                tagline="The Performance Review — LIVE now at launch pricing."
+                taglineStyle={{ color: "#C7CEDA" }}
+                description="Expert video analysis and a live one-on-one consultation with Nathan and Katrina Nukunuku. For softball athletes 10 and over."
+                href="/performance"
+                status="live"
+                accentColor="#C7CEDA"
+                hideEdition={true}
+                larger={true}
+              />
+              <BrandCard
                 name="Grassroots Fantasy"
                 description="Fantasy League platform — support your club, collect player cards, build your squad, score points based on real game results."
                 hideLink

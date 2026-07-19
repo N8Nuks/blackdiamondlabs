@@ -79,6 +79,8 @@ export default function Platform() {
 
                 {p.highlight && (
                   <span className="absolute top-4 right-4 text-xs font-bold px-2 py-0.5 rounded-full"
+                    style={{ backgroundColor: '#FFD70022', color: '#FFD700' }}>
+                    BDAI
                     style={{ backgroundColor: (p as any).tagColor + '22', color: (p as any).tagColor }}>
                     {(p as any).tag}
                   </span>

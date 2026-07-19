@@ -216,7 +216,7 @@ export default function Home() {
                 nameSplit={{ first: "Black Diamond ", second: "Performance", secondColor: "#C7CEDA" }}
                 tagline="The Performance Review — LIVE now at launch pricing."
                 taglineStyle={{ color: "#C7CEDA" }}
-                description="Expert video analysis and a live one-on-one consultation with Nathan and Katrina Nukunuku. For softball athletes 10 and over."
+                description="Expert video analysis and a live one-on-one consultation with Black Diamond Labs personnel - experts in their field."
                 href="/performance"
                 status="live"
                 accentColor="#C7CEDA"

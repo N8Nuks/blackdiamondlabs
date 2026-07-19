@@ -192,7 +192,7 @@ export default function Book() {
             <Check k="consent_progressive">I understand that recommendations are intended to support my development and should be applied progressively.</Check>
             <Check k="consent_medical">I understand that recommendations are not medical advice, and if I am returning from injury I should have appropriate clearance before training.</Check>
             <Check k="consent_contact">I agree that Black Diamond Performance may contact me regarding my booking.</Check>
-            <Check k="consent_terms">I have read and accept the Booking Terms above.</Check>
+            <Check k="consent_terms">I have read and accept the Booking Terms above and the <a href="/terms" target="_blank" className="underline">Terms of Service</a>.</Check>
           </div>
 
           <H>Optional</H>

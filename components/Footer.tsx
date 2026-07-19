@@ -28,6 +28,11 @@ export default function Footer() {
             </span>
           </div>
 
+          {/* Legal links */}
+          <div className="flex items-center gap-6">
+            <a href="/terms" className="text-xs text-white/30 hover:text-white transition-colors">Terms</a>
+            <a href="/privacy" className="text-xs text-white/30 hover:text-white transition-colors">Privacy</a>
+          </div>
           {/* Email right */}
           <a href="mailto:info@blackdiamondlabs.co.nz"
             className="text-xs silver-shimmer hover:opacity-80 transition-opacity">

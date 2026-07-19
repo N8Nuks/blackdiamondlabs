@@ -205,14 +205,14 @@ export default function CoachNate() {
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.88) 55%, #000 100%)' }} />
         </div>
       )}
-      <section className="relative z-10 flex-1 min-h-0 flex flex-col pt-28 pb-6 px-4 sm:px-8 max-w-3xl mx-auto w-full">
+      <section className={`relative z-10 flex-1 min-h-0 flex flex-col ${apiKey ? "pt-16" : "pt-28"} pb-4 px-4 sm:px-8 max-w-3xl mx-auto w-full`}>
         {pageError && (
           <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-xs text-red-300">
             Page error: {pageError}
           </div>
         )}
-        <div className="mb-6 text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2" style={{ color: '#E8C77A' }}>Black Diamond AI</p>
+        <div className={apiKey ? "mb-2 text-center" : "mb-6 text-center"}>
+          {!apiKey && <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2" style={{ color: '#E8C77A' }}>Black Diamond AI</p>}
           <h1 className={apiKey ? "text-2xl font-black" : "text-4xl sm:text-5xl font-black"}>
             Coach <span style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Nate</span>
           </h1>
@@ -323,11 +323,11 @@ export default function CoachNate() {
                 Send
               </button>
             </div>
-            <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-3 self-end transition-colors">Sign out</button>
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex items-center justify-between">
+            <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-2 self-end transition-colors">Sign out</button>
+            <div className="mt-3 rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-2 flex items-center justify-between">
               <div>
                 <p className="text-xs font-bold" style={{ color: '#E8C77A' }}>Member downloads</p>
-                <p className="text-[11px] text-white/40">Hitting Notebook — 100 Swings companion</p>
+                <p className="hidden sm:block text-[11px] text-white/40">Hitting Notebook — 100 Swings companion</p>
               </div>
               <button onClick={async () => {
                   try {

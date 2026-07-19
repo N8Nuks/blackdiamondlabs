@@ -53,7 +53,7 @@ export default function Performance() {
             <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ backgroundColor: '#4ade80' }} />
             <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#4ade80' }}>Now taking bookings</span>
           </div>
-          <h2 className="text-2xl font-black mb-1">The <span style={silverText}>Performance Review</span></h2>
+          <h2 className="text-2xl font-black mb-1">The <span style={silverText}>Performance Review</span> — Diamond Sports</h2>
           <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Online video analysis + live consultation — athletes 10 years and over</p>
           <p className="text-sm text-white/40 leading-relaxed mb-6">
             Submit your footage, then meet Nathan and Katrina online for direct, honest feedback. Every review focuses on one or two key priorities — simple, practical, and immediately applicable. Choose your focus: {AREAS.join(' · ')}.

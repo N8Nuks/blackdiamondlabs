@@ -210,8 +210,8 @@ export default function Book() {
           {err && <p className="mt-8 text-sm font-bold text-red-400">{err}</p>}
 
           <button onClick={submit} disabled={busy}
-            className="mt-10 w-full rounded-full px-8 py-4 text-sm font-black text-black transition-all hover:opacity-90 disabled:opacity-40"
-            style={{ background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
+            className="mt-10 w-full rounded-full px-8 py-4 text-sm font-black transition-all hover:opacity-90 disabled:opacity-40"
+            style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
             {busy ? 'Preparing secure payment…' : 'Continue to secure payment — $99 NZD'}
           </button>
           <p className="mt-3 text-center text-xs text-white/30">You'll be taken to Stripe to complete payment. Your booking is confirmed once payment is complete.</p>

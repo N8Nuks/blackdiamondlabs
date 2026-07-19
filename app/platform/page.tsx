@@ -4,13 +4,13 @@ import Footer from '@/components/Footer'
 export default function Platform() {
   const pillars = [
     { number: '01', name: 'Competition Hub', desc: 'The engine of the sport.', features: 'Fixtures · Scoring · Ladders · Finals · Tournaments', color: '#C7CEDA' },
-    { number: '02', name: 'Athlete Performance', desc: 'Helping athletes improve.', features: 'Training Plans · AI Coaching · Video Analysis · Skill Tracking', color: '#C7CEDA' },
+    { number: '02', name: 'Athlete Performance', desc: 'Helping athletes improve.', features: 'Training Plans · AI Coaching · Video Analysis · Skill Tracking', color: '#C7CEDA', highlight: true, tag: 'BDP', tagColor: '#C7CEDA' },
     { number: '03', name: 'Club & League Operations', desc: 'Helping organisations save time.', features: 'Registrations · Payments · Scheduling · Compliance', color: '#C7CEDA' },
-    { number: '04', name: 'Fan Experience', desc: 'Creating excitement.', features: 'Live Streaming · Highlights · Fantasy · Social Feeds', color: '#C7CEDA' },
+    { number: '04', name: 'Fan Experience', desc: 'Creating excitement.', features: 'Live Streaming · Highlights · Fantasy · Social Feeds', color: '#2d9e4e', highlight: true, tag: 'GF', tagColor: '#2d9e4e' },
     { number: '05', name: 'Commercial Engine', desc: 'Creating prosperity.', features: 'Sponsorship · Ticketing · Merchandise · Crowdfunding', color: '#C7CEDA' },
     { number: '06', name: 'Data & Intelligence', desc: 'The platform\'s competitive advantage.', features: 'AI Insights · Analytics · Benchmarking · Intelligence', color: '#C7CEDA' },
     { number: '07', name: 'Community', desc: 'The social layer.', features: 'Teams · Messaging · Events · Recognition · Volunteers', color: '#C7CEDA' },
-    { number: '08', name: 'Black Diamond AI', desc: 'Legendary Coaching in your pocket', features: 'Training Plans · Game Analysis · Scheduling · Proposals', color: '#FFD700', highlight: true },
+    { number: '08', name: 'Black Diamond AI', desc: 'Legendary Coaching in your pocket', features: 'Training Plans · Game Analysis · Scheduling · Proposals', color: '#FFD700', highlight: true, tag: 'AI', tagColor: '#FFD700' },
   ]
 
   return (
@@ -55,7 +55,8 @@ export default function Platform() {
           <div className="grid gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/10 sm:grid-cols-2 lg:grid-cols-4">
             {pillars.map((p, i) => (
               <div key={p.number}
-                className={`relative flex flex-col gap-4 p-6 transition-all duration-300 hover:bg-white/5 group ${p.highlight ? 'bg-yellow-400/5' : 'bg-black/85'}`}>
+                className={`relative flex flex-col gap-4 p-6 transition-all duration-300 hover:bg-white/5 group ${p.highlight ? '' : 'bg-black/85'}`}
+                style={p.highlight ? { backgroundColor: (p as any).tagColor + '0D' } : undefined}>
 
                 {/* Number */}
                 <span className="text-xs font-black text-white/15 tabular-nums">{p.number}</span>
@@ -78,8 +79,8 @@ export default function Platform() {
 
                 {p.highlight && (
                   <span className="absolute top-4 right-4 text-xs font-bold px-2 py-0.5 rounded-full"
-                    style={{ backgroundColor: '#FFD70022', color: '#FFD700' }}>
-                    AI
+                    style={{ backgroundColor: (p as any).tagColor + '22', color: (p as any).tagColor }}>
+                    {(p as any).tag}
                   </span>
                 )}
               </div>

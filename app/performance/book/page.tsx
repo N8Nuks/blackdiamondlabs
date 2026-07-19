@@ -118,7 +118,7 @@ export default function Book() {
             </>
           )}
 
-          <H>Softball information</H>
+          <H>Diamond Sports information</H>
           <div className="grid sm:grid-cols-2 gap-4">
             <div><label className={labelCls}>Current club</label><input className={inputCls} value={f.club} onChange={set('club')} /></div>
             <div><label className={labelCls}>Representative team(s)</label><input className={inputCls} value={f.rep_teams} onChange={set('rep_teams')} /></div>
@@ -146,7 +146,7 @@ export default function Book() {
 
           <H>Athlete questionnaire</H>
           <div className="space-y-4">
-            <div><label className={labelCls}>Your biggest softball goal over the next 12 months</label><textarea rows={2} className={inputCls} value={f.q_goal} onChange={set('q_goal')} /></div>
+            <div><label className={labelCls}>Your biggest Diamond Sports goal over the next 12 months</label><textarea rows={2} className={inputCls} value={f.q_goal} onChange={set('q_goal')} /></div>
             <div><label className={labelCls}>Why did you choose this area for your review?</label><textarea rows={2} className={inputCls} value={f.q_why_area} onChange={set('q_why_area')} /></div>
             <div><label className={labelCls}>What do you think you do well?</label><textarea rows={2} className={inputCls} value={f.q_strengths} onChange={set('q_strengths')} /></div>
             <div><label className={labelCls}>What would you most like to improve?</label><textarea rows={2} className={inputCls} value={f.q_improve} onChange={set('q_improve')} /></div>

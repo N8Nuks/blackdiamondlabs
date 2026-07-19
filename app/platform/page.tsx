@@ -10,7 +10,7 @@ export default function Platform() {
     { number: '05', name: 'Commercial Engine', desc: 'Creating prosperity.', features: 'Sponsorship · Ticketing · Merchandise · Crowdfunding', color: '#C7CEDA' },
     { number: '06', name: 'Data & Intelligence', desc: 'The platform\'s competitive advantage.', features: 'AI Insights · Analytics · Benchmarking · Intelligence', color: '#C7CEDA' },
     { number: '07', name: 'Community', desc: 'The social layer.', features: 'Teams · Messaging · Events · Recognition · Volunteers', color: '#C7CEDA' },
-    { number: '08', name: 'Black Diamond AI', desc: 'Legendary Coaching in your pocket', features: 'Training Plans · Game Analysis · Scheduling · Proposals', color: '#FFD700', highlight: true, tag: 'AI', tagColor: '#FFD700' },
+    { number: '08', name: 'Black Diamond AI', desc: 'Legendary Coaching in your pocket', features: 'Training Plans · Game Analysis · Scheduling · Proposals', color: '#FFD700', highlight: true, tag: 'BDAI', tagColor: '#FFD700' },
   ]
 
   return (
@@ -79,8 +79,6 @@ export default function Platform() {
 
                 {p.highlight && (
                   <span className="absolute top-4 right-4 text-xs font-bold px-2 py-0.5 rounded-full"
-                    style={{ backgroundColor: '#FFD70022', color: '#FFD700' }}>
-                    BDAI
                     style={{ backgroundColor: (p as any).tagColor + '22', color: (p as any).tagColor }}>
                     {(p as any).tag}
                   </span>

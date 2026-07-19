@@ -22,16 +22,24 @@ function BrandName({ name }: { name: string }) {
       <span style={{ background: 'linear-gradient(90deg,#888,#fff,#ccc,#fff,#888)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite', animationDelay: '0.5s' }}>Solutions</span>
     </span>
   )
+  if (name === 'Black Diamond Performance') return (
+    <span>
+      <span style={{ color: '#ffffff' }}>Black Diamond</span>
+      {' '}
+      <span style={{ background: 'linear-gradient(90deg,#8E9BA8,#E6EAF0,#FFFFFF,#E6EAF0,#8E9BA8)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Performance</span>
+    </span>
+  )
   return <span>{name}</span>
 }
 
 export default function Brands() {
   const brands = [
     { name: 'Grassroots Fantasy', tagline: 'Built for the game you love.', taglineColor: '#2d9e4e', desc: 'Fantasy League platform — support your club, collect player cards, build your squad, score points based on real game results.', status: 'Pending', href: 'https://www.grassrootsfantasy.co.nz', accent: '#2d9e4e' },
-    { name: 'LegacyMint', tagline: 'Your Legacy. Their Dream.', taglineColor: '#FFD700', desc: 'NFT fundraising platform — creating and sharing lasting digital legacies, stories, moments, and memories built to endure.', status: 'In Development', href: '#', accent: '#2596be' },
+    { name: 'LegacyMint', tagline: 'Your Legacy. Their Dream.', taglineColor: '#FFD700', desc: 'NFT fundraising platform — creating and sharing lasting digital legacies, stories, moments, and memories built to endure.', status: 'In Development', href: '#', accent: '#2596be', blur: true },
     { name: 'FutureProof Solutions', tagline: 'Built for what comes next.', taglineColor: '#C0C0C0', desc: "Diversification Education. In a fast changing environment, are you ready for what's next?", status: 'In Development', href: '#', accent: '#FFD700' , blur: true },
     { name: 'SnapTrack', tagline: 'Track every skill. Build every athlete.', taglineColor: '#C7CEDA', desc: 'Skill performance education app built for athletes who want to measure their development.', status: 'In Development', href: '#', accent: '#C7CEDA' , blur: true },
     { name: 'Black Diamond AI', tagline: 'Legendary Coaching in your pocket', taglineColor: '#E8C77A', desc: 'AI coaching assistants built on the real knowledge of proven coaches — their game plans, their methods, their voice. Coach Nate, our pilot coach, is live now for Founding Members.', status: 'Live', href: '/bd-ai', accent: '#E8C77A' },
+    { name: 'Black Diamond Performance', tagline: 'Elite experience. Personalised feedback.', taglineColor: '#C7CEDA', desc: 'Expert video analysis and live one-on-one Performance Review Consultations with Nathan and Katrina Nukunuku. Live now — book at launch pricing.', status: 'Live', href: '/performance', accent: '#C7CEDA' },
     { name: 'Stat-You Hub', tagline: 'Every stat. Every competition. One place.', taglineColor: '#C7CEDA', desc: 'A permanent digital profile for every athlete — every stat from every competition, across an entire career.', status: 'In Development', href: '#', accent: '#C7CEDA' , blur: true },
     { name: 'Sport-Tube', tagline: 'Live sport. For everyone.', taglineColor: '#F87171', desc: 'Live streaming built specifically for minor sports competitions — putting every game in front of every fan.', status: 'In Development', href: '#', accent: '#F87171' , blur: true },
   ]
@@ -92,7 +100,7 @@ export default function Brands() {
                   <p className="text-sm text-white/40 leading-relaxed max-w-lg">{brand.desc}</p>
                 </div>
                 <a href={brand.href} className="shrink-0 inline-flex items-center gap-3 border px-8 py-4 text-sm font-bold text-white hover:bg-white/5 transition-all duration-200" style={{ borderColor: brand.accent }}>
-                  <span style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Enter Platform →</span>
+                  <span style={{ background: brand.accent === '#C7CEDA' ? 'linear-gradient(90deg,#8E9BA8,#E6EAF0,#FFFFFF,#E6EAF0,#8E9BA8)' : 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Enter Platform →</span>
                 </a>
               </div>
             )

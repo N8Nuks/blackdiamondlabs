@@ -30,7 +30,7 @@ export default function Book() {
     q_goal: '', q_why_area: '', q_strengths: '', q_improve: '', q_specific: '',
     q_preparing_for: '', q_injury_clearance: '', q_train_freq: '', q_other: '',
     consent_footage: false, consent_progressive: false, consent_medical: false, consent_contact: false,
-    consent_terms: false, consent_marketing: false, consent_media: false,
+    consent_terms: false, consent_marketing: false, consent_media: false, consent_research: false,
     guardian_participation: false, guardian_present: false, guardian_privacy: false,
   })
   const [err, setErr] = useState(''); const [busy, setBusy] = useState(false)
@@ -57,7 +57,7 @@ export default function Book() {
           q_goal: f.q_goal, q_why_area: f.q_why_area, q_strengths: f.q_strengths, q_improve: f.q_improve,
           q_specific: f.q_specific, q_preparing_for: f.q_preparing_for, q_injury_clearance: f.q_injury_clearance,
           q_train_freq: f.q_train_freq, q_other: f.q_other,
-          consent_terms: f.consent_terms, consent_marketing: f.consent_marketing, consent_media: f.consent_media,
+          consent_terms: f.consent_terms, consent_marketing: f.consent_marketing, consent_media: f.consent_media, consent_research: f.consent_research,
           guardian_consent: f.guardian_participation && f.guardian_present && f.guardian_privacy,
         }),
       })
@@ -180,7 +180,7 @@ export default function Book() {
             <li>— Video footage must be submitted within 14 days of booking, and at least 48 hours before your scheduled consultation. If footage is not received within 14 days, your booking will lapse and you may request a credit or refund.</li>
             <li>— Consultations may be rescheduled free of charge with at least 24 hours' notice.</li>
             <li>— If you cancel before your footage has been reviewed, you will receive a full refund. Once analysis has begun, refunds are at the discretion of Black Diamond Performance. Nothing in these terms limits your rights under the Consumer Guarantees Act 1993.</li>
-            <li>— Your footage and personal information are stored securely, accessed only by Nathan and Katrina Nukunuku for the purpose of your review, and footage is deleted within 30 days of your consultation unless you request otherwise.</li>
+            <li>— Your footage and personal information are stored securely, accessed only by authorised Black Diamond Labs Limited personnel for the purpose of your review, and footage is deleted within 30 days of your consultation unless you request otherwise.</li>
             <li>— Consultations are not recorded unless agreed in advance by all parties.</li>
             <li>— For athletes under 18, a parent, guardian or other responsible adult must be present during the consultation.</li>
             <li>— Launch pricing is available for a limited time and pricing is subject to change.</li>
@@ -199,6 +199,7 @@ export default function Book() {
           <div className="space-y-3">
             <Check k="consent_marketing">I'd like to receive updates from Black Diamond Labs about future programmes, camps and products.</Check>
             <Check k="consent_media">I give permission for short excerpts of my footage or review to be used to promote Black Diamond Performance. (Your review is unaffected either way.)</Check>
+            <Check k="consent_research">I'm happy for my footage to be retained and used in anonymised form to help develop Black Diamond Labs' athlete analysis tools. (Optional — if unticked, footage is deleted within 30 days as standard.)</Check>
           </div>
 
           {isMinor && (

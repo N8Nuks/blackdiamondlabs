@@ -196,7 +196,7 @@ export default function CoachNate() {
   const gold: React.CSSProperties = { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col relative">
+    <main className={`bg-black text-white flex flex-col relative overflow-x-hidden ${apiKey ? "h-[100dvh] overflow-hidden" : "min-h-screen"}`}>
       {apiKey && <canvas id="bdai-rain" className="fixed inset-0 w-full h-full" style={{ opacity: 0.16, pointerEvents: 'none' }} />}
       <Nav />
       {!apiKey && (
@@ -205,7 +205,7 @@ export default function CoachNate() {
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.88) 55%, #000 100%)' }} />
         </div>
       )}
-      <section className="relative z-10 flex-1 flex flex-col pt-28 pb-10 px-4 sm:px-8 max-w-3xl mx-auto w-full">
+      <section className="relative z-10 flex-1 min-h-0 flex flex-col pt-28 pb-6 px-4 sm:px-8 max-w-3xl mx-auto w-full">
         {pageError && (
           <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-xs text-red-300">
             Page error: {pageError}
@@ -254,7 +254,7 @@ export default function CoachNate() {
           </div>
         ) : (
           <>
-            <div className="flex-1 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto mb-4"  style={{ minHeight: 320, height: apiKey ? 'calc(100vh - 330px)' : undefined, background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
+            <div className="flex-1 min-h-0 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto mb-4" style={{ background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
               {msgs.length === 0 && (
                 <div className="text-center mt-10">
                   <p className="text-sm text-white/30 mb-6">
@@ -311,7 +311,7 @@ export default function CoachNate() {
                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }}
                 placeholder="Ask Coach Nate…"
                 rows={2}
-                className="flex-1 rounded-xl bg-black border border-white/15 px-4 py-3 text-sm resize-none focus:outline-none focus:border-white/40"
+                className="flex-1 rounded-xl bg-black border border-white/15 px-4 py-3 resize-none focus:outline-none focus:border-white/40" style={{ fontSize: 16 }}
               />
               {speaking && (
                 <button onClick={() => { audioRef.current?.pause(); setSpeaking(false) }}

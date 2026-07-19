@@ -21,7 +21,7 @@ export default function Privacy() {
           <P>We use your information to deliver the service you purchased, communicate with you about your booking or subscription, improve our services, and — only where you have opted in — send you updates about Black Diamond Labs programmes and products. You can opt out of marketing at any time by replying to any email or contacting us.</P>
 
           <H>Video footage</H>
-          <P>Footage submitted for a Performance Review is stored securely, accessed only by Nathan and Katrina Nukunuku for the purpose of your review, and deleted within 30 days of your consultation unless you request otherwise. Footage is never used for promotion unless you have given explicit optional consent at booking.</P>
+          <P>Footage submitted for a Performance Review is stored securely, accessed only by authorised Black Diamond Labs Limited personnel for the purpose of your review, and deleted within 30 days of your consultation unless you request otherwise. Footage is never used for promotion unless you have given explicit optional consent at booking.</P>
 
           <H>Children and young athletes</H>
           <P>Our Performance services are available to athletes aged 10 and over. For athletes under 18 we collect parent/guardian contact details and require parent/guardian consent for the collection and use of the athlete&apos;s information and footage. A parent, guardian or other responsible adult must be present during online consultations.</P>

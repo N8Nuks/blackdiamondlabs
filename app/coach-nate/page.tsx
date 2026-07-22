@@ -263,11 +263,11 @@ export default function CoachNate() {
                   <div className="flex flex-wrap justify-center gap-2 px-2">
                     {[
                       'Build me a batting order',
-                      'My hitter is in a slump',
                       'Design a 90-minute training session',
-                      'Game plan for the weekend',
-                      'Help me read the rise ball',
                       'How do I handle a tough sideline parent?',
+                      'Build me an off-season hitting programme',
+                      'How should I run a selection conversation?',
+                      'What can you help me with?',
                     ].map(c => (
                       <button key={c} onClick={() => send(c)}
                         className="text-xs px-3 py-2 rounded-full border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition-colors">
@@ -282,19 +282,22 @@ export default function CoachNate() {
                   <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${m.role === 'user' ? 'bg-white/15 border border-white/10' : 'border'}`}
                     style={m.role === 'assistant' ? { background: 'rgba(232,199,122,0.12)', borderColor: 'rgba(232,199,122,0.35)', boxShadow: '0 0 18px rgba(232,199,122,0.12)' } : undefined}>
                     {m.role === 'assistant' && (
-                      <div className="flex items-center justify-between mb-1">
-                        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#E8C77A' }}>Coach Nate</p>
-                        {member?.voice_enabled && (
-                          <button onClick={() => { unlockAudio(); speak(m.content, i) }}
-                            className={`text-[10px] px-2 py-0.5 rounded-full border transition-colors ml-3 ${
-                              playingIdx === i
-                                ? 'border-green-400/70 text-green-300'
-                                : 'border-white/15 text-white/40 hover:text-white/80'
-                            }`}>
-                            {playingIdx === i ? '⏸ Playing…' : '🔊 Replay'}
+                      <div className="flex items-center gap-1.5 ml-3">
+                          <button onClick={() => navigator.clipboard?.writeText(m.content)}
+                            className="text-[10px] px-2 py-0.5 rounded-full border border-white/15 text-white/40 hover:text-white/80 transition-colors">
+                            📋 Copy
                           </button>
-                        )}
-                      </div>
+                          {member?.voice_enabled && (
+                            <button onClick={() => { unlockAudio(); speak(m.content, i) }}
+                              className={`text-[10px] px-2 py-0.5 rounded-full border transition-colors ${
+                                playingIdx === i
+                                  ? 'border-green-400/70 text-green-300'
+                                  : 'border-white/15 text-white/40 hover:text-white/80'
+                              }`}>
+                              {playingIdx === i ? '⏸ Playing…' : '🔊 Replay'}
+                            </button>
+                          )}
+                        </div>
                     )}
                     {m.content}
                   </div>

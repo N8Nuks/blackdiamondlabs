@@ -10,7 +10,7 @@ const VOICE_STORE = 'bdai-voice-on'
 const STRIPE = { member: 'https://buy.stripe.com/test_aFa9ASarL4719uT36K53O00', team: 'https://buy.stripe.com/test_bJe9ASfM5avpePd0YC53O01', club: 'https://buy.stripe.com/test_28EfZg7fzavp6iH8r453O02', assoc: 'https://buy.stripe.com/test_00wfZg1Vf4714azbDg53O03' }
 
 const TIERS = [
-  { id: 'member', btn: 'linear-gradient(90deg,#0F7A4D,#34D399,#A7F3D0,#34D399,#0F7A4D)', name: 'Opening Day Patron', monthly: 29, annual: 290, blurb: 'Opening special — rate locked for life. Moves to Individual at $40/mo · $400/yr.', fair: '40 questions per day' },
+  { id: 'member', btn: 'linear-gradient(90deg,#0F7A4D,#34D399,#A7F3D0,#34D399,#0F7A4D)', name: 'Opening Day Patron', monthly: 29, annual: 290, blurb: blurb: 'Opening special — rate locked for life. Coach Nate remembers your season. Moves to Individual at $40/mo · $400/yr.', fair: '40 questions per day' },
   { id: 'team', btn: 'linear-gradient(90deg,#8C5A2B,#CD7F32,#F0C08A,#CD7F32,#8C5A2B)', name: 'Team', monthly: 59, annual: 590, blurb: 'One coaching staff, one squad. Shared access for your team.', fair: '3 member keys' },
   { id: 'club', btn: 'linear-gradient(90deg,#9AA4B2,#C7CEDA,#F4F7FB,#C7CEDA,#9AA4B2)', name: 'Club', monthly: 99, annual: 990, blurb: 'Club development pathways and Elite coaching aide always on hand.', fair: '5 member keys' },
   { id: 'assoc', btn: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', name: 'Association', monthly: 225, annual: 2250, blurb: 'Tool kit must have for Representative Coaches and Development Officers.', fair: '15 member keys' },
@@ -216,7 +216,7 @@ export default function CoachNate() {
           <h1 className={apiKey ? "text-2xl font-black" : "text-4xl sm:text-5xl font-black"}>
             Coach <span style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Nate</span>
           </h1>
-          {!apiKey && <p className="text-sm text-white/40 mt-3">Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond.</p>}
+          {!apiKey && <p className="text-sm text-white/40 mt-3">Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond — and he remembers your season, session to session.</p>}
           <p className="text-xs mt-2" style={{ color: online === 'offline' ? '#f87171' : online === 'online' ? '#4ade80' : '#facc15' }}>
             {online === 'checking' ? '' : online === 'online' ? '● Online' : '● Service resting — chat may be unavailable'}
           </p>
@@ -327,27 +327,50 @@ export default function CoachNate() {
               </button>
             </div>
             <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-2 self-end transition-colors">Sign out</button>
-            <div className="mt-3 rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-2 flex items-center justify-between">
-              <div>
-                <p className="text-xs font-bold" style={{ color: '#E8C77A' }}>Member downloads</p>
-                <p className="hidden sm:block text-[11px] text-white/40">Hitting Notebook — 100 Swings companion</p>
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+              <p className="text-xs font-bold" style={{ color: '#E8C77A' }}>Member downloads</p>
+              <p className="text-[11px] text-white/35 mb-1">New tools added monthly.</p>
+              <div className="flex items-center justify-between py-2 border-t border-white/5">
+                <div className="pr-3">
+                  <p className="text-xs text-white/80 font-semibold">Nate's Black Book — Hitting</p>
+                  <p className="text-[11px] text-white/40">33-page printable A5 · six philosophies · 100 Swings logs · pitch-by-pitch at-bat grids · pitcher scouting cards · season review</p>
+                </div>
+                <button onClick={async () => {
+                    try {
+                      const r = await fetch(API + '/v1/downloads/hitting-notebook', { headers: { Authorization: 'Bearer ' + apiKey } })
+                      if (!r.ok) { setError('Download failed (' + r.status + ')'); return }
+                      const blob = await r.blob()
+                      const url = URL.createObjectURL(blob)
+                      const a = document.createElement('a')
+                      a.href = url; a.download = 'Coach-Nate-Hitting-Notebook.pdf'; a.click()
+                      URL.revokeObjectURL(url)
+                    } catch { setError('Download failed — connection issue.') }
+                  }}
+                  className="text-xs px-4 py-2 rounded-lg border border-white/20 text-white/60 hover:text-white shrink-0">
+                  ⬇ Download
+                </button>
               </div>
-              <button onClick={async () => {
-                  try {
-                    const r = await fetch(API + '/v1/downloads/hitting-notebook', { headers: { Authorization: 'Bearer ' + apiKey } })
-                    if (!r.ok) { setError(r.status === 404 ? 'Notebook coming very soon — check back!' : 'Download failed (' + r.status + ')'); return }
-                    const blob = await r.blob()
-                    const url = URL.createObjectURL(blob)
-                    const a = document.createElement('a')
-                    a.href = url; a.download = 'Coach-Nate-Hitting-Notebook.pdf'; a.click()
-                    URL.revokeObjectURL(url)
-                  } catch { setError('Download failed — connection issue.') }
-                }}
-                className="text-xs px-4 py-2 rounded-lg border border-white/20 text-white/60 hover:text-white">
-                ⬇ Download
-              </button>
-            </div>
-          </>  
+              <div className="flex items-center justify-between py-2 border-t border-white/5">
+                <div className="pr-3">
+                  <p className="text-xs text-white/80 font-semibold">100 Swings Wall Card</p>
+                  <p className="text-[11px] text-white/40">One-page A4 · the whole programme at a glance · print it, laminate it, stick it in the shed</p>
+                </div>
+                <button onClick={async () => {
+                    try {
+                      const r = await fetch(API + '/v1/downloads/wall-card-100-swings', { headers: { Authorization: 'Bearer ' + apiKey } })
+                      if (!r.ok) { setError('Download failed (' + r.status + ')'); return }
+                      const blob = await r.blob()
+                      const url = URL.createObjectURL(blob)
+                      const a = document.createElement('a')
+                      a.href = url; a.download = '100-Swings-Wall-Card.pdf'; a.click()
+                      URL.revokeObjectURL(url)
+                    } catch { setError('Download failed — connection issue.') }
+                  }}
+                  className="text-xs px-4 py-2 rounded-lg border border-white/20 text-white/60 hover:text-white shrink-0">
+                  ⬇ Download
+                </button>
+              </div>
+            </div>  
         )}
 
         {/* Pricing */}

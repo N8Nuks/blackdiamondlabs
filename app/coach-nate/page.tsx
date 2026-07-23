@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 const API = 'https://api.blackdiamondlabs.co.nz'
 const KEY_STORE = 'bdai-member-key'
 const VOICE_STORE = 'bdai-voice-on'
-// Stripe Payment Links — paste each URL between the quotes when created; empty = button goes to /contact
+// Stripe Payment Links — swap to live URLs at the Stripe live-flip
 const STRIPE = { member: 'https://buy.stripe.com/test_aFa9ASarL4719uT36K53O00', team: 'https://buy.stripe.com/test_bJe9ASfM5avpePd0YC53O01', club: 'https://buy.stripe.com/test_28EfZg7fzavp6iH8r453O02', assoc: 'https://buy.stripe.com/test_00wfZg1Vf4714azbDg53O03' }
 
 const TIERS = [
@@ -16,6 +16,20 @@ const TIERS = [
   { id: 'assoc', btn: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', name: 'Association', monthly: 225, annual: 2250, blurb: 'Tool kit must have for Representative Coaches and Development Officers.', fair: '15 member keys' },
 ]
 
+const CHIPS = [
+  'Build me a batting order',
+  'Design a 90-minute training session',
+  'How do I handle a tough sideline parent?',
+  'Build me an off-season hitting programme',
+  'How should I run a selection conversation?',
+  'What can you help me with?',
+]
+
+const DOWNLOADS = [
+  { slug: 'hitting-notebook', title: "Nate's Black Book — Hitting", desc: '33-page printable A5 · six philosophies · 100 Swings logs · pitch-by-pitch at-bat grids · pitcher scouting cards · season review', file: 'Coach-Nate-Hitting-Notebook.pdf' },
+  { slug: 'wall-card-100-swings', title: '100 Swings Wall Card', desc: 'One-page A4 · the whole programme at a glance · print it, laminate it, stick it in the shed', file: '100-Swings-Wall-Card.pdf' },
+]
+
 type Msg = { role: 'user' | 'assistant'; content: string }
 type Member = { label: string; tier: string; voice_enabled: boolean }
 
@@ -23,8 +37,6 @@ export default function CoachNate() {
   const [apiKey, setApiKey] = useState('')
   const [member, setMember] = useState<Member | null>(null)
   const [online, setOnline] = useState<'checking' | 'online' | 'offline'>('checking')
-  const [healthNote, setHealthNote] = useState('')
-  const [jsAlive, setJsAlive] = useState(false)
   const [pageError, setPageError] = useState('')
   const [msgs, setMsgs] = useState<Msg[]>([])
   const [input, setInput] = useState('')
@@ -36,13 +48,12 @@ export default function CoachNate() {
   const keyRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const speakBusy = useRef(false)
 
   useEffect(() => {
-    setJsAlive(true)
     const onErr = (e: ErrorEvent) => setPageError(String(e.message || e.error || 'Unknown page error'))
     window.addEventListener('error', onErr)
     try { if (localStorage.getItem(VOICE_STORE) === '1') setVoiceOn(true) } catch {}
-    // Restore a saved key and re-validate it so `member` is populated on return visits.
     try {
       const k = localStorage.getItem(KEY_STORE)
       if (k) {
@@ -56,8 +67,8 @@ export default function CoachNate() {
     const ctrl = new AbortController()
     const t = setTimeout(() => ctrl.abort(), 3500)
     fetch(API + '/health', { signal: ctrl.signal })
-      .then(r => { setOnline(r.ok ? 'online' : 'offline'); if (!r.ok) setHealthNote('HTTP ' + r.status) })
-      .catch(e => { setOnline('offline'); setHealthNote(e.name === 'AbortError' ? 'timed out' : String(e.message || e)) })
+      .then(r => setOnline(r.ok ? 'online' : 'offline'))
+      .catch(() => setOnline('offline'))
       .finally(() => clearTimeout(t))
     return () => window.removeEventListener('error', onErr)
   }, [])
@@ -88,7 +99,7 @@ export default function CoachNate() {
   }, [apiKey])
 
   const saveKey = async () => {
-    const k = (keyRef.current?.value || '').trim()   // read the DOM directly: autofill-proof
+    const k = (keyRef.current?.value || '').trim()
     if (!k) { setError('Type or paste your key first.'); return }
     setError('Checking key…')
     try {
@@ -100,7 +111,7 @@ export default function CoachNate() {
       setApiKey(k)
       try { localStorage.setItem(KEY_STORE, k) } catch {}
       setError('')
-    } catch (e) {
+    } catch {
       setError("Can't reach Coach Nate — connection issue, not your key. Check your internet and try again.")
     }
   }
@@ -112,16 +123,15 @@ export default function CoachNate() {
   }
 
   const toggleVoice = () => {
-    unlockAudio()                       // tap = user gesture; primes audio for later autoplay
+    unlockAudio()
     setVoiceOn(v => {
       const next = !v
       try { localStorage.setItem(VOICE_STORE, next ? '1' : '0') } catch {}
-      if (!next) { audioRef.current?.pause(); setSpeaking(false) }
+      if (!next) { audioRef.current?.pause(); setSpeaking(false); setPlayingIdx(null) }
       return next
     })
   }
 
-  // Prime the audio element on a real user gesture so mobile browsers allow later playback.
   const unlockAudio = () => {
     try {
       if (!audioRef.current) audioRef.current = new Audio()
@@ -131,10 +141,8 @@ export default function CoachNate() {
     } catch {}
   }
 
-  const speakBusy = useRef(false)
   const speak = async (text: string, idx: number | null = null) => {
-    if (speakBusy.current) return            // ignore taps while a fetch is in flight
-    // Tapping the message that's already playing = stop it
+    if (speakBusy.current) return
     if (idx !== null && playingIdx === idx && speaking) {
       audioRef.current?.pause()
       setPlayingIdx(null)
@@ -142,7 +150,7 @@ export default function CoachNate() {
     }
     speakBusy.current = true
     try {
-      audioRef.current?.pause()              // stop anything currently playing first
+      audioRef.current?.pause()
       const r = await fetch(API + '/v1/ask-voice', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + apiKey },
@@ -170,7 +178,7 @@ export default function CoachNate() {
   const send = async (override?: string) => {
     const message = (override ?? input).trim()
     if (!message || busy) return
-    if (voiceOn) unlockAudio()          // re-prime on the send tap for reliable reply playback
+    if (voiceOn) unlockAudio()
     setError(''); setInput(''); setBusy(true)
     const history = msgs.slice(-20)
     setMsgs(m => [...m, { role: 'user', content: message }])
@@ -193,10 +201,22 @@ export default function CoachNate() {
     }
   }
 
-  const gold: React.CSSProperties = { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }
+  const download = async (slug: string, filename: string) => {
+    try {
+      const r = await fetch(API + '/v1/downloads/' + slug, { headers: { Authorization: 'Bearer ' + apiKey } })
+      if (!r.ok) { setError(r.status === 404 ? 'Coming very soon — check back!' : 'Download failed (' + r.status + ')'); return }
+      const blob = await r.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url; a.download = filename; a.click()
+      URL.revokeObjectURL(url)
+    } catch { setError('Download failed — connection issue.') }
+  }
 
+  const gold: React.CSSProperties = { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }
+ 
   return (
-    <main className={`bg-black text-white flex flex-col relative overflow-x-hidden ${apiKey ? "h-[100dvh] overflow-hidden" : "min-h-screen"}`}>
+    <main className="min-h-screen bg-black text-white flex flex-col relative">
       {apiKey && <canvas id="bdai-rain" className="fixed inset-0 w-full h-full" style={{ opacity: 0.16, pointerEvents: 'none' }} />}
       <Nav />
       {!apiKey && (
@@ -205,14 +225,14 @@ export default function CoachNate() {
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.88) 55%, #000 100%)' }} />
         </div>
       )}
-      <section className={`relative z-10 flex-1 min-h-0 flex flex-col ${apiKey ? "pt-16" : "pt-28"} pb-4 px-4 sm:px-8 max-w-3xl mx-auto w-full`}>
+      <section className="relative z-10 flex-1 flex flex-col pt-28 pb-10 px-4 sm:px-8 max-w-3xl mx-auto w-full">
         {pageError && (
           <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-xs text-red-300">
             Page error: {pageError}
           </div>
         )}
-        <div className={apiKey ? "mb-2 text-center" : "mb-6 text-center"}>
-          {!apiKey && <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2" style={{ color: '#E8C77A' }}>Black Diamond AI</p>}
+        <div className="mb-6 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2" style={{ color: '#E8C77A' }}>Black Diamond AI</p>
           <h1 className={apiKey ? "text-2xl font-black" : "text-4xl sm:text-5xl font-black"}>
             Coach <span style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Nate</span>
           </h1>
@@ -254,21 +274,14 @@ export default function CoachNate() {
           </div>
         ) : (
           <>
-            <div className="flex-1 min-h-0 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto mb-4" style={{ background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
+            <div className="flex-1 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto mb-4" style={{ minHeight: 320, height: 'calc(100vh - 380px)', background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
               {msgs.length === 0 && (
                 <div className="text-center mt-10">
                   <p className="text-sm text-white/30 mb-6">
                     Hey there — what are we working on today?
                   </p>
                   <div className="flex flex-wrap justify-center gap-2 px-2">
-                    {[
-                      'Build me a batting order',
-                      'Design a 90-minute training session',
-                      'How do I handle a tough sideline parent?',
-                      'Build me an off-season hitting programme',
-                      'How should I run a selection conversation?',
-                      'What can you help me with?',
-                    ].map(c => (
+                    {CHIPS.map(c => (
                       <button key={c} onClick={() => send(c)}
                         className="text-xs px-3 py-2 rounded-full border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition-colors">
                         {c}
@@ -282,7 +295,9 @@ export default function CoachNate() {
                   <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${m.role === 'user' ? 'bg-white/15 border border-white/10' : 'border'}`}
                     style={m.role === 'assistant' ? { background: 'rgba(232,199,122,0.12)', borderColor: 'rgba(232,199,122,0.35)', boxShadow: '0 0 18px rgba(232,199,122,0.12)' } : undefined}>
                     {m.role === 'assistant' && (
-                      <div className="flex items-center gap-1.5 ml-3">
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#E8C77A' }}>Coach Nate</p>
+                        <div className="flex items-center gap-1.5 ml-3">
                           <button onClick={() => navigator.clipboard?.writeText(m.content)}
                             className="text-[10px] px-2 py-0.5 rounded-full border border-white/15 text-white/40 hover:text-white/80 transition-colors">
                             📋 Copy
@@ -298,6 +313,7 @@ export default function CoachNate() {
                             </button>
                           )}
                         </div>
+                      </div>
                     )}
                     {m.content}
                   </div>
@@ -314,10 +330,10 @@ export default function CoachNate() {
                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }}
                 placeholder="Ask Coach Nate…"
                 rows={2}
-                className="flex-1 rounded-xl bg-black border border-white/15 px-4 py-3 resize-none focus:outline-none focus:border-white/40" style={{ fontSize: 16 }}
+                className="flex-1 rounded-xl bg-black border border-white/15 px-4 py-3 text-sm resize-none focus:outline-none focus:border-white/40"
               />
               {speaking && (
-                <button onClick={() => { audioRef.current?.pause(); setSpeaking(false) }}
+                <button onClick={() => { audioRef.current?.pause(); setSpeaking(false); setPlayingIdx(null) }}
                   className="rounded-xl px-4 text-sm font-bold border border-red-400/50 text-red-300">
                   ⏹ Stop
                 </button>
@@ -326,50 +342,23 @@ export default function CoachNate() {
                 Send
               </button>
             </div>
-            <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-2 self-end transition-colors">Sign out</button>
+            <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-3 self-end transition-colors">Sign out</button>
+
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
               <p className="text-xs font-bold" style={{ color: '#E8C77A' }}>Member downloads</p>
               <p className="text-[11px] text-white/35 mb-1">New tools added monthly.</p>
-              <div className="flex items-center justify-between py-2 border-t border-white/5">
-                <div className="pr-3">
-                  <p className="text-xs text-white/80 font-semibold">Nate's Black Book — Hitting</p>
-                  <p className="text-[11px] text-white/40">33-page printable A5 · six philosophies · 100 Swings logs · pitch-by-pitch at-bat grids · pitcher scouting cards · season review</p>
+              {DOWNLOADS.map(d => (
+                <div key={d.slug} className="flex items-center justify-between py-2 border-t border-white/5">
+                  <div className="pr-3">
+                    <p className="text-xs text-white/80 font-semibold">{d.title}</p>
+                    <p className="text-[11px] text-white/40">{d.desc}</p>
+                  </div>
+                  <button onClick={() => download(d.slug, d.file)}
+                    className="text-xs px-4 py-2 rounded-lg border border-white/20 text-white/60 hover:text-white shrink-0">
+                    ⬇ Download
+                  </button>
                 </div>
-                <button onClick={async () => {
-                    try {
-                      const r = await fetch(API + '/v1/downloads/hitting-notebook', { headers: { Authorization: 'Bearer ' + apiKey } })
-                      if (!r.ok) { setError('Download failed (' + r.status + ')'); return }
-                      const blob = await r.blob()
-                      const url = URL.createObjectURL(blob)
-                      const a = document.createElement('a')
-                      a.href = url; a.download = 'Coach-Nate-Hitting-Notebook.pdf'; a.click()
-                      URL.revokeObjectURL(url)
-                    } catch { setError('Download failed — connection issue.') }
-                  }}
-                  className="text-xs px-4 py-2 rounded-lg border border-white/20 text-white/60 hover:text-white shrink-0">
-                  ⬇ Download
-                </button>
-              </div>
-              <div className="flex items-center justify-between py-2 border-t border-white/5">
-                <div className="pr-3">
-                  <p className="text-xs text-white/80 font-semibold">100 Swings Wall Card</p>
-                  <p className="text-[11px] text-white/40">One-page A4 · the whole programme at a glance · print it, laminate it, stick it in the shed</p>
-                </div>
-                <button onClick={async () => {
-                    try {
-                      const r = await fetch(API + '/v1/downloads/wall-card-100-swings', { headers: { Authorization: 'Bearer ' + apiKey } })
-                      if (!r.ok) { setError('Download failed (' + r.status + ')'); return }
-                      const blob = await r.blob()
-                      const url = URL.createObjectURL(blob)
-                      const a = document.createElement('a')
-                      a.href = url; a.download = '100-Swings-Wall-Card.pdf'; a.click()
-                      URL.revokeObjectURL(url)
-                    } catch { setError('Download failed — connection issue.') }
-                  }}
-                  className="text-xs px-4 py-2 rounded-lg border border-white/20 text-white/60 hover:text-white shrink-0">
-                  ⬇ Download
-                </button>
-              </div>
+              ))}
             </div>
           </>
         )}

@@ -370,7 +370,8 @@ export default function CoachNate() {
                   ⬇ Download
                 </button>
               </div>
-            </div>  
+            </div>
+          </>
         )}
 
         {/* Pricing */}

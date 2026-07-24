@@ -30,7 +30,7 @@ export default function Footer() {
 
           {/* Legal links */}
           <div className="flex items-center gap-6">
-            <a href="/terms" className="text-xs text-white/30 hover:text-white transition-colors">Terms</a>
+            <a href="/terms" className="text-xs text-white/30 hover:text-white transition-colors">Terms</a><a href="https://billing.stripe.com/p/login/4gM28q9uOeIe0BMb71ak000" ...>Manage subscription</a>
             <a href="/privacy" className="text-xs text-white/30 hover:text-white transition-colors">Privacy</a>
           </div>
           {/* Email right */}

@@ -28,6 +28,7 @@ const CHIPS = [
 const DOWNLOADS = [
   { slug: 'hitting-notebook', title: "Nate's Black Book — Hitting", desc: '33-page printable A5 · six philosophies · 100 Swings logs · pitch-by-pitch at-bat grids · pitcher scouting cards · season review', file: 'Coach-Nate-Hitting-Notebook.pdf' },
   { slug: 'wall-card-100-swings', title: '100 Swings Wall Card', desc: 'One-page A4 · the whole programme at a glance · print it, laminate it, stick it in the shed', file: '100-Swings-Wall-Card.pdf' },
+  { slug: 'cheat-sheet', title: 'Coach Nate Cheat Sheet', desc: 'Two-page A4 · the best prompts for hitters, coaches, and administrators · how to get the most out of your membership', file: 'Coach-Nate-Cheat-Sheet.pdf' },
 ]
 
 type Msg = { role: 'user' | 'assistant'; content: string }

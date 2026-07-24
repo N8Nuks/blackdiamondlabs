@@ -462,7 +462,7 @@ export default function CoachNate() {
           </div>
         </div>
       </section>
-      {!apiKey && <Footer />}
+      {!apiKey && <div className="relative z-10"><Footer /></div>}
     </main>
   )
 }

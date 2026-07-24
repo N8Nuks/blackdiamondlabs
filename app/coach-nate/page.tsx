@@ -93,7 +93,7 @@ export default function CoachNate() {
   const speakBusy = useRef(false)
 
   useEffect(() => {
-    const onErr = (e: ErrorEvent) => setPageError(String(e.message || e.error || 'Unknown page error'))
+    const onErr = (e: ErrorEvent) => { if (e.message && e.message !== 'Script error.') setPageError(String(e.message)) }
     window.addEventListener('error', onErr)
     try { if (localStorage.getItem(VOICE_STORE) === '1') setVoiceOn(true) } catch {}
     try {

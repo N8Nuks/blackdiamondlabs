@@ -230,7 +230,7 @@ function CoachSection() {
             <textarea name="record" required value={f.record} onChange={h} rows={4} placeholder="Your coaching record — titles, teams, rep honours, years at the top" className={ic + ' resize-none'} />
             <textarea name="why" required value={f.why} onChange={h} rows={3} placeholder="Why would athletes subscribe to your coaching AI?" className={ic + ' resize-none'} />
             {err && <p className="text-xs text-red-400">Something went wrong — try again or email info@blackdiamondlabs.co.nz</p>}
-            <button type="submit" className="self-start rounded-lg px-10 py-4 text-sm font-bold uppercase tracking-widest text-white"
+            <button type="submit" className="self-center rounded-lg px-10 py-4 text-sm font-bold uppercase tracking-widest text-white"
               style={{ background: 'linear-gradient(90deg,#5B21B6,#8B5CF6,#A78BFA,#8B5CF6,#5B21B6)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>
               Apply to Coach
             </button>

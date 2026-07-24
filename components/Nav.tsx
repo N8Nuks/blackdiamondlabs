@@ -15,7 +15,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 sm:px-12 py-4 bg-black/90 backdrop-blur-md border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 sm:px-12 py-4 bg-black/90 backdrop-blur-md border-b border-white/5" style={{ paddingTop: 'calc(1rem + env(safe-area-inset-top))' }}>
 
         {/* Logo */}
         <a href="/" className="flex items-center gap-3">
@@ -46,7 +46,7 @@ export default function Nav() {
 
       {/* Mobile menu overlay */}
       {open && (
-        <div className="fixed inset-0 z-40 bg-black flex flex-col items-center justify-center gap-10 md:hidden"
+        <div className="fixed inset-0 z-40 bg-black flex flex-col items-center justify-center gap-10 md:hidden" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
           onClick={() => setOpen(false)}>
           {links.map(l => (
             <a key={l.label} href={l.href}

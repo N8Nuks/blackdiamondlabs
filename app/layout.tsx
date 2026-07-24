@@ -6,10 +6,16 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const michroma = Michroma({ subsets: ['latin'], weight: '400', variable: '--font-michroma' })
 
 export const metadata: Metadata = {
+  manifest: '/manifest.json',
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    apple: '/apple-touch-icon.png',
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Coach Nate',
   },
   title: 'Black Diamond Labs — Technology for grassroots sport',
   description: 'Black Diamond Labs builds digital platforms for grassroots sport communities. Home of Grassroots Fantasy — Northern Fastpitch Series Edition.',

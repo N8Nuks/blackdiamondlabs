@@ -443,6 +443,24 @@ export default function CoachNate() {
             })}
           </div>
         </div>
+        {/* Get the App */}
+        <div className="mt-16 max-w-2xl mx-auto">
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: '#E8C77A' }}>Get the App</p>
+          <h2 className="text-2xl font-black text-center mb-2">Coach Nate on your home screen.</h2>
+          <p className="text-xs text-white/40 text-center mb-8">No app store needed — add the site to your phone and it opens like an app, straight to Coach Nate.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-white/60">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+              <h3 className="font-black text-white mb-3">iPhone / iPad</h3>
+              <p className="mb-2"><span className="text-white/90 font-semibold">Add:</span> Open this page in Safari → tap the Share button (square with arrow) → scroll and tap <span className="text-white/90">Add to Home Screen</span> → Add.</p>
+              <p><span className="text-white/90 font-semibold">Remove:</span> Press and hold the Coach Nate icon → <span className="text-white/90">Remove App</span> → Delete from Home Screen. Your subscription is not affected.</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+              <h3 className="font-black text-white mb-3">Android</h3>
+              <p className="mb-2"><span className="text-white/90 font-semibold">Add:</span> Open this page in Chrome → tap the ⋮ menu → <span className="text-white/90">Add to Home screen</span> (or "Install app") → Add.</p>
+              <p><span className="text-white/90 font-semibold">Remove:</span> Press and hold the icon → <span className="text-white/90">Uninstall</span> (or drag to Remove). Your subscription is not affected.</p>
+            </div>
+          </div>
+        </div>
       </section>
       {!apiKey && <Footer />}
     </main>

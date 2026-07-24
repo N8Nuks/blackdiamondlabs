@@ -51,7 +51,7 @@ export default function Performance() {
         <div className="max-w-3xl mx-auto rounded-2xl border p-8 sm:p-10" style={{ borderColor: '#C7CEDA40', background: '#C7CEDA08' }}>
           <div className="flex items-center gap-2 mb-5">
             <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ backgroundColor: '#4ade80' }} />
-            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#4ade80' }}>Now taking bookings</span>
+            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#13c5e5' }}>Bookings Live Soon</span>
           </div>
           <h2 className="text-2xl font-black mb-1">The <span style={silverText}>Performance Review</span> — Diamond Sports</h2>
           <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Online video analysis + live consultation — Diamond Sport athletes 10 years and over</p>

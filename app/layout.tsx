@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Michroma } from 'next/font/google'
 import './globals.css'
 
@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   },
   title: 'Black Diamond Labs — Technology for grassroots sport',
   description: 'Black Diamond Labs builds digital platforms for grassroots sport communities. Home of Grassroots Fantasy — Northern Fastpitch Series Edition.',
+}
+
+export const viewport: Viewport = {
+  themeColor: '#050505',
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({

@@ -7,10 +7,50 @@ const API = 'https://api.blackdiamondlabs.co.nz'
 const KEY_STORE = 'bdai-member-key'
 const VOICE_STORE = 'bdai-voice-on'
 // Stripe Payment Links — swap to live URLs at the Stripe live-flip
-const STRIPE = { member: 'https://buy.stripe.com/test_aFa9ASarL4719uT36K53O00', team: 'https://buy.stripe.com/test_bJe9ASfM5avpePd0YC53O01', club: 'https://buy.stripe.com/test_28EfZg7fzavp6iH8r453O02', assoc: 'https://buy.stripe.com/test_00wfZg1Vf4714azbDg53O03' }
+const STRIPE = {
+  nz: {
+    member: { m: 'https://buy.stripe.com/4gM28q9uOeIe0BMb71ak000', a: 'https://buy.stripe.com/4gMbJ0eP8cA61FQejdak001' },
+    team:   { m: 'https://buy.stripe.com/fZudR87mGarY98ib71ak008', a: 'https://buy.stripe.com/3cI8wOcH02ZwgAKdf9ak009' },
+    club:   { m: 'https://buy.stripe.com/5kQfZgfTcarY5W6df9ak00g', a: 'https://buy.stripe.com/00w28q8qK43A4S24IDak00h' },
+    assoc:  { m: 'https://buy.stripe.com/dRm3cu5ey0Rodoy3Ezak00o', a: 'https://buy.stripe.com/bJe8wO6iC0Ro1FQejdak00p' },
+  },
+  au: {
+    member: { m: 'https://buy.stripe.com/6oU28q5ey0Ro70a1wrak006', a: 'https://buy.stripe.com/cNi5kCdL4gQmfwGcb5ak007' },
+    team:   { m: 'https://buy.stripe.com/8x26oGeP857Eacm3Ezak00e', a: 'https://buy.stripe.com/6oU8wOeP81Vsdoy4IDak00f' },
+    club:   { m: 'https://buy.stripe.com/28EeVcdL48jQbgq0snak00n', a: 'https://buy.stripe.com/5kQ3cufTcbw2esC1wrak00m' },
+    assoc:  { m: 'https://buy.stripe.com/aFaaEW7mG1Vs5W6b71ak00u', a: 'https://buy.stripe.com/7sYaEWcH057E84e6QLak00v' },
+  },
+  us: {
+    member: { m: 'https://buy.stripe.com/dRmcN48qK57E70aejdak002', a: 'https://buy.stripe.com/4gM3cu9uO7fM98i8YTak003' },
+    team:   { m: 'https://buy.stripe.com/eVqdR836q7fM3NYb71ak00a', a: 'https://buy.stripe.com/28EdR8eP857E84eejdak00b' },
+    club:   { m: 'https://buy.stripe.com/7sY7sK5eygQm70a1wrak00i', a: 'https://buy.stripe.com/8x2cN4eP88jQ1FQfnhak00j' },
+    assoc:  { m: 'https://buy.stripe.com/8x2bJ06iCeIecku5MHak00q', a: 'https://buy.stripe.com/5kQ7sK8qKarY3NYejdak00r' },
+  },
+  jp: {
+    member: { m: 'https://buy.stripe.com/28E7sKbCW9nUcku7UPak004', a: 'https://buy.stripe.com/14AcN436q9nUckudf9ak005' },
+    team:   { m: 'https://buy.stripe.com/7sY8wOfTccA6bgqdf9ak00c', a: 'https://buy.stripe.com/fZu00icH09nU3NYfnhak00d' },
+    club:   { m: 'https://buy.stripe.com/4gMdR89uO9nUacmfnhak00k', a: 'https://buy.stripe.com/00w9ASfTc2Zw4S25MHak00l' },
+    assoc:  { m: 'https://buy.stripe.com/8x2cN49uO6bIesCgrlak00s', a: 'https://buy.stripe.com/6oUcN48qKfMi84ea2Xak00t' },
+  },
+} as const
+
+const MARKETS = [
+  { id: 'nz', flag: '🇳🇿', label: 'NZD', cur: 'NZ$', note: 'All prices NZD. Rest of world welcome here.' },
+  { id: 'au', flag: '🇦🇺', label: 'AUD', cur: 'A$', note: 'All prices AUD.' },
+  { id: 'us', flag: '🇺🇸', label: 'USD', cur: 'US$', note: 'All prices USD.' },
+  { id: 'jp', flag: '🇯🇵', label: 'JPY', cur: '¥', note: 'All prices JPY.' },
+] as const
+type MarketId = typeof MARKETS[number]['id']
+
+const PRICES: Record<MarketId, Record<string, { m: number; a: number }>> = {
+  nz: { member: { m: 29, a: 290 }, team: { m: 59, a: 590 }, club: { m: 99, a: 990 }, assoc: { m: 225, a: 2250 } },
+  au: { member: { m: 25, a: 250 }, team: { m: 49, a: 490 }, club: { m: 85, a: 850 }, assoc: { m: 189, a: 1890 } },
+  us: { member: { m: 29, a: 290 }, team: { m: 59, a: 590 }, club: { m: 99, a: 990 }, assoc: { m: 225, a: 2250 } },
+  jp: { member: { m: 2980, a: 29800 }, team: { m: 5980, a: 59800 }, club: { m: 9800, a: 98000 }, assoc: { m: 21800, a: 218000 } },
+}
 
 const TIERS = [
-  { id: 'member', btn: 'linear-gradient(90deg,#0F7A4D,#34D399,#A7F3D0,#34D399,#0F7A4D)', name: 'Opening Day Patron', monthly: 29, annual: 290, blurb: 'Opening special — rate locked for life. Coach Nate remembers your season. Moves to Individual at $40/mo · $400/yr.', fair: '40 questions per day' },
+  { id: 'member', btn: 'linear-gradient(90deg,#0F7A4D,#34D399,#A7F3D0,#34D399,#0F7A4D)', name: 'Opening Day Patron', monthly: 29, annual: 290, blurb: 'Opening special — rate locked for life. Coach Nate remembers your season. Moves to Individual at $39/mo · $390/yr.', fair: '40 questions per day' },
   { id: 'team', btn: 'linear-gradient(90deg,#8C5A2B,#CD7F32,#F0C08A,#CD7F32,#8C5A2B)', name: 'Team', monthly: 59, annual: 590, blurb: 'One coaching staff, one squad. Shared access for your team.', fair: '3 member keys' },
   { id: 'club', btn: 'linear-gradient(90deg,#9AA4B2,#C7CEDA,#F4F7FB,#C7CEDA,#9AA4B2)', name: 'Club', monthly: 99, annual: 990, blurb: 'Club development pathways and Elite coaching aide always on hand.', fair: '5 member keys' },
   { id: 'assoc', btn: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', name: 'Association', monthly: 225, annual: 2250, blurb: 'Tool kit must have for Representative Coaches and Development Officers.', fair: '15 member keys' },
@@ -36,6 +76,7 @@ type Member = { label: string; tier: string; voice_enabled: boolean }
 
 export default function CoachNate() {
   const [apiKey, setApiKey] = useState('')
+  const [market, setMarket] = useState<MarketId>('nz')
   const [member, setMember] = useState<Member | null>(null)
   const [online, setOnline] = useState<'checking' | 'online' | 'offline'>('checking')
   const [pageError, setPageError] = useState('')
@@ -368,21 +409,34 @@ export default function CoachNate() {
         <div className="mt-16" style={{ display: apiKey ? 'none' : undefined }}>
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: '#E8C77A' }}>Price of Greatness</p>
           <h2 className="text-2xl sm:text-3xl font-black text-center mb-2">Back the Coach. Lock your rate.</h2>
-          <p className="text-xs text-white/40 text-center mb-10">All prices NZD. Annual = two months free. Fair Use Policy applies to keep Coach Nate fast for everyone.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {TIERS.map(t => (
-              <div key={t.id} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 flex flex-col">
-                <h3 className="font-black text-lg">{t.name}</h3>
-                <p className="text-xs text-white/40 mt-1 mb-4 flex-1">{t.blurb}</p>
-                <p className="text-3xl font-black">${t.monthly}<span className="text-sm font-semibold text-white/40">/mo</span></p>
-                <p className="text-xs text-white/40 mb-1">or ${t.annual}/yr</p>
-                <p className="text-[11px] mb-4" style={{ color: '#E8C77A' }}>{t.fair}</p>
-                <a href={STRIPE[t.id as keyof typeof STRIPE] || '/contact'}
-                  className="rounded-lg py-2.5 text-center text-xs font-bold uppercase tracking-widest text-black" style={{ background: (t as any).btn, backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>
-                  {STRIPE[t.id as keyof typeof STRIPE] ? 'Subscribe' : 'Get in touch'}
-                </a>
-              </div>
+          <div className="flex justify-center gap-2 mb-3">
+            {MARKETS.map(mk => (
+              <button key={mk.id} onClick={() => setMarket(mk.id)}
+                className={`rounded-full px-3 py-1.5 text-xs font-bold border transition-colors ${market === mk.id ? 'border-white/60 bg-white/10 text-white' : 'border-white/10 bg-transparent text-white/40'}`}>
+                {mk.flag} {mk.label}
+              </button>
             ))}
+          </div>
+          <p className="text-xs text-white/40 text-center mb-10">{MARKETS.find(mk => mk.id === market)!.note} Annual = two months free. Fair Use Policy applies to keep Coach Nate fast for everyone.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {TIERS.map(t => {
+              const cur = MARKETS.find(mk => mk.id === market)!.cur
+              const p = PRICES[market][t.id]
+              const links = STRIPE[market][t.id as keyof typeof STRIPE['nz']]
+              return (
+                <div key={t.id} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 flex flex-col">
+                  <h3 className="font-black text-lg">{t.name}</h3>
+                  <p className="text-xs text-white/40 mt-1 mb-4 flex-1">{t.blurb}</p>
+                  <p className="text-3xl font-black">{cur}{p.m.toLocaleString()}<span className="text-sm font-semibold text-white/40">/mo</span></p>
+                  <p className="text-xs text-white/40 mb-1">or <a href={links.a} className="underline decoration-white/30 hover:text-white/70">{cur}{p.a.toLocaleString()}/yr</a></p>
+                  <p className="text-[11px] mb-4" style={{ color: '#E8C77A' }}>{t.fair}</p>
+                  <a href={links.m}
+                    className="rounded-lg py-2.5 text-center text-xs font-bold uppercase tracking-widest text-black" style={{ background: (t as any).btn, backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>
+                    Subscribe
+                  </a>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>

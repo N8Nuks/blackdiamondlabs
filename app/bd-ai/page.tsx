@@ -46,7 +46,9 @@ export default function BDAI() {
             <p className="text-sm text-white/40 leading-relaxed flex-1">
               Two decades dominating at the Elite level of the game. Game plans, training, in-game calls, mental application, Rep selections, Scouting & more. All built from a real WINNING coaching record and not generic advice. What it takes to win, at your fingertips.
             </p>
-            <span className="mt-6 text-sm font-bold" style={goldText}>Enter Access Area →</span>
+            <span className="mt-6 self-start inline-flex items-center border px-8 py-4 text-sm font-bold transition-all duration-200" style={{ borderColor: '#E8C77A' }}>
+              <span style={goldText}>Enter Access Area</span>
+            </span>
           </a>
 
           {/* Coming slots */}

@@ -214,7 +214,7 @@ export default function Home() {
               <BrandCard
                 name="Black Diamond Performance"
                 nameSplit={{ first: "Black Diamond ", second: "Performance", secondColor: "#C7CEDA" }}
-                tagline="The Performance Review — LIVE now at launch pricing."
+                tagline="The Performance Review — LIVE SOON at launch pricing."
                 taglineStyle={{ color: "#C7CEDA" }}
                 description="Expert video analysis and a live one-on-one consultation with Black Diamond Labs personnel - experts in their field."
                 href="/performance"

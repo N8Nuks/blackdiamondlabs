@@ -41,7 +41,7 @@ export default function Performance() {
             Expert video analysis and a live one-on-one consultation with Nathan and Katrina Nukunuku — two of New Zealand&apos;s most accomplished softball players, with 40+ years of combined international experience.
           </p>
           <a href="/performance/book" className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black transition-all hover:opacity-90" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
-            Book your Performance Review →
+            Book your Performance Review Soon
           </a>
         </div>
       </section>
@@ -63,7 +63,7 @@ export default function Performance() {
             <span className="text-4xl font-black" style={silverText}>$99 NZD</span>
           </div>
           <p className="text-xs text-white/40 mb-6">Launch price — for a limited time only. Inclusive of GST where applicable.</p>
-          <a href="/performance/book" className="text-sm font-bold" style={silverText}>Book now and lock in the launch price →</a>
+          <span className="text-sm font-bold" style={silverText}>Bookings available soon</span>
         </div>
       </section>
 

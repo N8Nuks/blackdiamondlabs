@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { Analytics } from '@vercel/analytics/react'
 import { Inter, Michroma } from 'next/font/google'
 import './globals.css'
 
@@ -33,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${michroma.variable}`}>{children}</body>
+      <body className={`${inter.variable} ${michroma.variable}`}>{children}<Analytics /></body>
     </html>
   )
 }

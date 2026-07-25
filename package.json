@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint"
   },
+  "@vercel/analytics": "^1.4.1",
   "dependencies": {
     "next": "16.2.9",
     "react": "19.2.4",

@@ -27,6 +27,11 @@ export default function BDAI() {
         <p className="text-sm text-white/40 max-w-xl mx-auto">
           AI coaching assistants built on the real knowledge of proven coaches — their game plans, their training methods, their voice. Pick your coach. Ask like you would at training.
         </p>
+        <a href="/coach-nate"
+          className="inline-block mt-8 border px-10 py-4 text-sm font-bold uppercase tracking-widest"
+          style={{ borderColor: '#E8C77A', background: '#E8C77A14' }}>
+          <span style={goldText}>Talk to Coach Nate →</span>
+        </a>
         </div>
       </section>
 

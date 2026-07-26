@@ -14,11 +14,12 @@ interface BrandCardProps {
   larger?: boolean
   hideLink?: boolean
   linkGold?: boolean
+  secondaryCta?: { label: string; href: string }
 }
 
 export default function BrandCard({
   name, edition, tagline, taglineSplit, description, href, status, accentColor,
-  nameSplit, taglineStyle, hideEdition, nameStyle, larger, hideLink, linkGold
+  nameSplit, taglineStyle, hideEdition, nameStyle, larger, hideLink, linkGold, secondaryCta
 }: BrandCardProps) {
   const isLive = status === 'live'
 
@@ -92,6 +93,13 @@ export default function BrandCard({
       {isLive && !hideLink && (
         <a href={href} className="mt-8 inline-flex items-center justify-center text-sm font-semibold text-white/60 hover:text-white transition-colors">
           <span style={linkGold ? { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' } : undefined}>Enter Platform →</span>
+        </a>
+      )}
+      {isLive && secondaryCta && (
+        <a href={secondaryCta.href}
+          className="mt-4 self-center inline-flex items-center justify-center border px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-all hover:bg-white/5"
+          style={{ borderColor: accentColor, color: accentColor, background: `${accentColor}14` }}>
+          {secondaryCta.label}
         </a>
       )}
     </div>

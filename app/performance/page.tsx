@@ -41,10 +41,8 @@ export default function Performance() {
           <p className="text-sm text-white/40 max-w-xl mx-auto">
             Expert video analysis and a live one-on-one consultation with Nathan and Katrina Nukunuku — two of New Zealand&apos;s most accomplished softball players, with 40+ years of combined international experience.
           </p>
-          <a href="/performance/book" className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black transition-all hover:opacity-90" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
-            Bookings available soon — Join the list
           <p className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
-            Bookings available soon — Register and Join the lis below
+            Bookings available soon — register below
           </p>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import PerformanceWaitlist from '@/components/PerformanceWaitlist'
 
 const silverText: React.CSSProperties = { background: 'linear-gradient(90deg,#8E9BA8,#E6EAF0,#FFFFFF,#E6EAF0,#8E9BA8)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }
 
@@ -41,8 +42,10 @@ export default function Performance() {
             Expert video analysis and a live one-on-one consultation with Nathan and Katrina Nukunuku — two of New Zealand&apos;s most accomplished softball players, with 40+ years of combined international experience.
           </p>
           <a href="/performance/book" className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black transition-all hover:opacity-90" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
-            Book your Performance Review Soon
-          </a>
+            Bookings available soon — Join the list
+          <p className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
+            Bookings available soon — register below
+          </p>
         </div>
       </section>
 
@@ -63,7 +66,7 @@ export default function Performance() {
             <span className="text-4xl font-black" style={silverText}>$99 NZD</span>
           </div>
           <p className="text-xs text-white/40 mb-6">Launch price — for a limited time only. Inclusive of GST where applicable.</p>
-          <span className="text-sm font-bold" style={silverText}>Bookings available soon</span>
+          <PerformanceWaitlist />
         </div>
       </section>
 

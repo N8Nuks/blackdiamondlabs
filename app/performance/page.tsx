@@ -44,7 +44,7 @@ export default function Performance() {
           <a href="/performance/book" className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black transition-all hover:opacity-90" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
             Bookings available soon — Join the list
           <p className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
-            Bookings available soon — register below
+            Bookings available soon — Register and Join the lis below
           </p>
         </div>
       </section>

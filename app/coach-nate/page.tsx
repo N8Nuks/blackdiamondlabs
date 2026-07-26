@@ -438,6 +438,7 @@ export default function CoachNate() {
             </div>
             <button onClick={signOut} className="text-xs text-white/25 hover:text-white/60 mt-3 self-end transition-colors">Sign out</button>
 
+            {member?.tier !== 'trial' && (
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
               <p className="text-xs font-bold" style={{ color: '#E8C77A' }}>Member downloads</p>
               <p className="text-[11px] text-white/35 mb-1">New tools added monthly.</p>
@@ -454,6 +455,7 @@ export default function CoachNate() {
                 </div>
               ))}
             </div>
+            )}
           </>
         )}
 

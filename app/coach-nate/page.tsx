@@ -77,6 +77,9 @@ type Member = { label: string; tier: string; voice_enabled: boolean }
 export default function CoachNate() {
   const [apiKey, setApiKey] = useState('')
   const [market, setMarket] = useState<MarketId>('nz')
+  const [trialEmail, setTrialEmail] = useState('')
+  const [trialBusy, setTrialBusy] = useState(false)
+  const [trialMsg, setTrialMsg] = useState('')
   const [member, setMember] = useState<Member | null>(null)
   const [online, setOnline] = useState<'checking' | 'online' | 'offline'>('checking')
   const [pageError, setPageError] = useState('')
@@ -143,7 +146,30 @@ export default function CoachNate() {
     }, 55)
     return () => { clearInterval(t); window.removeEventListener('resize', fit) }
   }, [apiKey])
-
+  const startTrial = async () => {
+    if (trialBusy || !trialEmail.includes('@')) return
+    setTrialBusy(true); setTrialMsg('')
+    try {
+      const r = await fetch(API + '/v1/trial', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trialEmail.trim() }),
+      })
+      const data = await r.json().catch(() => ({}))
+      if (r.ok && data.api_key) {
+        setTrialMsg('Key created — also emailed to you. Dropping you in…')
+        if (keyRef.current) keyRef.current.value = data.api_key
+        setTimeout(() => saveKey(), 600)
+      } else {
+        setTrialMsg(data.detail || 'Something went wrong — try again or use the contact page.')
+      }
+    } catch {
+      setTrialMsg('Connection issue — try again in a moment.')
+    } finally {
+      setTrialBusy(false)
+    }
+  }
+  
   const saveKey = async () => {
     const k = (keyRef.current?.value || '').trim()
     if (!k) { setError('Type or paste your key first.'); return }
@@ -316,7 +342,29 @@ export default function CoachNate() {
               Enter
             </button>
             {error && <p className="text-xs text-red-400 mt-3">{error}</p>}
-            <p className="text-xs text-white/30 mt-6">Not a member yet? Pricing below — or <a href="/contact" className="underline hover:text-white">get in touch</a>.</p>
+
+            <div className="mt-8 pt-6 border-t border-white/10 text-left">
+              <p className="text-sm font-black text-center mb-1" style={{ color: '#E8C77A' }}>Not a member? Try him free.</p>
+              <p className="text-xs text-white/40 text-center mb-4">3 questions, no card needed. Ask something hard.</p>
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  value={trialEmail}
+                  onChange={e => setTrialEmail(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && startTrial()}
+                  placeholder="Your email"
+                  className="flex-1 rounded-lg bg-black border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                />
+                <button onClick={startTrial} disabled={trialBusy || !trialEmail.includes('@')}
+                  className="rounded-lg px-5 text-sm font-bold border disabled:opacity-40 shrink-0"
+                  style={{ borderColor: '#E8C77A', color: '#E8C77A' }}>
+                  {trialBusy ? '...' : 'Try free'}
+                </button>
+              </div>
+              {trialMsg && <p className="text-xs text-white/50 mt-3 text-center">{trialMsg}</p>}
+            </div>
+
+            <p className="text-xs text-white/30 mt-6">Pricing below — or <a href="/contact" className="underline hover:text-white">get in touch</a>.</p>
           </div>
         ) : (
           <>

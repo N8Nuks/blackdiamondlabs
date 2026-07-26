@@ -169,7 +169,7 @@ export default function CoachNate() {
       setTrialBusy(false)
     }
   }
-  
+
   const saveKey = async () => {
     const k = (keyRef.current?.value || '').trim()
     if (!k) { setError('Type or paste your key first.'); return }
@@ -346,19 +346,19 @@ export default function CoachNate() {
             <div className="mt-8 pt-6 border-t border-white/10 text-left">
               <p className="text-sm font-black text-center mb-1" style={{ color: '#E8C77A' }}>Not a member? Try him free.</p>
               <p className="text-xs text-white/40 text-center mb-4">3 questions, no card needed. Ask something hard.</p>
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-3">
                 <input
                   type="email"
                   value={trialEmail}
                   onChange={e => setTrialEmail(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && startTrial()}
                   placeholder="Your email"
-                  className="flex-1 rounded-lg bg-black border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                  className="w-full rounded-lg bg-black border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
                 />
                 <button onClick={startTrial} disabled={trialBusy || !trialEmail.includes('@')}
-                  className="rounded-lg px-5 text-sm font-bold border disabled:opacity-40 shrink-0"
+                  className="w-full rounded-lg py-3 text-sm font-bold uppercase tracking-widest border disabled:opacity-40"
                   style={{ borderColor: '#E8C77A', color: '#E8C77A' }}>
-                  {trialBusy ? '...' : 'Try free'}
+                  {trialBusy ? 'Creating your key…' : 'Try free'}
                 </button>
               </div>
               {trialMsg && <p className="text-xs text-white/50 mt-3 text-center">{trialMsg}</p>}

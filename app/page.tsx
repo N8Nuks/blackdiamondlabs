@@ -202,7 +202,7 @@ export default function Home() {
                 name="Black Diamond AI"
                 linkGold
                 nameSplit={{ first: "Black Diamond ", second: "AI", secondColor: "#FFD700" }}
-                tagline="Coach Nate — LIVE now for Founding Members."
+                tagline="Coach Nate — LIVE now at Founding Member rate."
                 taglineStyle={{ color: "#E8C77A" }}
                 description="An AI coaching assistant built on two decades at the top of the game. Game plans, training, in-game calls, the mental side."
                 href="/bd-ai"

@@ -80,19 +80,6 @@ export default function CoachNate() {
   const [trialEmail, setTrialEmail] = useState('')
   const [trialBusy, setTrialBusy] = useState(false)
   const [trialMsg, setTrialMsg] = useState('')
-
-  // Restore chat after an accidental refresh (session-scoped only)
-  useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem('bdai-chat')
-      if (saved) setMsgs(JSON.parse(saved))
-    } catch {}
-  }, [])
-  useEffect(() => {
-    try {
-      if (msgs.length > 0) sessionStorage.setItem('bdai-chat', JSON.stringify(msgs))
-    } catch {}
-  }, [msgs])
   const [member, setMember] = useState<Member | null>(null)
   const [online, setOnline] = useState<'checking' | 'online' | 'offline'>('checking')
   const [pageError, setPageError] = useState('')
@@ -108,6 +95,19 @@ export default function CoachNate() {
   const chatRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const speakBusy = useRef(false)
+
+  // Restore chat after an accidental refresh (session-scoped only)
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem('bdai-chat')
+      if (saved) setMsgs(JSON.parse(saved))
+    } catch {}
+  }, [])
+  useEffect(() => {
+    try {
+      if (msgs.length > 0) sessionStorage.setItem('bdai-chat', JSON.stringify(msgs))
+    } catch {}
+  }, [msgs])
 
   useEffect(() => {
     const onErr = (e: ErrorEvent) => {

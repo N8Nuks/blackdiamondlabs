@@ -1,0 +1,9 @@
+# Query: 3 questions
+# ContextLines: 1
+
+1 result - 1 file
+
+app/coach-nate/page.tsx:
+  364                <p className="text-sm font-black text-center mb-1" style={{ color: '#E8C77A' }}>Not a member? Try him free.</p>
+  365:               <p className="text-xs text-white/40 text-center mb-4">5 questions, no card needed. Ask something hard.</p>
+  366                <div className="flex flex-col gap-3">

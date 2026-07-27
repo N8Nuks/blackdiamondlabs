@@ -453,7 +453,11 @@ export default function CoachNate() {
                 Send
               </button>
             </div>
-            <button onClick={signOut} className="text-xs mt-3 self-end px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">Sign out</button>
+            <div className="flex gap-2 mt-3 self-end">
+              <button onClick={() => { setMsgs([]); try { sessionStorage.removeItem('bdai-chat') } catch {} }}
+                className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">New chat</button>
+              <button onClick={signOut} className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">Sign out</button>
+            </div>
 
             {member?.tier !== 'trial' && (
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4">

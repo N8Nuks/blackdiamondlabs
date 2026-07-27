@@ -137,7 +137,7 @@ export default function CoachNate() {
   }, [])
 
   useEffect(() => {
-    if (chatRef.current) chatRef.current.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' })
+    if (msgs.length > 0 && chatRef.current) chatRef.current.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' })
   }, [msgs, busy])
 
   useEffect(() => {
@@ -454,7 +454,7 @@ export default function CoachNate() {
               </button>
             </div>
             <div className="flex gap-2 mt-3 self-end">
-              <button onClick={() => { setMsgs([]); try { sessionStorage.removeItem('bdai-chat') } catch {} }}
+              <button onClick={(e) => { (e.currentTarget as HTMLButtonElement).blur(); setMsgs([]); try { sessionStorage.removeItem('bdai-chat') } catch {}; window.scrollTo({ top: 0 }) }}
                 className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">New chat</button>
               <button onClick={signOut} className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">Sign out</button>
             </div>

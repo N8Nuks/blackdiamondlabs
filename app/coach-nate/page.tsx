@@ -362,7 +362,7 @@ export default function CoachNate() {
 
             <div className="mt-8 pt-6 border-t border-white/10 text-left">
               <p className="text-sm font-black text-center mb-1" style={{ color: '#E8C77A' }}>Not a member? Try him free.</p>
-              <p className="text-xs text-white/40 text-center mb-4">3 questions, no card needed. Ask something hard.</p>
+              <p className="text-xs text-white/40 text-center mb-4">5 questions, no card needed. Ask something hard.</p>
               <div className="flex flex-col gap-3">
                 <input
                   type="email"

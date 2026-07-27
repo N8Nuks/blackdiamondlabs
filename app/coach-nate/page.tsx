@@ -80,6 +80,19 @@ export default function CoachNate() {
   const [trialEmail, setTrialEmail] = useState('')
   const [trialBusy, setTrialBusy] = useState(false)
   const [trialMsg, setTrialMsg] = useState('')
+
+  // Restore chat after an accidental refresh (session-scoped only)
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem('bdai-chat')
+      if (saved) setMsgs(JSON.parse(saved))
+    } catch {}
+  }, [])
+  useEffect(() => {
+    try {
+      if (msgs.length > 0) sessionStorage.setItem('bdai-chat', JSON.stringify(msgs))
+    } catch {}
+  }, [msgs])
   const [member, setMember] = useState<Member | null>(null)
   const [online, setOnline] = useState<'checking' | 'online' | 'offline'>('checking')
   const [pageError, setPageError] = useState('')
@@ -92,6 +105,7 @@ export default function CoachNate() {
   const [playingIdx, setPlayingIdx] = useState<number | null>(null)
   const keyRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
+  const chatRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const speakBusy = useRef(false)
 
@@ -122,7 +136,9 @@ export default function CoachNate() {
     return () => window.removeEventListener('error', onErr)
   }, [])
 
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs, busy])
+  useEffect(() => {
+    if (chatRef.current) chatRef.current.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' })
+  }, [msgs, busy])
 
   useEffect(() => {
     if (!apiKey) return
@@ -192,6 +208,7 @@ export default function CoachNate() {
     setApiKey(''); setMsgs([]); setMember(null)
     audioRef.current?.pause()
     try { localStorage.removeItem(KEY_STORE) } catch {}
+    try { sessionStorage.removeItem('bdai-chat') } catch {}
   }
 
   const toggleVoice = () => {
@@ -368,7 +385,7 @@ export default function CoachNate() {
           </div>
         ) : (
           <>
-            <div className="flex-1 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto mb-4" style={{ minHeight: 320, height: 'calc(100vh - 380px)', background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
+            <div ref={chatRef} className="flex-1 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto overscroll-contain mb-4" style={{ minHeight: 320, height: 'calc(100vh - 380px)', background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
               {msgs.length === 0 && (
                 <div className="text-center mt-10">
                   <p className="text-sm text-white/30 mb-6">

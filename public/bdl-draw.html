@@ -1,0 +1,693 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Black Diamond Labs — The Draw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --void:#050506;
+    --pitch:#0B0C0E;
+    --graphite:#16181C;
+    --steel:#2A2E34;
+    --edge:#3C424B;
+    --silver:#C8CDD4;
+    --platinum:#F2F5F8;
+    --ice:#8FB3C7;
+    --dim:#6E757F;
+    --display:'Michroma', 'Archivo', system-ui, sans-serif;
+    --body:'Archivo', system-ui, -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--void);color:var(--silver);font-family:var(--body)}
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 0%, #14161A 0%, transparent 60%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, #101216 0%, transparent 55%),
+      var(--void);
+  }
+
+  .shell{
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:0;
+    min-height:100vh;
+  }
+
+  /* ---------- CONTROL PANEL ---------- */
+  .panel{
+    border-right:1px solid #1C1F24;
+    padding:26px 24px 40px;
+    background:linear-gradient(180deg,#0A0B0D 0%,#070809 100%);
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .brandline{display:flex;align-items:center;gap:10px;padding-bottom:18px;border-bottom:1px solid #1C1F24}
+  .brandline svg{width:20px;height:20px;flex:none}
+  .brandline b{
+    font-family:var(--display);font-size:11px;letter-spacing:.16em;
+    color:var(--platinum);font-weight:400;line-height:1.4;
+  }
+  .brandline span{display:block;font-family:var(--body);font-size:9px;letter-spacing:.22em;color:var(--dim);margin-top:4px}
+
+  .field{display:flex;flex-direction:column;gap:7px}
+  .field > label{
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:600;
+    display:flex;justify-content:space-between;align-items:baseline;
+  }
+  .field > label em{font-style:normal;color:var(--ice);letter-spacing:.08em}
+
+  input[type=text], textarea{
+    width:100%;background:#0E1013;border:1px solid #22262C;border-radius:3px;
+    color:var(--platinum);font-family:var(--body);font-size:13px;padding:10px 11px;
+    transition:border-color .18s ease, background .18s ease;
+  }
+  textarea{min-height:190px;resize:vertical;line-height:1.65;font-size:13px}
+  input[type=text]:focus, textarea:focus{outline:none;border-color:var(--edge);background:#111418}
+  input[type=text]::placeholder, textarea::placeholder{color:#4A505A}
+
+  .toggles{display:flex;flex-direction:column;gap:11px;padding:15px 0;border-top:1px solid #1C1F24;border-bottom:1px solid #1C1F24}
+  .tog{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;color:#98A0AA;user-select:none}
+  .tog input{position:absolute;opacity:0;pointer-events:none}
+  .box{
+    width:15px;height:15px;flex:none;border:1px solid #333941;border-radius:2px;background:#0E1013;
+    display:grid;place-items:center;transition:all .16s ease;
+  }
+  .box::after{content:'';width:6px;height:6px;background:var(--ice);transform:rotate(45deg) scale(0);transition:transform .16s ease}
+  .tog input:checked + .box{border-color:var(--ice)}
+  .tog input:checked + .box::after{transform:rotate(45deg) scale(1)}
+  .tog input:focus-visible + .box{outline:2px solid var(--ice);outline-offset:2px}
+
+  .btn{
+    width:100%;padding:14px;border:1px solid var(--edge);background:transparent;color:var(--platinum);
+    font-family:var(--display);font-size:11px;letter-spacing:.18em;cursor:pointer;border-radius:2px;
+    transition:all .2s ease;
+  }
+  .btn:hover:not(:disabled){background:#14171B;border-color:var(--silver)}
+  .btn:disabled{opacity:.3;cursor:not-allowed}
+  .btn.ghost{font-family:var(--body);font-size:11px;letter-spacing:.14em;padding:10px;color:var(--dim);border-color:#22262C}
+  .btn.ghost:hover{color:var(--silver)}
+
+  .import{
+    border:1px dashed #262B32;border-radius:2px;padding:13px 10px;text-align:center;
+    transition:border-color .18s ease, background .18s ease;
+  }
+  .import.over{border-color:var(--ice);background:#0D1116}
+  .import input{display:none}
+  .import > label{
+    display:block;font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--dim);cursor:pointer;line-height:1.75;
+  }
+  .import > label b{color:var(--silver);font-weight:600;letter-spacing:.04em}
+  .import > label:hover{color:var(--silver)}
+
+  .logo-row{display:flex;gap:8px;align-items:center}
+  .logo-row input[type=file]{display:none}
+  .logo-row label.filebtn{
+    flex:1;text-align:center;padding:9px;border:1px dashed #262B32;border-radius:2px;
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);cursor:pointer;transition:all .18s ease;
+  }
+  .logo-row label.filebtn:hover{border-color:var(--edge);color:var(--silver)}
+
+  .history{display:flex;flex-direction:column;gap:6px;margin-top:auto;padding-top:16px;border-top:1px solid #1C1F24}
+  .history h4{margin:0 0 4px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:600}
+  .history ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;max-height:150px;overflow-y:auto}
+  .history li{display:flex;gap:10px;font-size:12px;color:#98A0AA;align-items:baseline}
+  .history li i{font-style:normal;color:#454C55;font-size:10px;min-width:16px}
+  .history li b{color:var(--platinum);font-weight:500}
+  .history p{margin:0;font-size:11px;color:#454C55;line-height:1.5}
+
+  .fineprint{font-size:10px;line-height:1.6;color:#454C55;letter-spacing:.02em}
+
+  /* ---------- STAGE ---------- */
+  .stage{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:36px 28px;gap:26px;position:relative;min-height:100vh;
+  }
+
+  .eyebrow{text-align:center;display:flex;flex-direction:column;gap:9px;align-items:center}
+  .eyebrow .rule{width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--edge),transparent)}
+  .eyebrow h1{
+    margin:0;font-family:var(--display);font-weight:400;font-size:clamp(15px,2.1vw,23px);
+    letter-spacing:.2em;color:var(--platinum);line-height:1.35;
+  }
+  .eyebrow h2{
+    margin:0;font-family:var(--body);font-weight:500;font-size:11px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--ice);
+  }
+
+  .stone-wrap{position:relative;width:min(60vh,560px);aspect-ratio:1;flex:none}
+  .stone-wrap svg{width:100%;height:100%;display:block;overflow:visible}
+  #wheel{transform-origin:400px 400px}
+
+  .reveal{
+    text-align:center;min-height:96px;display:flex;flex-direction:column;
+    align-items:center;justify-content:flex-start;gap:12px;
+  }
+  .reveal .tag{
+    font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--dim);
+    opacity:0;transform:translateY(8px);transition:all .5s ease .1s;
+  }
+  .reveal .name{
+    font-family:var(--display);font-weight:400;color:var(--platinum);
+    font-size:clamp(20px,3.4vw,40px);letter-spacing:.05em;line-height:1.2;
+    opacity:0;transform:translateY(14px);transition:all .6s cubic-bezier(.16,1,.3,1) .22s;
+    max-width:90vw;word-break:break-word;
+  }
+  .reveal .prize{
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ice);
+    opacity:0;transform:translateY(10px);transition:all .5s ease .48s;
+  }
+  .reveal.show .tag, .reveal.show .name, .reveal.show .prize{opacity:1;transform:none}
+
+  .hint{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#3A4049}
+
+  /* ---------- RECORD MODE ---------- */
+  body.record .panel{display:none}
+  body.record .shell{grid-template-columns:1fr}
+  body.record .hint{opacity:0}
+  .exit-record{
+    position:fixed;top:14px;right:14px;z-index:20;opacity:.12;transition:opacity .2s ease;
+    background:transparent;border:1px solid var(--edge);color:var(--silver);
+    font-family:var(--body);font-size:10px;letter-spacing:.14em;padding:7px 12px;border-radius:2px;cursor:pointer;
+  }
+  .exit-record:hover{opacity:1}
+  body:not(.record) .exit-record{display:none}
+
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr}
+    .panel{border-right:none;border-bottom:1px solid #1C1F24}
+    .stage{min-height:auto;padding:30px 18px 50px}
+    .stone-wrap{width:min(88vw,460px)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal .tag,.reveal .name,.reveal .prize{transition-duration:.01ms}
+  }
+</style>
+
+<div class="shell">
+
+  <!-- ============ CONTROLS ============ -->
+  <aside class="panel">
+    <div class="brandline">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 1.5 22.5 12 12 22.5 1.5 12z" stroke="#C8CDD4" stroke-width="1.1"/><path d="M12 6.2 17.8 12 12 17.8 6.2 12z" stroke="#5C646E" stroke-width=".8"/></svg>
+      <b>BLACK DIAMOND LABS<span>THE DRAW</span></b>
+    </div>
+
+    <div class="field">
+      <label for="ttl">Draw title</label>
+      <input type="text" id="ttl" value="50 FOLLOWER GIVEAWAY">
+    </div>
+
+    <div class="field">
+      <label for="prz">Prize</label>
+      <input type="text" id="prz" value="1 Month Free — Coach Nate">
+    </div>
+
+    <div class="field">
+      <label for="names">Entrants <em id="cnt">0 entries</em></label>
+      <div class="import" id="drop">
+        <input type="file" id="imp" accept=".json,.html,.txt,.csv">
+        <label for="imp">Drop <b>followers_1.json</b>, a comment export,<br>or a plain list — or just paste below</label>
+      </div>
+      <textarea id="names" placeholder="@player.one&#10;@coach.two&#10;@club.three"></textarea>
+      <button class="btn ghost" id="clean">CLEAN LIST — KEEP VALID HANDLES ONLY</button>
+    </div>
+
+    <div class="toggles">
+      <label class="tog"><input type="checkbox" id="dedupe" checked><span class="box"></span>Merge duplicate handles</label>
+      <label class="tog"><input type="checkbox" id="remove"><span class="box"></span>Remove winner after each draw</label>
+      <label class="tog"><input type="checkbox" id="sound" checked><span class="box"></span>Sound on</label>
+    </div>
+
+    <div class="logo-row">
+      <input type="file" id="logo" accept="image/*">
+      <label class="filebtn" for="logo" id="logolabel">Set centre logo</label>
+    </div>
+
+    <button class="btn" id="spin">DRAW</button>
+    <button class="btn ghost" id="rec">RECORD MODE — CLEAN SCREEN</button>
+
+    <div class="history">
+      <h4>Draw log</h4>
+      <ol id="log"></ol>
+      <p id="logempty">No draws yet this session. The log clears when you close the page.</p>
+      <p class="fineprint" style="margin-top:10px">Winners are chosen with <b style="color:#6E757F">crypto.getRandomValues</b> — unweighted, unseeded, and decided before the stone moves. There is no way to steer it from this screen.</p>
+    </div>
+  </aside>
+
+  <!-- ============ STAGE ============ -->
+  <main class="stage">
+    <div class="eyebrow">
+      <span class="rule"></span>
+      <h1 id="o-ttl">50 FOLLOWER GIVEAWAY</h1>
+      <h2 id="o-prz">1 Month Free — Coach Nate</h2>
+    </div>
+
+    <div class="stone-wrap">
+      <svg viewBox="0 0 800 800" id="svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="fa" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#23272E"/><stop offset="100%" stop-color="#0D0F12"/>
+          </linearGradient>
+          <linearGradient id="fb" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#13161A"/><stop offset="100%" stop-color="#060709"/>
+          </linearGradient>
+          <linearGradient id="fc" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#333941"/><stop offset="100%" stop-color="#15181D"/>
+          </linearGradient>
+          <radialGradient id="tbl" cx="38%" cy="30%">
+            <stop offset="0%" stop-color="#2C323A"/><stop offset="100%" stop-color="#0A0C0F"/>
+          </radialGradient>
+          <radialGradient id="glowc" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#8FB3C7" stop-opacity=".30"/>
+            <stop offset="100%" stop-color="#8FB3C7" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="gleamg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+            <stop offset="45%" stop-color="#DCEAF2" stop-opacity=".5"/>
+            <stop offset="55%" stop-color="#fff" stop-opacity=".62"/>
+            <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <clipPath id="tableclip"><circle cx="400" cy="400" r="108"/></clipPath>
+          <clipPath id="stoneclip"><circle cx="400" cy="400" r="352"/></clipPath>
+        </defs>
+
+        <circle cx="400" cy="400" r="450" fill="url(#glowc)"/>
+
+        <g id="wheel">
+          <g id="facets"></g>
+          <g id="labels"></g>
+          <!-- girdle -->
+          <circle cx="400" cy="400" r="352" fill="none" stroke="#4A515B" stroke-width="1.4"/>
+          <circle cx="400" cy="400" r="344" fill="none" stroke="#20242A" stroke-width="6"/>
+          <circle cx="400" cy="400" r="337" fill="none" stroke="#5C646E" stroke-width=".7" opacity=".7"/>
+          <g id="stars"></g>
+        </g>
+
+        <!-- table (static centre) -->
+        <circle cx="400" cy="400" r="112" fill="#05060ated" style="fill:#050608"/>
+        <polygon id="tableoct" fill="url(#tbl)" stroke="#4A515B" stroke-width="1"/>
+        <g id="logogrp" clip-path="url(#tableclip)" style="display:none">
+          <image id="logoimg" x="310" y="310" width="180" height="180" preserveAspectRatio="xMidYMid slice"/>
+        </g>
+        <g id="mark">
+          <path d="M400 352 L442 400 L400 448 L358 400 Z" fill="none" stroke="#C8CDD4" stroke-width="1.5"/>
+          <path d="M400 372 L423 400 L400 428 L377 400 Z" fill="none" stroke="#5C646E" stroke-width="1"/>
+          <text x="400" y="470" text-anchor="middle" fill="#5C646E" font-family="Archivo, sans-serif" font-size="9" letter-spacing="3.4">BDL</text>
+        </g>
+
+        <!-- gleam sweep -->
+        <g clip-path="url(#stoneclip)" style="pointer-events:none">
+          <rect id="gleam" x="-500" y="0" width="330" height="800" fill="url(#gleamg)" opacity="0" transform="skewX(-14)"/>
+        </g>
+
+        <!-- pointer -->
+        <g id="ptr">
+          <path d="M400 78 L419 44 L381 44 Z" fill="#F2F5F8"/>
+          <path d="M400 78 L419 44 L400 44 Z" fill="#8B939E"/>
+          <circle cx="400" cy="36" r="4.5" fill="#8FB3C7"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="reveal" id="reveal">
+      <span class="tag">Winner</span>
+      <span class="name" id="wname"></span>
+      <span class="prize" id="wprize"></span>
+    </div>
+
+    <span class="hint">Press space to draw</span>
+  </main>
+</div>
+
+<button class="exit-record" id="exitrec">EXIT RECORD MODE</button>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const CX = 400, CY = 400, R_OUT = 352, R_IN = 118;
+  const svgNS = 'http://www.w3.org/2000/svg';
+
+  let entries = [], rotation = 0, spinning = false, audioCtx = null;
+
+  /* ---------- entrant parsing ---------- */
+  function parse(){
+    const raw = $('names').value.split(/[\n,]/);
+    let list = raw.map(s => s.trim().replace(/^@+/, '').replace(/\s+/g,' ')).filter(Boolean);
+    if($('dedupe').checked){
+      const seen = new Set();
+      list = list.filter(n => { const k = n.toLowerCase(); if(seen.has(k)) return false; seen.add(k); return true; });
+    }
+    entries = list;
+    $('cnt').textContent = list.length === 1 ? '1 entry' : list.length + ' entries';
+    $('spin').disabled = list.length < 2 || spinning;
+    draw();
+  }
+
+  /* ---------- stone rendering ---------- */
+  const pt = (a, r) => [CX + r * Math.sin(a * Math.PI/180), CY - r * Math.cos(a * Math.PI/180)];
+
+  function draw(){
+    const facets = $('facets'), labels = $('labels'), stars = $('stars');
+    facets.textContent = ''; labels.textContent = ''; stars.textContent = '';
+
+    // table octagon (static, drawn once per render for crispness)
+    const oct = [];
+    for(let i=0;i<8;i++){ const p = pt(22.5 + i*45, R_IN); oct.push(p[0].toFixed(1)+','+p[1].toFixed(1)); }
+    $('tableoct').setAttribute('points', oct.join(' '));
+
+    const n = entries.length;
+    if(n < 2){
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('cx',CX); c.setAttribute('cy',CY); c.setAttribute('r',R_OUT);
+      c.setAttribute('fill','#0A0C0F'); c.setAttribute('stroke','#1C2026');
+      facets.appendChild(c);
+      const t = document.createElementNS(svgNS,'text');
+      t.setAttribute('x',CX); t.setAttribute('y',250); t.setAttribute('text-anchor','middle');
+      t.setAttribute('fill','#3A4049'); t.setAttribute('font-family','Archivo, sans-serif');
+      t.setAttribute('font-size','15'); t.setAttribute('letter-spacing','3');
+      t.textContent = 'ADD AT LEAST TWO ENTRANTS';
+      facets.appendChild(t);
+      return;
+    }
+
+    const seg = 360 / n;
+    const fills = ['url(#fa)','url(#fb)'];
+    const showLabels = n <= 56;
+    const fs = n <= 8 ? 27 : n <= 14 ? 22 : n <= 24 ? 17 : n <= 36 ? 14 : 11;
+    const maxch = n <= 8 ? 22 : n <= 20 ? 18 : 14;
+
+    for(let i=0;i<n;i++){
+      const a0 = i*seg, a1 = (i+1)*seg;
+      const [x0,y0] = pt(a0, R_OUT), [x1,y1] = pt(a1, R_OUT);
+      const [x2,y2] = pt(a1, R_IN),  [x3,y3] = pt(a0, R_IN);
+      const large = seg > 180 ? 1 : 0;
+
+      const p = document.createElementNS(svgNS,'path');
+      p.setAttribute('d',
+        `M${x0.toFixed(2)} ${y0.toFixed(2)} A${R_OUT} ${R_OUT} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)} `+
+        `L${x2.toFixed(2)} ${y2.toFixed(2)} A${R_IN} ${R_IN} 0 ${large} 0 ${x3.toFixed(2)} ${y3.toFixed(2)} Z`);
+      p.setAttribute('fill', i % 7 === 3 ? 'url(#fc)' : fills[i % 2]);
+      p.setAttribute('stroke','#3C424B');
+      p.setAttribute('stroke-width','.55');
+      p.setAttribute('stroke-opacity','.8');
+      facets.appendChild(p);
+
+      // upper girdle break — the cut line that makes it read as a faceted stone
+      const [bx,by] = pt(a0, R_OUT), [bmx,bmy] = pt(a0 + seg/2, R_OUT - 74);
+      const brk = document.createElementNS(svgNS,'path');
+      brk.setAttribute('d',`M${bx.toFixed(2)} ${by.toFixed(2)} L${bmx.toFixed(2)} ${bmy.toFixed(2)}`);
+      brk.setAttribute('stroke','#4A515B'); brk.setAttribute('stroke-width','.45');
+      brk.setAttribute('stroke-opacity','.55'); brk.setAttribute('fill','none');
+      facets.appendChild(brk);
+
+      // star facet spoke near the table
+      const [sx,sy] = pt(a0, R_IN), [sx2,sy2] = pt(a0, R_IN + 52);
+      const sp = document.createElementNS(svgNS,'path');
+      sp.setAttribute('d',`M${sx.toFixed(2)} ${sy.toFixed(2)} L${sx2.toFixed(2)} ${sy2.toFixed(2)}`);
+      sp.setAttribute('stroke','#2A2E34'); sp.setAttribute('stroke-width','.7'); sp.setAttribute('fill','none');
+      stars.appendChild(sp);
+
+      if(showLabels){
+        const mid = a0 + seg/2;
+        const flip = mid > 180;
+        const g = document.createElementNS(svgNS,'g');
+        g.setAttribute('transform', `rotate(${mid} ${CX} ${CY})`);
+        const t = document.createElementNS(svgNS,'text');
+        let label = entries[i];
+        if(label.length > maxch) label = label.slice(0, maxch - 1) + '…';
+        t.textContent = label;
+        t.setAttribute('font-family','Archivo, system-ui, sans-serif');
+        t.setAttribute('font-size', fs);
+        t.setAttribute('font-weight','500');
+        t.setAttribute('letter-spacing','.6');
+        t.setAttribute('fill', i % 7 === 3 ? '#F2F5F8' : '#B4BCC6');
+        t.setAttribute('dominant-baseline','central');
+        if(flip){
+          t.setAttribute('x', CX - (R_OUT - 22)); t.setAttribute('y', CY);
+          t.setAttribute('text-anchor','start');
+          t.setAttribute('transform', `rotate(180 ${CX} ${CY})`);
+        }else{
+          t.setAttribute('x', CX + (R_OUT - 22)); t.setAttribute('y', CY);
+          t.setAttribute('text-anchor','end');
+        }
+        g.appendChild(t);
+        labels.appendChild(g);
+      }
+    }
+  }
+
+  /* ---------- fair pick ---------- */
+  function pick(max){
+    const limit = Math.floor(0xFFFFFFFF / max) * max;
+    const buf = new Uint32Array(1);
+    let v;
+    do { crypto.getRandomValues(buf); v = buf[0]; } while(v >= limit);
+    return v % max;
+  }
+
+  /* ---------- audio ---------- */
+  function tick(){
+    if(!$('sound').checked) return;
+    try{
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.type='square'; o.frequency.value = 2100;
+      g.gain.setValueAtTime(.045, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.0001, audioCtx.currentTime + .028);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(); o.stop(audioCtx.currentTime + .03);
+    }catch(e){}
+  }
+  function chime(){
+    if(!$('sound').checked) return;
+    try{
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      [880, 1318.5, 1760].forEach((f, i) => {
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        const t0 = audioCtx.currentTime + i * .085;
+        o.type='sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0, t0);
+        g.gain.linearRampToValueAtTime(.14, t0 + .02);
+        g.gain.exponentialRampToValueAtTime(.0001, t0 + 1.5);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(t0); o.stop(t0 + 1.6);
+      });
+    }catch(e){}
+  }
+
+  /* ---------- gleam ---------- */
+  function gleam(){
+    const el = $('gleam');
+    el.setAttribute('opacity','1');
+    el.animate(
+      [{transform:'skewX(-14deg) translateX(0px)'},{transform:'skewX(-14deg) translateX(1350px)'}],
+      {duration:900, easing:'cubic-bezier(.4,0,.5,1)'}
+    ).onfinish = () => el.setAttribute('opacity','0');
+  }
+
+  /* ---------- the draw ---------- */
+  function spin(){
+    if(spinning || entries.length < 2) return;
+    const n = entries.length, seg = 360/n;
+    const idx = pick(n);
+    const winner = entries[idx];
+
+    spinning = true;
+    $('spin').disabled = true;
+    $('reveal').classList.remove('show');
+
+    const mid = idx*seg + seg/2;
+    const jitter = (Math.random() - .5) * seg * .62;
+    const turns = 5 + Math.floor(Math.random()*3);
+    let delta = (((-mid - rotation) % 360) + 360) % 360;
+    const target = rotation + turns*360 + delta - jitter;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dur = reduced ? 1 : 6900;
+    const start = performance.now(), from = rotation;
+    let lastSeg = -1;
+
+    function frame(now){
+      const t = Math.min((now - start)/dur, 1);
+      const e = 1 - Math.pow(1 - t, 4.3);
+      rotation = from + (target - from) * e;
+      $('wheel').setAttribute('transform', `rotate(${rotation.toFixed(3)} ${CX} ${CY})`);
+
+      const cur = Math.floor((((-rotation % 360)+360)%360) / seg);
+      if(cur !== lastSeg){ if(lastSeg !== -1 && t < .995) tick(); lastSeg = cur; }
+
+      if(t < 1) requestAnimationFrame(frame);
+      else finish(winner, idx);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function finish(winner, idx){
+    rotation = rotation % 360;
+    spinning = false;
+    gleam(); chime();
+    $('wname').textContent = '@' + winner;
+    $('wprize').textContent = $('prz').value;
+    $('reveal').classList.add('show');
+    logWin(winner);
+    if($('remove').checked){
+      const arr = $('names').value.split(/[\n,]/);
+      let removed = false;
+      const kept = arr.filter(s => {
+        const c = s.trim().replace(/^@+/,'').replace(/\s+/g,' ').toLowerCase();
+        if(!removed && c === winner.toLowerCase()){ removed = true; return false; }
+        return $('dedupe').checked ? c !== winner.toLowerCase() : true;
+      });
+      $('names').value = kept.filter(s => s.trim()).join('\n');
+      parse();
+    }
+    $('spin').disabled = entries.length < 2;
+  }
+
+  let drawNo = 0;
+  function logWin(w){
+    drawNo++;
+    $('logempty').style.display = 'none';
+    const li = document.createElement('li');
+    const i = document.createElement('i'); i.textContent = String(drawNo).padStart(2,'0');
+    const b = document.createElement('b'); b.textContent = '@' + w;
+    const s = document.createElement('span');
+    s.style.cssText = 'margin-left:auto;font-size:10px;color:#3A4049';
+    s.textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    li.append(i, b, s);
+    $('log').prepend(li);
+  }
+
+  /* ---------- import ---------- */
+  const HANDLE = /^[A-Za-z0-9._]{1,30}$/;
+
+  function fromJSON(data){
+    const out = [];
+    (function walk(o){
+      if(Array.isArray(o)) return o.forEach(walk);
+      if(o && typeof o === 'object'){
+        if(typeof o.value === 'string' && typeof o.href === 'string' && /instagram\.com/i.test(o.href)){
+          out.push(o.value); return;
+        }
+        if(typeof o.username === 'string'){ out.push(o.username); return; }
+        Object.keys(o).forEach(k => walk(o[k]));
+      }
+    })(data);
+    if(out.length) return out;
+    // fallback: any {value:"..."} pairs at all
+    (function walk2(o){
+      if(Array.isArray(o)) return o.forEach(walk2);
+      if(o && typeof o === 'object'){
+        if(typeof o.value === 'string') out.push(o.value);
+        Object.keys(o).forEach(k => walk2(o[k]));
+      }
+    })(data);
+    return out;
+  }
+
+  function fromHTML(html){
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const out = [];
+    doc.querySelectorAll('a[href*="instagram.com"]').forEach(a => {
+      const txt = (a.textContent || '').trim();
+      if(txt && txt.length <= 30) { out.push(txt); return; }
+      const m = (a.getAttribute('href') || '').match(/instagram\.com\/([A-Za-z0-9._]+)/);
+      if(m) out.push(m[1]);
+    });
+    return out;
+  }
+
+  function ingest(text, filename){
+    const t = (text || '').trim();
+    const fn = (filename || '').toLowerCase();
+    let list = null;
+
+    if(t.startsWith('{') || t.startsWith('[')){
+      try { list = fromJSON(JSON.parse(t)); } catch(e){ list = null; }
+    }
+    if(!list && (fn.endsWith('.html') || fn.endsWith('.htm') || /<a\s[^>]*href/i.test(t))){
+      list = fromHTML(t);
+    }
+    if(!list) list = t.split(/[\n,]/);
+
+    list = list.map(s => String(s).trim().replace(/^@+/, '')).filter(Boolean);
+    if(!list.length){
+      $('logolabel'); // no-op guard
+      alert('Nothing recognisable in that file. Try the plain-text route: paste the handles straight into the box.');
+      return;
+    }
+    $('names').value = list.join('\n');
+    parse();
+  }
+
+  function readFile(f){
+    if(!f) return;
+    const r = new FileReader();
+    r.onload = ev => ingest(ev.target.result, f.name);
+    r.readAsText(f);
+  }
+
+  $('imp').addEventListener('change', e => readFile(e.target.files[0]));
+
+  const dz = $('drop');
+  ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => {
+    e.preventDefault(); dz.classList.add('over');
+  }));
+  ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => {
+    e.preventDefault(); dz.classList.remove('over');
+  }));
+  dz.addEventListener('drop', e => readFile(e.dataTransfer.files[0]));
+
+  $('clean').addEventListener('click', () => {
+    const before = $('names').value.split(/[\n,]/).map(s => s.trim()).filter(Boolean).length;
+    const kept = $('names').value.split(/[\n,]/)
+      .map(s => s.trim().replace(/^@+/, ''))
+      .filter(s => HANDLE.test(s));
+    $('names').value = kept.join('\n');
+    parse();
+    $('clean').textContent = `CLEANED — ${before - kept.length} LINES DROPPED`;
+    setTimeout(() => { $('clean').textContent = 'CLEAN LIST — KEEP VALID HANDLES ONLY'; }, 2600);
+  });
+
+  /* ---------- wiring ---------- */
+  $('names').addEventListener('input', parse);
+  $('dedupe').addEventListener('change', parse);
+  $('spin').addEventListener('click', spin);
+  $('ttl').addEventListener('input', e => $('o-ttl').textContent = e.target.value);
+  $('prz').addEventListener('input', e => $('o-prz').textContent = e.target.value);
+
+  $('rec').addEventListener('click', () => document.body.classList.add('record'));
+  $('exitrec').addEventListener('click', () => document.body.classList.remove('record'));
+
+  $('logo').addEventListener('change', e => {
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+      $('logoimg').setAttribute('href', ev.target.result);
+      $('logogrp').style.display = '';
+      $('mark').style.display = 'none';
+      $('logolabel').textContent = 'Logo set — click to change';
+    };
+    r.readAsDataURL(f);
+  });
+
+  document.addEventListener('keydown', e => {
+    if(e.code === 'Space' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'INPUT'){
+      e.preventDefault(); spin();
+    }
+    if(e.key === 'Escape') document.body.classList.remove('record');
+  });
+
+  // seed with a placeholder set so the stone renders on open
+  $('names').value = '';
+  parse();
+})();
+</script>

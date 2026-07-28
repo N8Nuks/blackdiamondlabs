@@ -35,10 +35,3 @@ h1, h2, h3, button, .font-display {
   }
 }
 
-/* Mobile: stop infinite shimmer loops (biggest battery/crash load) */
-@media (max-width: 640px) {
-  .silver-shimmer,
-  [style*="shimmer"] {
-    animation: none !important;
-  }
-}

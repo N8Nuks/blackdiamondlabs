@@ -1,0 +1,855 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Black Diamond Labs — The Draw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --void:#050506;
+    --pitch:#0B0C0E;
+    --graphite:#16181C;
+    --steel:#2A2E34;
+    --edge:#3C424B;
+    --silver:#C8CDD4;
+    --platinum:#F2F5F8;
+    --ice:#8FB3C7;
+    --gold:#E8C46A;
+    --gold-hi:#FFF0BE;
+    --gold-lo:#B8873A;
+    --dim:#6E757F;
+    --display:'Michroma', 'Archivo', system-ui, sans-serif;
+    --body:'Archivo', system-ui, -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:transparent;color:var(--silver);font-family:var(--body)}
+  body{min-height:100vh}
+
+  /* ---------- BACKDROP ---------- */
+  .bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:#050506;transition:opacity .6s ease}
+  .bg i{
+    position:absolute;display:block;border-radius:50%;
+    filter:blur(90px);mix-blend-mode:screen;will-change:transform;
+  }
+  .bg i:nth-child(1){width:70vmax;height:70vmax;left:-22vmax;top:-26vmax;background:#7A1FA2;animation:d1 34s ease-in-out infinite}
+  .bg i:nth-child(2){width:58vmax;height:58vmax;right:-20vmax;top:-14vmax;background:#0F7C86;animation:d2 41s ease-in-out infinite}
+  .bg i:nth-child(3){width:62vmax;height:62vmax;left:8vmax;bottom:-30vmax;background:#B03A6E;animation:d3 47s ease-in-out infinite}
+  .bg i:nth-child(4){width:44vmax;height:44vmax;right:-8vmax;bottom:-18vmax;background:#8A6A18;animation:d4 38s ease-in-out infinite}
+  .bg i:nth-child(5){width:36vmax;height:36vmax;left:32vmax;top:24vmax;background:#2A3FA8;animation:d2 53s ease-in-out infinite reverse}
+
+  @keyframes d1{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(14vmax,10vmax,0) scale(1.22)}}
+  @keyframes d2{0%,100%{transform:translate3d(0,0,0) scale(1.1)}50%{transform:translate3d(-16vmax,14vmax,0) scale(.86)}}
+  @keyframes d3{0%,100%{transform:translate3d(0,0,0) scale(.94)}50%{transform:translate3d(12vmax,-16vmax,0) scale(1.18)}}
+  @keyframes d4{0%,100%{transform:translate3d(0,0,0) scale(1.05)}50%{transform:translate3d(-13vmax,-9vmax,0) scale(.9)}}
+  @keyframes hue{from{filter:hue-rotate(0deg) saturate(1.05)}to{filter:hue-rotate(360deg) saturate(1.05)}}
+
+  body.mode-psych .bg{opacity:1;animation:hue 30s linear infinite}
+  body.mode-psych .bg i{opacity:.62}
+  body.mode-aurora .bg{opacity:1}
+  body.mode-aurora .bg i{opacity:.20;filter:blur(120px)}
+  body.mode-void .bg{opacity:0}
+
+  /* keeps the stone legible no matter how loud the backdrop gets */
+  .scrim{
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(ellipse 60% 48% at 50% 50%, rgba(4,4,6,.90) 0%, rgba(4,4,6,.62) 42%, rgba(4,4,6,.18) 72%, transparent 100%);
+  }
+
+  .seg{display:flex;gap:5px}
+  .seg button{
+    flex:1;padding:9px 4px;background:#0E1013;border:1px solid #22262C;color:var(--dim);
+    font-family:var(--body);font-size:9px;letter-spacing:.09em;text-transform:uppercase;
+    cursor:pointer;border-radius:2px;transition:all .18s ease;
+  }
+  .seg button:hover{color:var(--silver)}
+  .seg button.on{border-color:var(--gold);color:var(--gold)}
+
+  .shell{
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:0;
+    min-height:100vh;
+  }
+
+  /* ---------- CONTROL PANEL ---------- */
+  .panel{
+    border-right:1px solid #1C1F24;
+    padding:26px 24px 40px;
+    background:linear-gradient(180deg,rgba(8,9,11,.94) 0%,rgba(6,7,9,.97) 100%);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .brandline{display:flex;align-items:center;gap:10px;padding-bottom:18px;border-bottom:1px solid #1C1F24}
+  .brandline svg{width:20px;height:20px;flex:none}
+  .brandline b{
+    font-family:var(--display);font-size:11px;letter-spacing:.16em;
+    color:var(--platinum);font-weight:400;line-height:1.4;
+  }
+  .brandline span{display:block;font-family:var(--body);font-size:9px;letter-spacing:.22em;color:var(--dim);margin-top:4px}
+
+  .field{display:flex;flex-direction:column;gap:7px}
+  .field > label{
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:600;
+    display:flex;justify-content:space-between;align-items:baseline;
+  }
+  .field > label em{font-style:normal;color:var(--ice);letter-spacing:.08em}
+
+  input[type=text], textarea{
+    width:100%;background:#0E1013;border:1px solid #22262C;border-radius:3px;
+    color:var(--platinum);font-family:var(--body);font-size:13px;padding:10px 11px;
+    transition:border-color .18s ease, background .18s ease;
+  }
+  textarea{min-height:190px;resize:vertical;line-height:1.65;font-size:13px}
+  input[type=text]:focus, textarea:focus{outline:none;border-color:var(--edge);background:#111418}
+  input[type=text]::placeholder, textarea::placeholder{color:#4A505A}
+
+  .toggles{display:flex;flex-direction:column;gap:11px;padding:15px 0;border-top:1px solid #1C1F24;border-bottom:1px solid #1C1F24}
+  .tog{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;color:#98A0AA;user-select:none}
+  .tog input{position:absolute;opacity:0;pointer-events:none}
+  .box{
+    width:15px;height:15px;flex:none;border:1px solid #333941;border-radius:2px;background:#0E1013;
+    display:grid;place-items:center;transition:all .16s ease;
+  }
+  .box::after{content:'';width:6px;height:6px;background:var(--ice);transform:rotate(45deg) scale(0);transition:transform .16s ease}
+  .tog input:checked + .box{border-color:var(--ice)}
+  .tog input:checked + .box::after{transform:rotate(45deg) scale(1)}
+  .tog input:focus-visible + .box{outline:2px solid var(--ice);outline-offset:2px}
+
+  .btn{
+    width:100%;padding:14px;border:1px solid var(--edge);background:transparent;color:var(--platinum);
+    font-family:var(--display);font-size:11px;letter-spacing:.18em;cursor:pointer;border-radius:2px;
+    transition:all .2s ease;
+  }
+  .btn:hover:not(:disabled){background:#14171B;border-color:var(--silver)}
+  .btn:disabled{opacity:.3;cursor:not-allowed}
+  .btn.ghost{font-family:var(--body);font-size:11px;letter-spacing:.14em;padding:10px;color:var(--dim);border-color:#22262C}
+  .btn.ghost:hover{color:var(--silver)}
+
+  .import{
+    border:1px dashed #262B32;border-radius:2px;padding:13px 10px;text-align:center;
+    transition:border-color .18s ease, background .18s ease;
+  }
+  .import.over{border-color:var(--ice);background:#0D1116}
+  .import input{display:none}
+  .import > label{
+    display:block;font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--dim);cursor:pointer;line-height:1.75;
+  }
+  .import > label b{color:var(--silver);font-weight:600;letter-spacing:.04em}
+  .import > label:hover{color:var(--silver)}
+
+  .logo-row{display:flex;gap:8px;align-items:center}
+  .logo-row input[type=file]{display:none}
+  .logo-row label.filebtn{
+    flex:1;text-align:center;padding:9px;border:1px dashed #262B32;border-radius:2px;
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);cursor:pointer;transition:all .18s ease;
+  }
+  .logo-row label.filebtn:hover{border-color:var(--edge);color:var(--silver)}
+
+  .history{display:flex;flex-direction:column;gap:6px;margin-top:auto;padding-top:16px;border-top:1px solid #1C1F24}
+  .history h4{margin:0 0 4px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:600}
+  .history ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;max-height:150px;overflow-y:auto}
+  .history li{display:flex;gap:10px;font-size:12px;color:#98A0AA;align-items:baseline}
+  .history li i{font-style:normal;color:#454C55;font-size:10px;min-width:16px}
+  .history li b{color:var(--platinum);font-weight:500}
+  .history p{margin:0;font-size:11px;color:#454C55;line-height:1.5}
+
+  .fineprint{font-size:10px;line-height:1.6;color:#454C55;letter-spacing:.02em}
+
+  /* ---------- STAGE ---------- */
+  .stage{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:36px 28px;gap:26px;position:relative;min-height:100vh;
+  }
+
+  .eyebrow{text-align:center;display:flex;flex-direction:column;gap:9px;align-items:center}
+  .eyebrow .rule{width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--edge),transparent)}
+  .eyebrow h1{
+    margin:0;font-family:var(--display);font-weight:400;font-size:clamp(15px,2.1vw,23px);
+    letter-spacing:.2em;color:var(--platinum);line-height:1.35;
+  }
+  .eyebrow h2{
+    margin:0;font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--gold);
+  }
+
+  .stone-wrap{position:relative;width:min(60vh,560px);aspect-ratio:1;flex:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .stone-wrap svg{width:100%;height:100%;display:block;overflow:visible}
+
+  .reveal{
+    text-align:center;min-height:96px;display:flex;flex-direction:column;
+    align-items:center;justify-content:flex-start;gap:12px;
+  }
+  .reveal .tag{
+    font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--dim);
+    opacity:0;transform:translateY(8px);transition:all .5s ease .1s;
+  }
+  .reveal .name{
+    font-family:var(--display);font-weight:400;
+    background:linear-gradient(178deg,var(--gold-hi) 0%,var(--gold) 46%,var(--gold-lo) 100%);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;
+    font-size:clamp(20px,3.4vw,40px);letter-spacing:.05em;line-height:1.2;
+    opacity:0;transform:translateY(14px);transition:all .6s cubic-bezier(.16,1,.3,1) .22s;
+    max-width:90vw;word-break:break-word;
+    filter:drop-shadow(0 2px 14px rgba(232,196,106,.28));
+  }
+  .reveal .prize{
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--silver);
+    opacity:0;transform:translateY(10px);transition:all .5s ease .48s;
+  }
+  .reveal.show .tag, .reveal.show .name, .reveal.show .prize{opacity:1;transform:none}
+
+  .hint{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.5;transition:opacity .5s ease}
+  body.drawn .hint{opacity:0}
+
+  /* ---------- RECORD MODE ---------- */
+  body.record{overflow:hidden}
+  body.record .panel{display:none}
+  body.record .shell{grid-template-columns:1fr}
+  body.record .hint{opacity:.32}
+  body.record.drawn .hint{opacity:0}
+  body.record .stage{height:100vh;height:100dvh;min-height:0;justify-content:center}
+  .exit-record{
+    position:fixed;top:10px;right:10px;z-index:20;opacity:.05;transition:opacity .2s ease;
+    background:transparent;border:1px solid var(--edge);color:var(--silver);
+    font-family:var(--body);font-size:9px;letter-spacing:.12em;padding:6px 9px;border-radius:2px;cursor:pointer;
+  }
+  .exit-record:hover,.exit-record:focus,.exit-record:active{opacity:1}
+  body:not(.record) .exit-record{display:none}
+
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr}
+    .panel{border-right:none;border-bottom:1px solid #1C1F24}
+    .stage{min-height:100vh;min-height:100dvh;padding:20px 14px 26px;gap:12px;justify-content:center}
+    .stone-wrap{width:min(86vw,50vh);width:min(86vw,50dvh)}
+    .reveal{min-height:78px;gap:8px}
+    .eyebrow h1{font-size:clamp(14px,4.6vw,21px)}
+    .reveal .name{font-size:clamp(19px,6.4vw,32px)}
+    .reveal .name.long{font-size:clamp(14px,4.2vw,22px)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal .tag,.reveal .name,.reveal .prize{transition-duration:.01ms}
+  }
+</style>
+
+<div class="bg" id="bg"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="scrim"></div>
+
+<div class="shell">
+
+  <!-- ============ CONTROLS ============ -->
+  <aside class="panel">
+    <div class="brandline">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 1.5 22.5 12 12 22.5 1.5 12z" stroke="#C8CDD4" stroke-width="1.1"/><path d="M12 6.2 17.8 12 12 17.8 6.2 12z" stroke="#5C646E" stroke-width=".8"/></svg>
+      <b>BLACK DIAMOND LABS<span>THE DRAW</span></b>
+    </div>
+
+    <div class="field">
+      <label for="ttl">Draw title</label>
+      <input type="text" id="ttl" value="50 FOLLOWER GIVEAWAY">
+    </div>
+
+    <div class="field">
+      <label for="prz">Prize</label>
+      <input type="text" id="prz" value="1 Month Free — Coach Nate">
+    </div>
+
+    <div class="field">
+      <label for="names">Entrants <em id="cnt">0 entries</em></label>
+      <div class="import" id="drop">
+        <input type="file" id="imp" accept=".json,.html,.txt,.csv">
+        <label for="imp">Drop <b>followers_1.json</b>, a comment export,<br>or a plain list — or just paste below</label>
+      </div>
+      <textarea id="names" placeholder="@player.one&#10;@coach.two&#10;@club.three"></textarea>
+      <p id="status" class="fineprint" style="margin:0;min-height:14px"></p>
+      <button class="btn ghost" id="clean">CLEAN LIST — KEEP VALID HANDLES ONLY</button>
+    </div>
+
+    <div class="toggles">
+      <label class="tog"><input type="checkbox" id="dedupe" checked><span class="box"></span>Merge duplicate handles</label>
+      <label class="tog"><input type="checkbox" id="remove"><span class="box"></span>Remove winner after each draw</label>
+      <label class="tog"><input type="checkbox" id="sound" checked><span class="box"></span>Sound on</label>
+    </div>
+
+    <div class="logo-row">
+      <input type="file" id="logo" accept="image/*">
+      <label class="filebtn" for="logo" id="logolabel">Set centre logo</label>
+    </div>
+
+    <div class="field">
+      <label>Backdrop</label>
+      <div class="seg" id="seg">
+        <button type="button" data-m="psych" class="on">Psychedelic</button>
+        <button type="button" data-m="aurora">Aurora</button>
+        <button type="button" data-m="void">Void</button>
+      </div>
+    </div>
+
+    <button class="btn" id="spin">DRAW</button>
+    <button class="btn ghost" id="rec">RECORD MODE — CLEAN SCREEN</button>
+
+    <div class="history">
+      <h4>Draw log</h4>
+      <ol id="log"></ol>
+      <p id="logempty">No draws yet this session. The log clears when you close the page.</p>
+      <p class="fineprint" style="margin-top:10px">Winners are chosen with <b style="color:#6E757F">crypto.getRandomValues</b> — unweighted, unseeded, and decided before the stone moves. There is no way to steer it from this screen.</p>
+    </div>
+  </aside>
+
+  <!-- ============ STAGE ============ -->
+  <main class="stage">
+    <div class="eyebrow">
+      <span class="rule"></span>
+      <h1 id="o-ttl">50 FOLLOWER GIVEAWAY</h1>
+      <h2 id="o-prz">1 Month Free — Coach Nate</h2>
+    </div>
+
+    <div class="stone-wrap">
+      <svg viewBox="0 0 800 800" id="svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="fa" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#23272E"/><stop offset="100%" stop-color="#0D0F12"/>
+          </linearGradient>
+          <linearGradient id="fb" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#13161A"/><stop offset="100%" stop-color="#060709"/>
+          </linearGradient>
+          <linearGradient id="fc" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#333941"/><stop offset="100%" stop-color="#15181D"/>
+          </linearGradient>
+          <radialGradient id="tbl" cx="38%" cy="30%">
+            <stop offset="0%" stop-color="#2C323A"/><stop offset="100%" stop-color="#0A0C0F"/>
+          </radialGradient>
+          <radialGradient id="glowc" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#8FB3C7" stop-opacity=".30"/>
+            <stop offset="100%" stop-color="#8FB3C7" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="gleamg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+            <stop offset="45%" stop-color="#DCEAF2" stop-opacity=".5"/>
+            <stop offset="55%" stop-color="#fff" stop-opacity=".62"/>
+            <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFF0BE"/>
+            <stop offset="46%" stop-color="#E8C46A"/>
+            <stop offset="100%" stop-color="#B8873A"/>
+          </linearGradient>
+          <linearGradient id="goldhi" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFFBE8"/>
+            <stop offset="50%" stop-color="#FFDE8C"/>
+            <stop offset="100%" stop-color="#D9A44E"/>
+          </linearGradient>
+          <clipPath id="tableclip"><circle cx="400" cy="400" r="108"/></clipPath>
+          <clipPath id="stoneclip"><circle cx="400" cy="400" r="352"/></clipPath>
+        </defs>
+
+        <circle cx="400" cy="400" r="450" fill="url(#glowc)"/>
+
+        <g id="wheel">
+          <g id="facets"></g>
+          <g id="labels"></g>
+          <!-- girdle -->
+          <circle cx="400" cy="400" r="352" fill="none" stroke="#4A515B" stroke-width="1.4"/>
+          <circle cx="400" cy="400" r="344" fill="none" stroke="#20242A" stroke-width="6"/>
+          <circle cx="400" cy="400" r="337" fill="none" stroke="#5C646E" stroke-width=".7" opacity=".7"/>
+          <g id="stars"></g>
+        </g>
+
+        <!-- table (static centre) -->
+        <circle cx="400" cy="400" r="112" fill="#050608"/>
+        <polygon id="tableoct" fill="url(#tbl)" stroke="#4A515B" stroke-width="1"/>
+        <g id="logogrp" clip-path="url(#tableclip)" style="display:none">
+          <image id="logoimg" x="310" y="310" width="180" height="180" preserveAspectRatio="xMidYMid slice"/>
+        </g>
+        <g id="mark">
+          <path d="M400 352 L442 400 L400 448 L358 400 Z" fill="none" stroke="#C8CDD4" stroke-width="1.5"/>
+          <path d="M400 372 L423 400 L400 428 L377 400 Z" fill="none" stroke="#5C646E" stroke-width="1"/>
+          <text x="400" y="470" text-anchor="middle" fill="#5C646E" font-family="Archivo, sans-serif" font-size="9" letter-spacing="3.4">BDL</text>
+        </g>
+
+        <!-- gleam sweep -->
+        <g clip-path="url(#stoneclip)" style="pointer-events:none">
+          <rect id="gleam" x="-500" y="0" width="330" height="800" fill="url(#gleamg)" opacity="0" transform="skewX(-14)"/>
+        </g>
+
+        <!-- pointer -->
+        <g id="ptr">
+          <path d="M400 78 L419 44 L381 44 Z" fill="url(#goldhi)"/>
+          <path d="M400 78 L419 44 L400 44 Z" fill="#B8873A"/>
+          <circle cx="400" cy="36" r="4.5" fill="#FFF0BE"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="reveal" id="reveal">
+      <span class="tag">Winner</span>
+      <span class="name" id="wname"></span>
+      <span class="prize" id="wprize"></span>
+    </div>
+
+    <span class="hint">Press space to draw</span>
+  </main>
+</div>
+
+<button class="exit-record" id="exitrec">EXIT RECORD MODE</button>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const CX = 400, CY = 400, R_OUT = 352, R_IN = 118;
+  const svgNS = 'http://www.w3.org/2000/svg';
+
+  let entries = [], rotation = 0, spinning = false, audioCtx = null;
+
+  /* ---------- entrant parsing ---------- */
+  function say(msg, warn){
+    const s = $('status');
+    if(!s) return;
+    s.textContent = msg || '';
+    s.style.color = warn ? '#8FB3C7' : '#454C55';
+  }
+
+  // Pasted JSON or HTML gets converted in place, before it's ever treated as names.
+  function autoConvert(){
+    const t = $('names').value.trim();
+    if(!t) { say(''); return; }
+    const looksJSON = (t[0] === '{' || t[0] === '[') && t.length > 30;
+    const looksHTML = /<a\s[^>]*href\s*=/i.test(t);
+    if(!looksJSON && !looksHTML) return;
+
+    let list = null;
+    if(looksJSON){
+      try { list = fromJSON(JSON.parse(t)); }
+      catch(e){
+        say('Looks like a JSON export but it is cut off — paste the rest, or use the drop zone above.', true);
+        return;
+      }
+    }
+    if(!list && looksHTML) list = fromHTML(t);
+
+    list = (list || []).map(s => String(s).trim().replace(/^@+/, '')).filter(Boolean);
+    if(!list.length){ say('Could not find any handles in that. Try the plain-text route.', true); return; }
+    $('names').value = list.join('\n');
+    say('Imported ' + list.length + ' handles.');
+  }
+
+  function parse(){
+    autoConvert();
+    const raw = $('names').value.split(/[\n,]/);
+    let list = raw.map(s => s.trim().replace(/^@+/, '').replace(/\s+/g,' ')).filter(Boolean);
+    if($('dedupe').checked){
+      const seen = new Set();
+      list = list.filter(n => { const k = n.toLowerCase(); if(seen.has(k)) return false; seen.add(k); return true; });
+    }
+    entries = list;
+    $('cnt').textContent = list.length === 1 ? '1 entry' : list.length + ' entries';
+    $('spin').disabled = list.length < 2 || spinning;
+    draw();
+  }
+
+  /* ---------- stone rendering ---------- */
+  const pt = (a, r) => [CX + r * Math.sin(a * Math.PI/180), CY - r * Math.cos(a * Math.PI/180)];
+
+  function draw(){
+    const facets = $('facets'), labels = $('labels'), stars = $('stars');
+    facets.textContent = ''; labels.textContent = ''; stars.textContent = '';
+
+    // table octagon (static, drawn once per render for crispness)
+    const oct = [];
+    for(let i=0;i<8;i++){ const p = pt(22.5 + i*45, R_IN); oct.push(p[0].toFixed(1)+','+p[1].toFixed(1)); }
+    $('tableoct').setAttribute('points', oct.join(' '));
+
+    const n = entries.length;
+    if(n < 2){
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('cx',CX); c.setAttribute('cy',CY); c.setAttribute('r',R_OUT);
+      c.setAttribute('fill','#0A0C0F'); c.setAttribute('stroke','#1C2026');
+      facets.appendChild(c);
+      const t = document.createElementNS(svgNS,'text');
+      t.setAttribute('x',CX); t.setAttribute('y',250); t.setAttribute('text-anchor','middle');
+      t.setAttribute('fill','#3A4049'); t.setAttribute('font-family','Archivo, sans-serif');
+      t.setAttribute('font-size','15'); t.setAttribute('letter-spacing','3');
+      t.textContent = 'ADD AT LEAST TWO ENTRANTS';
+      facets.appendChild(t);
+      return;
+    }
+
+    const seg = 360 / n;
+    const fills = ['url(#fa)','url(#fb)'];
+    const showLabels = n <= 56;
+    const fs = n <= 8 ? 27 : n <= 14 ? 22 : n <= 24 ? 17 : n <= 36 ? 14 : 11;
+    const maxch = n <= 8 ? 22 : n <= 20 ? 18 : 14;
+
+    for(let i=0;i<n;i++){
+      const a0 = i*seg, a1 = (i+1)*seg;
+      const [x0,y0] = pt(a0, R_OUT), [x1,y1] = pt(a1, R_OUT);
+      const [x2,y2] = pt(a1, R_IN),  [x3,y3] = pt(a0, R_IN);
+      const large = seg > 180 ? 1 : 0;
+
+      const p = document.createElementNS(svgNS,'path');
+      p.setAttribute('d',
+        `M${x0.toFixed(2)} ${y0.toFixed(2)} A${R_OUT} ${R_OUT} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)} `+
+        `L${x2.toFixed(2)} ${y2.toFixed(2)} A${R_IN} ${R_IN} 0 ${large} 0 ${x3.toFixed(2)} ${y3.toFixed(2)} Z`);
+      p.setAttribute('fill', i % 7 === 3 ? 'url(#fc)' : fills[i % 2]);
+      p.setAttribute('stroke','#3C424B');
+      p.setAttribute('stroke-width','.55');
+      p.setAttribute('stroke-opacity','.8');
+      facets.appendChild(p);
+
+      // upper girdle break — the cut line that makes it read as a faceted stone
+      const [bx,by] = pt(a0, R_OUT), [bmx,bmy] = pt(a0 + seg/2, R_OUT - 74);
+      const brk = document.createElementNS(svgNS,'path');
+      brk.setAttribute('d',`M${bx.toFixed(2)} ${by.toFixed(2)} L${bmx.toFixed(2)} ${bmy.toFixed(2)}`);
+      brk.setAttribute('stroke','#4A515B'); brk.setAttribute('stroke-width','.45');
+      brk.setAttribute('stroke-opacity','.55'); brk.setAttribute('fill','none');
+      facets.appendChild(brk);
+
+      // star facet spoke near the table
+      const [sx,sy] = pt(a0, R_IN), [sx2,sy2] = pt(a0, R_IN + 52);
+      const sp = document.createElementNS(svgNS,'path');
+      sp.setAttribute('d',`M${sx.toFixed(2)} ${sy.toFixed(2)} L${sx2.toFixed(2)} ${sy2.toFixed(2)}`);
+      sp.setAttribute('stroke','#2A2E34'); sp.setAttribute('stroke-width','.7'); sp.setAttribute('fill','none');
+      stars.appendChild(sp);
+
+      if(showLabels){
+        const mid = a0 + seg/2;
+        const flip = mid > 180;
+        const g = document.createElementNS(svgNS,'g');
+        g.setAttribute('transform', `rotate(${mid} ${CX} ${CY})`);
+        const t = document.createElementNS(svgNS,'text');
+        let label = entries[i];
+        if(label.length > maxch) label = label.slice(0, maxch - 1) + '…';
+        t.textContent = label;
+        t.setAttribute('font-family','Archivo, system-ui, sans-serif');
+        t.setAttribute('font-size', fs);
+        t.setAttribute('font-weight','500');
+        t.setAttribute('letter-spacing','.6');
+        t.setAttribute('fill', i % 7 === 3 ? 'url(#goldhi)' : 'url(#gold)');
+        t.setAttribute('dominant-baseline','central');
+        if(flip){
+          t.setAttribute('x', CX - (R_OUT - 22)); t.setAttribute('y', CY);
+          t.setAttribute('text-anchor','start');
+          t.setAttribute('transform', `rotate(180 ${CX} ${CY})`);
+        }else{
+          t.setAttribute('x', CX + (R_OUT - 22)); t.setAttribute('y', CY);
+          t.setAttribute('text-anchor','end');
+        }
+        g.appendChild(t);
+        labels.appendChild(g);
+      }
+    }
+  }
+
+  /* ---------- fair pick ---------- */
+  function pick(max){
+    const limit = Math.floor(0xFFFFFFFF / max) * max;
+    const buf = new Uint32Array(1);
+    let v;
+    do { crypto.getRandomValues(buf); v = buf[0]; } while(v >= limit);
+    return v % max;
+  }
+
+  /* ---------- audio ----------
+     iOS Safari will only start an AudioContext from inside a real user gesture,
+     and will not resume one created anywhere else. So we create and resume it on
+     the first tap/click, never inside the animation loop. */
+  function unlockAudio(){
+    try{
+      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if(audioCtx.state === 'suspended') audioCtx.resume();
+      // a single silent sample — iOS treats this as the gesture-bound start
+      const b = audioCtx.createBuffer(1, 1, 22050);
+      const s = audioCtx.createBufferSource();
+      s.buffer = b; s.connect(audioCtx.destination); s.start(0);
+    }catch(e){ audioCtx = null; }
+  }
+  document.addEventListener('touchstart', unlockAudio, {once:true, passive:true});
+  document.addEventListener('mousedown', unlockAudio, {once:true});
+
+  const canPlay = () => $('sound').checked && audioCtx && audioCtx.state === 'running';
+
+  function tick(){
+    if(!canPlay()) return;
+    try{
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.type='square'; o.frequency.value = 2100;
+      g.gain.setValueAtTime(.10, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.0001, audioCtx.currentTime + .028);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(); o.stop(audioCtx.currentTime + .03);
+    }catch(e){}
+  }
+  function chime(){
+    if(!canPlay()) return;
+    try{
+      [880, 1318.5, 1760].forEach((f, i) => {
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        const t0 = audioCtx.currentTime + i * .085;
+        o.type='sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0, t0);
+        g.gain.linearRampToValueAtTime(.24, t0 + .02);
+        g.gain.exponentialRampToValueAtTime(.0001, t0 + 1.5);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(t0); o.stop(t0 + 1.6);
+      });
+    }catch(e){}
+  }
+
+  /* ---------- gleam ---------- */
+  function gleam(){
+    const el = $('gleam');
+    el.setAttribute('opacity','1');
+    el.animate(
+      [{transform:'skewX(-14deg) translateX(0px)'},{transform:'skewX(-14deg) translateX(1350px)'}],
+      {duration:900, easing:'cubic-bezier(.4,0,.5,1)'}
+    ).onfinish = () => el.setAttribute('opacity','0');
+  }
+
+  /* ---------- the draw ---------- */
+  function spin(){
+    if(spinning || entries.length < 2) return;
+    const n = entries.length, seg = 360/n;
+    const idx = pick(n);
+    const winner = entries[idx];
+
+    spinning = true;
+    document.body.classList.add('drawn');
+    $('spin').disabled = true;
+    $('reveal').classList.remove('show');
+
+    // On a phone the panel sits above the stage — bring the stone into frame first.
+    if(!document.body.classList.contains('record') && window.innerWidth <= 900){
+      document.querySelector('.stage').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    const mid = idx*seg + seg/2;
+    const jitter = (Math.random() - .5) * seg * .62;
+    const turns = 5 + Math.floor(Math.random()*3);
+    let delta = (((-mid - rotation) % 360) + 360) % 360;
+    const target = rotation + turns*360 + delta - jitter;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dur = reduced ? 1 : 6900;
+    const start = performance.now(), from = rotation;
+    let lastSeg = -1;
+
+    function frame(now){
+      const t = Math.min((now - start)/dur, 1);
+      const e = 1 - Math.pow(1 - t, 4.3);
+      rotation = from + (target - from) * e;
+      $('wheel').setAttribute('transform', `rotate(${rotation.toFixed(3)} ${CX} ${CY})`);
+
+      const cur = Math.floor((((-rotation % 360)+360)%360) / seg);
+      if(cur !== lastSeg){ if(lastSeg !== -1 && t < .995) tick(); lastSeg = cur; }
+
+      if(t < 1) requestAnimationFrame(frame);
+      else finish(winner, idx);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function finish(winner, idx){
+    rotation = rotation % 360;
+    spinning = false;
+    gleam(); chime();
+    $('wname').textContent = '@' + winner;
+    $('wname').classList.toggle('long', winner.length > 18);
+    $('wprize').textContent = $('prz').value;
+    $('reveal').classList.add('show');
+    logWin(winner);
+    if($('remove').checked){
+      const arr = $('names').value.split(/[\n,]/);
+      let removed = false;
+      const kept = arr.filter(s => {
+        const c = s.trim().replace(/^@+/,'').replace(/\s+/g,' ').toLowerCase();
+        if(!removed && c === winner.toLowerCase()){ removed = true; return false; }
+        return $('dedupe').checked ? c !== winner.toLowerCase() : true;
+      });
+      $('names').value = kept.filter(s => s.trim()).join('\n');
+      parse();
+    }
+    $('spin').disabled = entries.length < 2;
+  }
+
+  let drawNo = 0;
+  function logWin(w){
+    drawNo++;
+    $('logempty').style.display = 'none';
+    const li = document.createElement('li');
+    const i = document.createElement('i'); i.textContent = String(drawNo).padStart(2,'0');
+    const b = document.createElement('b'); b.textContent = '@' + w;
+    const s = document.createElement('span');
+    s.style.cssText = 'margin-left:auto;font-size:10px;color:#3A4049';
+    s.textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    li.append(i, b, s);
+    $('log').prepend(li);
+  }
+
+  /* ---------- import ---------- */
+  const HANDLE = /^[A-Za-z0-9._]{1,30}$/;
+
+  function fromJSON(data){
+    const out = [];
+    (function walk(o){
+      if(Array.isArray(o)) return o.forEach(walk);
+      if(o && typeof o === 'object'){
+        if(typeof o.value === 'string' && typeof o.href === 'string' && /instagram\.com/i.test(o.href)){
+          out.push(o.value); return;
+        }
+        if(typeof o.username === 'string'){ out.push(o.username); return; }
+        Object.keys(o).forEach(k => walk(o[k]));
+      }
+    })(data);
+    if(out.length) return out;
+    // fallback: any {value:"..."} pairs at all
+    (function walk2(o){
+      if(Array.isArray(o)) return o.forEach(walk2);
+      if(o && typeof o === 'object'){
+        if(typeof o.value === 'string') out.push(o.value);
+        Object.keys(o).forEach(k => walk2(o[k]));
+      }
+    })(data);
+    return out;
+  }
+
+  function fromHTML(html){
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const out = [];
+    doc.querySelectorAll('a[href*="instagram.com"]').forEach(a => {
+      const txt = (a.textContent || '').trim();
+      if(txt && txt.length <= 30) { out.push(txt); return; }
+      const m = (a.getAttribute('href') || '').match(/instagram\.com\/([A-Za-z0-9._]+)/);
+      if(m) out.push(m[1]);
+    });
+    return out;
+  }
+
+  function ingest(text, filename){
+    const t = (text || '').trim();
+    const fn = (filename || '').toLowerCase();
+    let list = null;
+
+    if(t.startsWith('{') || t.startsWith('[')){
+      try { list = fromJSON(JSON.parse(t)); } catch(e){ list = null; }
+    }
+    if(!list && (fn.endsWith('.html') || fn.endsWith('.htm') || /<a\s[^>]*href/i.test(t))){
+      list = fromHTML(t);
+    }
+    if(!list) list = t.split(/[\n,]/);
+
+    list = list.map(s => String(s).trim().replace(/^@+/, '')).filter(Boolean);
+    if(!list.length){
+      say('Nothing recognisable in that file. Paste the handles straight into the box instead.', true);
+      return;
+    }
+    $('names').value = list.join('\n');
+    parse();
+    say('Imported ' + list.length + ' handles from ' + (filename || 'file') + '.');
+  }
+
+  function readFile(f){
+    if(!f) return;
+    const r = new FileReader();
+    r.onload = ev => ingest(ev.target.result, f.name);
+    r.readAsText(f);
+  }
+
+  $('imp').addEventListener('change', e => readFile(e.target.files[0]));
+
+  const dz = $('drop');
+  ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => {
+    e.preventDefault(); dz.classList.add('over');
+  }));
+  ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => {
+    e.preventDefault(); dz.classList.remove('over');
+  }));
+  dz.addEventListener('drop', e => readFile(e.dataTransfer.files[0]));
+
+  $('clean').addEventListener('click', () => {
+    const before = $('names').value.split(/[\n,]/).map(s => s.trim()).filter(Boolean).length;
+    const kept = $('names').value.split(/[\n,]/)
+      .map(s => s.trim().replace(/^@+/, ''))
+      .filter(s => HANDLE.test(s));
+    $('names').value = kept.join('\n');
+    parse();
+    $('clean').textContent = `CLEANED — ${before - kept.length} LINES DROPPED`;
+    setTimeout(() => { $('clean').textContent = 'CLEAN LIST — KEEP VALID HANDLES ONLY'; }, 2600);
+  });
+
+  /* ---------- wiring ---------- */
+  $('names').addEventListener('input', parse);
+  $('dedupe').addEventListener('change', parse);
+  $('spin').addEventListener('click', () => {
+    unlockAudio();
+    if($('sound').checked && (!audioCtx || audioCtx.state !== 'running')){
+      say('Sound is blocked — check the ring/silent switch on the side of the phone.', true);
+    }
+    spin();
+  });
+  $('ttl').addEventListener('input', e => $('o-ttl').textContent = e.target.value);
+  $('prz').addEventListener('input', e => $('o-prz').textContent = e.target.value);
+
+  $('rec').addEventListener('click', () => document.body.classList.add('record'));
+  $('exitrec').addEventListener('click', () => document.body.classList.remove('record'));
+
+  $('logo').addEventListener('change', e => {
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+      $('logoimg').setAttribute('href', ev.target.result);
+      $('logogrp').style.display = '';
+      $('mark').style.display = 'none';
+      $('logolabel').textContent = 'Logo set — click to change';
+    };
+    r.readAsDataURL(f);
+  });
+
+  // Tapping the stone draws — record mode has no visible button by design.
+  document.querySelector('.stone-wrap').addEventListener('click', () => {
+    unlockAudio();
+    spin();
+  });
+
+  if(window.matchMedia('(hover: none)').matches){
+    document.querySelector('.hint').textContent = 'Tap the stone to draw';
+  }
+
+  $('seg').addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    document.body.className = document.body.className
+      .replace(/\bmode-\w+\b/g,'').trim() + ' mode-' + b.dataset.m;
+    Array.prototype.forEach.call($('seg').children, c => c.classList.toggle('on', c === b));
+  });
+
+  // Record mode: exit button is near-invisible so it never shows in a recording.
+  // Double-tap anywhere except the stone also exits.
+  let lastTap = 0;
+  document.addEventListener('touchend', e => {
+    if(!document.body.classList.contains('record')) return;
+    if(e.target.closest('.stone-wrap')) return;
+    const now = Date.now();
+    if(now - lastTap < 380){ document.body.classList.remove('record'); lastTap = 0; }
+    else lastTap = now;
+  }, {passive:true});
+
+  document.addEventListener('keydown', e => {
+    if(e.code === 'Space' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'INPUT'){
+      e.preventDefault(); spin();
+    }
+    if(e.key === 'Escape') document.body.classList.remove('record');
+  });
+
+  // seed with a placeholder set so the stone renders on open
+  document.body.classList.add('mode-psych');
+  $('names').value = '';
+  parse();
+})();
+</script>

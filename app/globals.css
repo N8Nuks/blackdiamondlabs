@@ -26,3 +26,19 @@ h1, h2, h3, button, .font-display {
   font-family: var(--font-michroma), var(--font-inter), sans-serif;
   letter-spacing: 0.01em;
 }
+
+/* Calm the animations on devices that struggle or users who ask */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Mobile: stop infinite shimmer loops (biggest battery/crash load) */
+@media (max-width: 640px) {
+  .silver-shimmer,
+  [style*="shimmer"] {
+    animation: none !important;
+  }
+}

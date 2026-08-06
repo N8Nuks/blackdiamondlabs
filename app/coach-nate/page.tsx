@@ -113,7 +113,9 @@ export default function CoachNate() {
     const onErr = (e: ErrorEvent) => {
       const src = String(e.filename || '')
       const ours = src.includes('blackdiamondlabs.co.nz') || src.includes('/_next/')
-      if (ours && e.message && e.message !== 'Script error.') setPageError(String(e.message))
+      const msg = String(e.message || '')
+      const network = /chunk|fetch|load failed|network/i.test(msg)
+      if (ours && msg && msg !== 'Script error.' && !network) setPageError(msg)
     }
     window.addEventListener('error', onErr)
     try { if (localStorage.getItem(VOICE_STORE) === '1') setVoiceOn(true) } catch {}

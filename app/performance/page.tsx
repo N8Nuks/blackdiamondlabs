@@ -8,7 +8,7 @@ const STEPS = [
   { n: '02', t: 'Upload your video', d: '2–5 minutes of training or game footage for your chosen focus area. Simple upload instructions arrive by email.' },
   { n: '03', t: 'Performance analysis', d: 'Nathan and Katrina review your footage before your consultation — strengths, priorities, and the changes that matter most.' },
   { n: '04', t: 'Live consultation', d: 'A personalised 45–60 minute online Performance Review Consultation. Your footage, your goals, direct feedback.' },
-  { n: '05', t: 'Your performance plan', d: 'A follow-up email with your review summary, Individual Action Plan, and training priorities for the next 2–4 weeks.' },
+  { n: '05', t: 'Your performance plan', d: 'A follow-up online consultation and email with your review summary, Individual Action Plan, and training priorities for the next 2–4 weeks.' },
 ]
 
 const INCLUDED = [
@@ -17,7 +17,7 @@ const INCLUDED = [
   '45–60 minute live Performance Review Consultation',
   'Personalised feedback and practical guidance',
   'Individual Action Plan',
-  'Follow-up email with training recommendations',
+  'Follow-up 30 minute online consultation and email with personalised training recommendations',
 ]
 
 const AREAS = ['Hitting', 'Infield Defence', 'Outfield Defence', 'Base Running', 'General Game Performance']

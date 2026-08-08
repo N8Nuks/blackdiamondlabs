@@ -10,9 +10,9 @@ export default function Thanks() {
       <style>{`@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }`}</style>
       <section className="relative z-10 pt-44 pb-32 px-6 text-center">
         <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#C7CEDA' }}>Black Diamond Performance</p>
-        <h1 className="text-4xl sm:text-5xl font-black mb-6">Booking <span style={silverText}>confirmed.</span></h1>
+        <h1 className="text-4xl sm:text-5xl font-black mb-6">Registration <span style={silverText}>received.</span></h1>
         <p className="text-sm text-white/40 max-w-md mx-auto leading-relaxed">
-          Check your email for your confirmation and next steps. Submit your 2–5 minutes of footage within 14 days, and we&apos;ll confirm your consultation time once it&apos;s received.
+          Check your email for your registration confirmation. You&apos;ve locked in the $99 launch price, and you&apos;re in the founding group — two of the first five registrations will be selected for a free first session. Paid bookings open Monday.
         </p>
         <p className="text-sm text-white/40 max-w-md mx-auto leading-relaxed mt-4">
           Didn&apos;t receive an email? Check spam, or contact us via the <a href="/contact" className="underline">contact page</a>.

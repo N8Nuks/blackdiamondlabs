@@ -1,6 +1,5 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import PerformanceWaitlist from '@/components/PerformanceWaitlist'
 
 const silverText: React.CSSProperties = { background: 'linear-gradient(90deg,#8E9BA8,#E6EAF0,#FFFFFF,#E6EAF0,#8E9BA8)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }
 
@@ -41,9 +40,9 @@ export default function Performance() {
           <p className="text-sm text-white/40 max-w-xl mx-auto">
             Expert video analysis and a live one-on-one consultation with Nathan and Katrina Nukunuku — two of New Zealand&apos;s most accomplished softball players, with 40+ years of combined international experience.
           </p>
-          <p className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
-            Bookings available soon — register below
-          </p>
+          <a href="/performance/book" className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black transition-all hover:opacity-90" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
+            Register now — free to register →
+          </a>
         </div>
       </section>
 
@@ -52,7 +51,7 @@ export default function Performance() {
         <div className="max-w-3xl mx-auto rounded-2xl border p-8 sm:p-10" style={{ borderColor: '#C7CEDA40', background: '#C7CEDA08' }}>
           <div className="flex items-center gap-2 mb-5">
             <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ backgroundColor: '#4ade80' }} />
-            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#13c5e5' }}>Bookings Live Soon</span>
+            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#4ade80' }}>Registrations open — founding group</span>
           </div>
           <h2 className="text-2xl font-black mb-1">The <span style={silverText}>Performance Review</span> — Diamond Sports</h2>
           <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Online video analysis + live consultation — Diamond Sport athletes 10 years and over</p>
@@ -63,8 +62,9 @@ export default function Performance() {
             <span className="text-lg text-white/30 line-through">$180 NZD</span>
             <span className="text-4xl font-black" style={silverText}>$99 NZD</span>
           </div>
-          <p className="text-xs text-white/40 mb-6">Launch price — for a limited time only. Inclusive of GST where applicable.</p>
-          <PerformanceWaitlist />
+          <p className="text-xs text-white/40 mb-3">Launch price when paid bookings open Monday — registering now locks it in. Inclusive of GST where applicable.</p>
+          <p className="text-sm font-bold mb-6" style={{ color: '#C7CEDA' }}>First 5 registrations: 2 will be selected for a FREE first session. Free-session recipients agree to share their journey and results publicly as a BDP testimonial.</p>
+          <a href="/performance/book" className="text-sm font-bold" style={silverText}>Register now and lock in the launch price →</a>
         </div>
       </section>
 

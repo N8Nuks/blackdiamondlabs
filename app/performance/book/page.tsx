@@ -63,7 +63,7 @@ export default function Book() {
       })
       const data = await res.json()
       if (!res.ok) { setErr(data.detail || 'Something went wrong. Please try again.'); setBusy(false); return }
-      window.location.href = data.payment_url
+      window.location.href = data.payment_url || '/performance/thanks'
     } catch {
       setErr('Could not reach the booking service. Please try again shortly.'); setBusy(false)
     }
@@ -91,12 +91,12 @@ export default function Book() {
       <section className="relative z-10 pt-36 pb-24 px-6">
         <div className="max-w-2xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#C7CEDA' }}>Black Diamond Performance</p>
-          <h1 className="text-3xl sm:text-5xl font-black mb-3">Book your <span style={silverText}>Performance Review</span></h1>
+          <h1 className="text-3xl sm:text-5xl font-black mb-3">Register for your <span style={silverText}>Performance Review</span></h1>
           <div className="flex items-end gap-3 mb-2">
             <span className="text-white/30 line-through">$180 NZD</span>
             <span className="text-2xl font-black" style={silverText}>$99 NZD</span>
           </div>
-          <p className="text-xs text-white/40 mb-2">Launch price — limited time only. Inclusive of GST where applicable. Payment confirms your booking.</p>
+          <p className="text-xs text-white/40 mb-2">Registering now locks in the $99 launch price for your first Performance Review. First 5 registrations: 2 selected for a FREE first session (see eligibility below). Paid bookings open Monday — no payment today.</p>
 
           <H>Athlete details</H>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -198,7 +198,7 @@ export default function Book() {
           <H>Optional</H>
           <div className="space-y-3">
             <Check k="consent_marketing">I'd like to receive updates from Black Diamond Labs about future programmes, camps and products.</Check>
-            <Check k="consent_media">I give permission for short excerpts of my footage or review to be used to promote Black Diamond Performance. (Your review is unaffected either way.)</Check>
+            <Check k="consent_media">I give permission for my journey, results, and short excerpts of my footage or review to be shared publicly to promote Black Diamond Performance. (Optional — but required to be eligible for the free first session. Your review is unaffected either way.)</Check>
             <Check k="consent_research">I'm happy for my footage to be retained and used in anonymised form to help develop Black Diamond Labs' athlete analysis tools. (Optional — if unticked, footage is deleted within 30 days as standard.)</Check>
           </div>
 
@@ -218,9 +218,9 @@ export default function Book() {
           <button onClick={submit} disabled={busy}
             className="mt-10 w-full rounded-full px-8 py-4 text-sm font-black transition-all hover:opacity-90 disabled:opacity-40"
             style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
-            {busy ? 'Preparing secure payment…' : 'Continue to secure payment — $99 NZD'}
+            {busy ? 'Registering…' : 'Register — free'}
           </button>
-          <p className="mt-3 text-center text-xs text-white/30">You'll be taken to Stripe to complete payment. Your booking is confirmed once payment is complete.</p>
+          <p className="mt-3 text-center text-xs text-white/30">No payment today. You'll receive a confirmation email with your registration reference.</p>
         </div>
       </section>
       <Footer />

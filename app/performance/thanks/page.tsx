@@ -12,7 +12,7 @@ export default function Thanks() {
         <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#C7CEDA' }}>Black Diamond Performance</p>
         <h1 className="text-4xl sm:text-5xl font-black mb-6">Registration <span style={silverText}>received.</span></h1>
         <p className="text-sm text-white/40 max-w-md mx-auto leading-relaxed">
-          Check your email for your registration confirmation. You&apos;ve locked in the $99 launch price, and you&apos;re in the founding group — two of the first five registrations will be selected for a free first session. Paid bookings open Monday.
+          Check your email for your registration confirmation. You&apos;ve locked in the $99 launch price, and you&apos;re in the founding group — two of the first five registrations will be selected for a free first session. You'll be emailed first when paid bookings open.
         </p>
         <p className="text-sm text-white/40 max-w-md mx-auto leading-relaxed mt-4">
           Didn&apos;t receive an email? Check spam, or contact us via the <a href="/contact" className="underline">contact page</a>.

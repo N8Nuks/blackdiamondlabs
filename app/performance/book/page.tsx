@@ -96,7 +96,7 @@ export default function Book() {
             <span className="text-white/30 line-through">$180 NZD</span>
             <span className="text-2xl font-black" style={silverText}>$99 NZD</span>
           </div>
-          <p className="text-xs text-white/40 mb-2">Registering now locks in the $99 launch price for your first Performance Review. First 5 registrations: 2 selected for a FREE first session (see eligibility below). Paid bookings open Monday — no payment today.</p>
+          <p className="text-xs text-white/40 mb-2">Registering now locks in the $99 launch price for your first Performance Review. First 5 registrations: 2 selected for a FREE first session (see eligibility below). No payment today — you'll be emailed first when paid bookings open.</p>
 
           <H>Athlete details</H>
           <div className="grid sm:grid-cols-2 gap-4">

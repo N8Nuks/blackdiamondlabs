@@ -64,7 +64,7 @@ export default function Performance() {
           </div>
           <p className="text-xs text-white/40 mb-3">Launch price when paid bookings open Monday — registering now locks it in. Inclusive of GST where applicable.</p>
           <p className="text-sm font-bold mb-6" style={{ color: '#C7CEDA' }}>First 5 registrations: 2 will be selected for a FREE first session. Free-session recipients agree to share their journey and results publicly as a BDP testimonial.</p>
-          <a href="/performance/book" className="text-sm font-bold" style={silverText}>Register now and lock in the launch price →</a>
+          <a href="/performance/book" className="inline-block rounded-full px-8 py-3.5 text-sm font-black transition-all hover:opacity-90" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)', boxShadow: '0 0 24px rgba(199,206,218,0.35)' }}>Register now and lock in the launch price →</a>
         </div>
       </section>
 

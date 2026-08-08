@@ -7,8 +7,8 @@ const STEPS = [
   { n: '01', t: 'Book your review', d: 'Complete the online booking form and athlete questionnaire, and confirm with payment.' },
   { n: '02', t: 'Upload your video', d: '2–5 minutes of training or game footage for your chosen focus area. Simple upload instructions arrive by email.' },
   { n: '03', t: 'Performance analysis', d: 'Nathan and Katrina review your footage before your consultation — strengths, priorities, and the changes that matter most.' },
-  { n: '04', t: 'Live consultation', d: 'A personalised 45–60 minute online Performance Review Consultation. Your footage, your goals, direct feedback.' },
-  { n: '05', t: 'Your performance plan', d: 'A follow-up online consultation and email with your review summary, Individual Action Plan, and training priorities for the next 2–4 weeks.' },
+  { n: '04', t: 'Live consultation', d: 'A personalised 45–60 minute online Performance Review Consultation, held within 4 days of your footage being received. Your footage, your goals, direct feedback.' },
+  { n: '05', t: 'Your performance plan', d: 'A follow-up email with your review summary, Individual Action Plan and 2–4 week training priorities — then a 30-minute follow-up consultation at the 4-week mark to review progress, provide further training if required, and set your next steps.' },
 ]
 
 const INCLUDED = [

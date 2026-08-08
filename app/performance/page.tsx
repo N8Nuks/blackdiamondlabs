@@ -17,7 +17,7 @@ const INCLUDED = [
   '45–60 minute live Performance Review Consultation',
   'Personalised feedback and practical guidance',
   'Individual Action Plan',
-  'Follow-up 30 minute online consultation and email with personalised training recommendations',
+  'Personalised 4-week plan by email', '30-minute follow-up consultation at the 4-week mark',
 ]
 
 const AREAS = ['Hitting', 'Infield Defence', 'Outfield Defence', 'Base Running', 'General Game Performance']

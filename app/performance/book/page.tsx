@@ -176,7 +176,9 @@ export default function Book() {
 
           <H>Booking terms</H>
           <ul className="text-xs text-white/40 leading-relaxed space-y-2">
-            <li>— Payment is required to confirm your booking.</li>
+            <li>— Registration is free and creates no obligation to purchase. When paid bookings open, you choose whether to confirm your booking with payment — your registered launch price of $99 applies to your first Performance Review.</li>
+            <li>— You may withdraw your registration at any time by emailing info@blackdiamondlabs.co.nz.</li>
+            <li>— Free first sessions: two recipients will be selected from the first five registrations. Eligibility requires the optional testimonial permission (below). Recipients pay nothing for their first session; no purchase necessary.</li>
             <li>— Video footage must be submitted within 14 days of booking, and at least 48 hours before your scheduled consultation. If footage is not received within 14 days, your booking will lapse and you may request a credit or refund.</li>
             <li>— Consultations may be rescheduled free of charge with at least 24 hours' notice.</li>
             <li>— If you cancel before your footage has been reviewed, you will receive a full refund. Once analysis has begun, refunds are at the discretion of Black Diamond Performance. Nothing in these terms limits your rights under the Consumer Guarantees Act 1993.</li>

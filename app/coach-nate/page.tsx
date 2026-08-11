@@ -455,7 +455,17 @@ export default function CoachNate() {
                 Send
               </button>
             </div>
-            <div className="flex gap-2 mt-3 self-end">
+            <div className="flex flex-wrap items-center justify-end gap-2 mt-3 self-end">
+              <button onClick={async (e) => {
+                (e.currentTarget as HTMLButtonElement).blur()
+                const text = "Coach Nate — 20 years of World Championship coaching, on call. Free to try: https://www.blackdiamondlabs.co.nz/coach-nate"
+                try {
+                  if (navigator.share) await navigator.share({ text })
+                  else { await navigator.clipboard.writeText(text); setError('Link copied — send it to a mate.'); setTimeout(() => setError(''), 3000) }
+                } catch {}
+              }}
+                className="text-xs px-4 py-1.5 rounded-full border transition-colors"
+                style={{ borderColor: '#E8C77A66', color: '#E8C77A' }}>Tell a mate</button>
               <button onClick={(e) => { (e.currentTarget as HTMLButtonElement).blur(); setMsgs([]); try { sessionStorage.removeItem('bdai-chat') } catch {}; window.scrollTo({ top: 0 }) }}
                 className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">New chat</button>
               <button onClick={signOut} className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">Sign out</button>

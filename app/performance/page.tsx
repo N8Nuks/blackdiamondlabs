@@ -48,8 +48,8 @@ export default function Performance() {
 
       {/* Product card */}
       <section className="relative z-10 px-6 sm:px-12 pb-20">
-        <div className="max-w-3xl mx-auto rounded-2xl border p-8 sm:p-10" style={{ borderColor: '#C7CEDA40', background: '#C7CEDA08' }}>
-          <div className="flex items-center gap-2 mb-5">
+        <div className="max-w-3xl mx-auto rounded-2xl border p-8 sm:p-10 text-center" style={{ borderColor: '#C7CEDA40', background: '#C7CEDA08' }}>
+          <div className="flex items-center justify-center gap-2 mb-5">
             <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ backgroundColor: '#4ade80' }} />
             <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#4ade80' }}>Registrations open — founding group</span>
           </div>
@@ -58,7 +58,7 @@ export default function Performance() {
           <p className="text-sm text-white/40 leading-relaxed mb-6">
             Submit your footage, then meet Nathan and Katrina online for direct, honest feedback. Every review focuses on one or two key priorities — simple, practical, and immediately applicable. Choose your focus: {AREAS.join(' · ')}.
           </p>
-          <div className="flex items-end gap-4 mb-2">
+          <div className="flex items-end justify-center gap-4 mb-2">
             <span className="text-lg text-white/30 line-through">$180 NZD</span>
             <span className="text-4xl font-black" style={silverText}>$99 NZD</span>
           </div>

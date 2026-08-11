@@ -34,7 +34,7 @@ function BrandName({ name }: { name: string }) {
 
 export default function Brands() {
   const brands = [
-    { name: 'Grassroots Fantasy', tagline: 'Built for the game you love.', taglineColor: '#2d9e4e', desc: 'Fantasy League platform — support your club, collect player cards, build your squad, score points based on real game results.', status: 'Pending', href: 'https://www.grassrootsfantasy.co.nz', accent: '#2d9e4e' },
+    { name: 'Grassroots Fantasy', tagline: 'Built for the game you love.', taglineColor: '#2d9e4e', desc: 'Fantasy League platform — support your club, collect player cards, build your squad, score points based on real game results. Open sandbox season running now; the real season starts September.', status: 'Live', href: 'https://www.grassrootsfantasy.co.nz', accent: '#2d9e4e' },
     { name: 'LegacyMint', tagline: 'Your Legacy. Their Dream.', taglineColor: '#FFD700', desc: 'NFT fundraising platform — creating and sharing lasting digital legacies, stories, moments, and memories built to endure.', status: 'In Development', href: '#', accent: '#2596be', blur: true },
     { name: 'FutureProof Solutions', tagline: 'Built for what comes next.', taglineColor: '#C0C0C0', desc: "Diversification Education. In a fast changing environment, are you ready for what's next?", status: 'In Development', href: '#', accent: '#FFD700' , blur: true },
     { name: 'SnapTrack', tagline: 'Track every skill. Build every athlete.', taglineColor: '#C7CEDA', desc: 'Skill performance education app built for athletes who want to measure their development.', status: 'In Development', href: '#', accent: '#C7CEDA' , blur: true },

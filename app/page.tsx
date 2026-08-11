@@ -219,8 +219,10 @@ export default function Home() {
                 taglineStyle={{ color: "#C7CEDA" }}
                 description="Expert video analysis and a live one-on-one consultation with Black Diamond Labs personnel - experts in their field."
                 href="/performance"
+                secondaryCta={{ label: 'Register for free', href: '/performance' }}
                 status="live"
                 accentColor="#C7CEDA"
+                hideLink
                 hideEdition={true}
                 larger={true}
               />
@@ -232,6 +234,7 @@ export default function Home() {
                 href="https://grassrootsfantasy.co.nz"
                 secondaryCta={{ label: 'Play the sandbox season', href: 'https://grassrootsfantasy.co.nz' }}
                 status="live"
+                hideLink
                 accentColor="#2d9e4e"
                 nameStyle="grassroots"
                 hideEdition={true}

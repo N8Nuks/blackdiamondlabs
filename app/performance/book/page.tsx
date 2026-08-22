@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 
-const silverText: React.CSSProperties = { background: 'linear-gradient(90deg,#8E9BA8,#E6EAF0,#FFFFFF,#E6EAF0,#8E9BA8)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }
+const bdpText: React.CSSProperties = { background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#E9D5FF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }
 const API = 'https://api.blackdiamondlabs.co.nz/v1/bdp/book'
 const inputCls = 'w-full rounded-lg bg-white/[0.04] border border-white/10 px-4 py-3 text-sm text-white placeholder-white/25 focus:outline-none focus:border-white/40 transition-colors'
 const labelCls = 'block text-xs font-bold uppercase tracking-widest text-white/50 mb-2'
@@ -71,12 +71,12 @@ export default function Book() {
 
   const Check = ({ k, children }: { k: string, children: React.ReactNode }) => (
     <label className="flex items-start gap-3 text-sm text-white/60 leading-relaxed cursor-pointer">
-      <input type="checkbox" checked={f[k]} onChange={set(k)} className="mt-1 h-4 w-4 shrink-0 accent-white" />
+      <input type="checkbox" checked={f[k]} onChange={set(k)} className="mt-1 h-4 w-4 shrink-0" style={{ accentColor: '#A855F7' }} />
       <span>{children}</span>
     </label>
   )
   const H = ({ children }: { children: React.ReactNode }) => (
-    <h2 className="text-lg font-black mt-12 mb-5 pb-2 border-b border-white/10">{children}</h2>
+    <h2 className="text-lg font-black mt-12 mb-5 pb-2" style={{ borderBottom: '1px solid rgba(168,85,247,0.25)' }}>{children}</h2>
   )
 
   return (
@@ -90,13 +90,13 @@ export default function Book() {
       <style>{`@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }`}</style>
       <section className="relative z-10 pt-36 pb-24 px-6">
         <div className="max-w-2xl mx-auto">
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#C7CEDA' }}>Black Diamond Performance</p>
-          <h1 className="text-3xl sm:text-5xl font-black mb-3">Register for your <span style={silverText}>Performance Review</span></h1>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#A855F7' }}>Black Diamond Performance</p>
+          <h1 className="text-3xl sm:text-5xl font-black mb-3">Book your <span style={bdpText}>Performance Review</span></h1>
           <div className="flex items-end gap-3 mb-2">
             <span className="text-white/30 line-through">$180 NZD</span>
-            <span className="text-2xl font-black" style={silverText}>$99 NZD</span>
+            <span className="text-2xl font-black" style={bdpText}>$99 NZD</span>
           </div>
-          <p className="text-xs text-white/40 mb-2">Registering now locks in the $99 launch price for your first Performance Review. First 5 registrations: 2 selected for a FREE first session (see eligibility below). No payment today — you'll be emailed first when paid bookings open.</p>
+          <p className="text-xs text-white/40 mb-2">Launch price — limited time. Complete this form and you&apos;ll go straight to secure payment. Your consultation is confirmed by email once your footage is received. Inclusive of GST where applicable.</p>
 
           <H>Athlete details</H>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -150,7 +150,7 @@ export default function Book() {
             <div><label className={labelCls}>Why did you choose this area for your review?</label><textarea rows={2} className={inputCls} value={f.q_why_area} onChange={set('q_why_area')} /></div>
             <div><label className={labelCls}>What do you think you do well?</label><textarea rows={2} className={inputCls} value={f.q_strengths} onChange={set('q_strengths')} /></div>
             <div><label className={labelCls}>What would you most like to improve?</label><textarea rows={2} className={inputCls} value={f.q_improve} onChange={set('q_improve')} /></div>
-            <div><label className={labelCls}>Anything specific you'd like Nathan and Katrina to look at?</label><textarea rows={2} className={inputCls} value={f.q_specific} onChange={set('q_specific')} /></div>
+            <div><label className={labelCls}>Anything specific you&apos;d like Nathan and Katrina to look at?</label><textarea rows={2} className={inputCls} value={f.q_specific} onChange={set('q_specific')} /></div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div><label className={labelCls}>Currently preparing for</label>
                 <select className={inputCls} value={f.q_preparing_for} onChange={set('q_preparing_for')}>
@@ -171,15 +171,14 @@ export default function Book() {
                 </select>
               </div>
             )}
-            <div><label className={labelCls}>Anything else you'd like us to know?</label><textarea rows={2} className={inputCls} value={f.q_other} onChange={set('q_other')} /></div>
+            <div><label className={labelCls}>Anything else you&apos;d like us to know?</label><textarea rows={2} className={inputCls} value={f.q_other} onChange={set('q_other')} /></div>
           </div>
 
           <H>Booking terms</H>
           <ul className="text-xs text-white/40 leading-relaxed space-y-2">
-            <li>— Registration is free and creates no obligation to purchase. When paid bookings open, you choose whether to confirm your booking with payment — your registered launch price of $99 applies to your first Performance Review.</li>
-            <li>— You may withdraw your registration at any time by emailing info@blackdiamondlabs.co.nz.</li>
+            <li>— Payment confirms your booking. Your consultation date and time are confirmed by email once your footage has been received.</li>
             <li>— Video footage must be submitted within 14 days of booking, and at least 48 hours before your scheduled consultation. If footage is not received within 14 days, your booking will lapse and you may request a credit or refund.</li>
-            <li>— Consultations may be rescheduled free of charge with at least 24 hours' notice.</li>
+            <li>— Consultations may be rescheduled free of charge with at least 24 hours&apos; notice.</li>
             <li>— If you cancel before your footage has been reviewed, you will receive a full refund. Once analysis has begun, refunds are at the discretion of Black Diamond Performance. Nothing in these terms limits your rights under the Consumer Guarantees Act 1993.</li>
             <li>— Your footage and personal information are stored securely, accessed only by authorised Black Diamond Labs Limited personnel for the purpose of your review, and footage is deleted within 30 days of your consultation unless you request otherwise.</li>
             <li>— Consultations are not recorded unless agreed in advance by all parties.</li>
@@ -198,9 +197,9 @@ export default function Book() {
 
           <H>Optional</H>
           <div className="space-y-3">
-            <Check k="consent_marketing">I'd like to receive updates from Black Diamond Labs about future programmes, camps and products.</Check>
-            <Check k="consent_media">I give permission for my journey, results, and short excerpts of my footage or review to be shared publicly to promote Black Diamond Performance. (Optional — but required to be eligible for the free first session. Your review is unaffected either way.)</Check>
-            <Check k="consent_research">I'm happy for my footage to be retained and used in anonymised form to help develop Black Diamond Labs' athlete analysis tools. (Optional — if unticked, footage is deleted within 30 days as standard.)</Check>
+            <Check k="consent_marketing">I&apos;d like to receive updates from Black Diamond Labs about future programmes, camps and products.</Check>
+            <Check k="consent_media">I give permission for my journey, results, and short excerpts of my footage or review to be shared publicly to promote Black Diamond Performance. (Optional — your review is unaffected either way.)</Check>
+            <Check k="consent_research">I&apos;m happy for my footage to be retained and used in anonymised form to help develop Black Diamond Labs&apos; athlete analysis tools. (Optional — if unticked, footage is deleted within 30 days as standard.)</Check>
           </div>
 
           {isMinor && (
@@ -209,7 +208,7 @@ export default function Book() {
               <div className="space-y-3">
                 <Check k="guardian_participation">I consent to my child participating in the Black Diamond Performance Review.</Check>
                 <Check k="guardian_present">I (or another responsible adult) will be present during the online consultation.</Check>
-                <Check k="guardian_privacy">I consent to the collection and use of my child's information and video footage as described in the Booking Terms.</Check>
+                <Check k="guardian_privacy">I consent to the collection and use of my child&apos;s information and video footage as described in the Booking Terms.</Check>
               </div>
             </>
           )}
@@ -217,11 +216,11 @@ export default function Book() {
           {err && <p className="mt-8 text-sm font-bold text-red-400">{err}</p>}
 
           <button onClick={submit} disabled={busy}
-            className="mt-10 w-full rounded-full px-8 py-4 text-sm font-black transition-all hover:opacity-90 disabled:opacity-40"
-            style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
-            {busy ? 'Registering…' : 'Register — free'}
+            className="mt-10 w-full rounded-full px-8 py-4 text-sm font-black text-white transition-all hover:brightness-110 disabled:opacity-40"
+            style={{ background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite', boxShadow: '0 0 24px rgba(123,91,255,0.4)' }}>
+            {busy ? 'Taking you to payment…' : 'Continue to payment — $99 NZD'}
           </button>
-          <p className="mt-3 text-center text-xs text-white/30">No payment today. You'll receive a confirmation email with your registration reference.</p>
+          <p className="mt-3 text-center text-xs text-white/30">Secure payment via Stripe. You&apos;ll receive a confirmation email with your booking reference and footage upload instructions.</p>
         </div>
       </section>
       <Footer />

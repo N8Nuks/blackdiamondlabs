@@ -67,7 +67,6 @@ export default function Performance() {
           </div>
           <p className="text-xs text-white/40 mb-6">Launch price — limited time. Inclusive of GST where applicable.</p>
           <a href="/performance/book" className="inline-block rounded-full px-8 py-3.5 text-sm font-black text-white transition-all hover:opacity-90" style={{ background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite', boxShadow: '0 0 24px rgba(123,91,255,0.45)' }}>Book now — $99 launch price →</a>
-          <BdpViewCount />
         </div>
       </section>
 
@@ -106,6 +105,7 @@ export default function Performance() {
       </section>
 
     <div className="relative z-10"><Footer /></div>
+    <BdpViewCount />
     </main>
   )
 }

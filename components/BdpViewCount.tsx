@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 const API = 'https://api.blackdiamondlabs.co.nz'
-const THRESHOLD = 25   // stays hidden until the number is worth showing
+const THRESHOLD = 25
 
 export default function BdpViewCount() {
   const [count, setCount] = useState<number | null>(null)
@@ -11,7 +11,6 @@ export default function BdpViewCount() {
     let cancelled = false
     const run = async () => {
       try {
-        // Count each visitor once per browser session
         const seen = sessionStorage.getItem('bdp-viewed')
         const url = API + (seen ? '/v1/bdp/views' : '/v1/bdp/view')
         const r = await fetch(url, { method: seen ? 'GET' : 'POST' })
@@ -27,8 +26,10 @@ export default function BdpViewCount() {
   if (count === null || count < THRESHOLD) return null
 
   return (
-    <p className="text-xs mt-5" style={{ color: '#A855F7' }}>
-      {count.toLocaleString()} athletes and coaches have viewed this
-    </p>
+    <div className="fixed bottom-4 right-4 z-40 rounded-full px-4 py-2 backdrop-blur-md"
+      style={{ border: '1px solid #7B5BFF55', background: 'rgba(10,8,20,0.75)', boxShadow: '0 0 18px rgba(123,91,255,0.25)' }}>
+      <span className="text-sm font-black tabular-nums" style={{ color: '#A855F7' }}>{count.toLocaleString()}</span>
+      <span className="text-[10px] uppercase tracking-widest text-white/45 ml-2">visitors</span>
+    </div>
   )
 }

@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import BdpViewCount from '@/components/BdpViewCount'
 
 const bdpText: React.CSSProperties = { background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#E9D5FF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }
 
@@ -17,7 +18,8 @@ const INCLUDED = [
   '45–60 minute live Performance Review Consultation',
   'Personalised feedback and practical guidance',
   'Individual Action Plan',
-  'Personalised 4-week plan by email', '30-minute follow-up consultation at the 4-week mark',
+  'Personalised 4-week plan by email',
+  '30-minute follow-up consultation at the 4-week mark',
 ]
 
 const AREAS = ['Hitting', 'Infield Defence', 'Outfield Defence', 'Base Running', 'General Game Performance']
@@ -36,13 +38,13 @@ export default function Performance() {
         </div>
         <div className="relative z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/bdp-logo.webp" alt="Black Diamond Performance" className="w-full max-w-md mx-auto h-auto mb-6" style={{ mixBlendMode: 'screen' }} />
+          <img src="/bdp-logo-transparent.png" alt="Black Diamond Performance" className="w-full max-w-md mx-auto h-auto mb-6" />
           <h1 className="text-3xl sm:text-5xl font-black mb-4">Elite experience. <span style={bdpText}>Personalised feedback.</span></h1>
           <p className="text-sm text-white/40 max-w-xl mx-auto">
             Expert video analysis and a live one-on-one consultation with Nathan and Katrina Nukunuku — two of New Zealand&apos;s most accomplished softball players, with 40+ years of combined international experience.
           </p>
           <a href="/performance/book" className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black text-white transition-all hover:opacity-90" style={{ background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite', boxShadow: '0 0 24px rgba(123,91,255,0.4)' }}>
-            Register now — free to register →
+            Book your Performance Review →
           </a>
         </div>
       </section>
@@ -52,7 +54,7 @@ export default function Performance() {
         <div className="max-w-3xl mx-auto rounded-2xl border p-8 sm:p-10 text-center" style={{ borderColor: '#7B5BFF40', background: '#7B5BFF0A' }}>
           <div className="flex items-center justify-center gap-2 mb-5">
             <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ backgroundColor: '#4ade80' }} />
-            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#4ade80' }}>Registrations open — founding group</span>
+            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#4ade80' }}>Bookings open</span>
           </div>
           <h2 className="text-2xl font-black mb-1">The <span style={bdpText}>Performance Review</span> — Diamond Sports</h2>
           <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Online video analysis + live consultation — Diamond Sport athletes 10 years and over</p>
@@ -63,9 +65,9 @@ export default function Performance() {
             <span className="text-lg text-white/30 line-through">$180 NZD</span>
             <span className="text-4xl font-black" style={bdpText}>$99 NZD</span>
           </div>
-          <p className="text-xs text-white/40 mb-3">Launch price when paid bookings open Monday — registering now locks it in. Inclusive of GST where applicable.</p>
-          <p className="text-sm font-bold mb-6" style={{ color: '#A855F7' }}>First 5 registrations: 2 will be selected for a FREE first session. Free-session recipients agree to share their journey and results publicly as a BDP testimonial.</p>
-          <a href="/performance/book" className="inline-block rounded-full px-8 py-3.5 text-sm font-black text-white transition-all hover:opacity-90" style={{ background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite', boxShadow: '0 0 24px rgba(123,91,255,0.45)' }}>Register now and lock in the launch price →</a>
+          <p className="text-xs text-white/40 mb-6">Launch price — limited time. Inclusive of GST where applicable.</p>
+          <a href="/performance/book" className="inline-block rounded-full px-8 py-3.5 text-sm font-black text-white transition-all hover:opacity-90" style={{ background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite', boxShadow: '0 0 24px rgba(123,91,255,0.45)' }}>Book now — $99 launch price →</a>
+          <BdpViewCount />
         </div>
       </section>
 

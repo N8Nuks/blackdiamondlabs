@@ -5,8 +5,8 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
 
   const links = [
-    { label: 'BDAI', href: '/bd-ai' },
-    { label: 'Performance', href: '/performance' },
+    { label: 'BDAI', href: '/bd-ai', split: { first: 'BD', second: 'AI', color: '#FFD700' } },
+    { label: 'Performance', href: '/performance', color: '#A855F7' },
     { label: 'Brands', href: '/brands' },
     { label: 'About', href: '/about' },
     { label: 'Platform', href: '/platform' },
@@ -27,8 +27,11 @@ export default function Nav() {
         <div className="hidden md:flex items-center gap-10">
           {links.map(l => (
             <a key={l.label} href={l.href}
-              className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors font-display">
-              {l.label}
+              className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors font-display"
+              style={(l as any).color ? { color: (l as any).color } : undefined}>
+              {(l as any).split
+                ? (<><span>{(l as any).split.first}</span><span style={{ color: (l as any).split.color }}>{(l as any).split.second}</span></>)
+                : l.label}
             </a>
           ))}
         </div>
@@ -51,8 +54,11 @@ export default function Nav() {
           {links.map(l => (
             <a key={l.label} href={l.href}
               className="text-3xl font-black text-white hover:text-white transition-colors uppercase tracking-widest font-display"
+              style={(l as any).color ? { color: (l as any).color } : undefined}
               onClick={() => setOpen(false)}>
-              {l.label}
+              {(l as any).split
+                ? (<><span>{(l as any).split.first}</span><span style={{ color: (l as any).split.color }}>{(l as any).split.second}</span></>)
+                : l.label}
             </a>
           ))}
           <a href="mailto:info@blackdiamondlabs.co.nz"

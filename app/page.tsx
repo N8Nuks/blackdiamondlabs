@@ -215,11 +215,11 @@ export default function Home() {
               <BrandCard
                 name="Black Diamond Performance"
                 nameSplit={{ first: "Black Diamond ", second: "Performance", secondColor: "#A855F7" }}
-                tagline="Registrations open — first 5: 2 FREE sessions selected."
+                tagline="Bookings open — $99 launch price, limited time."
                 taglineStyle={{ color: "#A855F7" }}
                 description="Expert video analysis and a live one-on-one consultation with Black Diamond Labs personnel - experts in their field."
                 href="/performance"
-                secondaryCta={{ label: 'Register for free', href: '/performance' }}
+                secondaryCta={{ label: 'Book your review', href: '/performance' }}
                 status="live"
                 accentColor="#7B5BFF"
                 hideLink

@@ -101,11 +101,11 @@ export default function Performance() {
           </p>
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#A855F7' }}>Coming to Black Diamond Performance</p>
           <p className="text-sm text-white/30">In-person sessions · Weekend training camps · Team &amp; club programmes</p>
+          <BdpViewCount />
         </div>
       </section>
 
     <div className="relative z-10"><Footer /></div>
-    <BdpViewCount />
     </main>
   )
 }

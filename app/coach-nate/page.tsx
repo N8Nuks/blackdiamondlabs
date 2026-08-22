@@ -6,6 +6,12 @@ import Footer from '@/components/Footer'
 const API = 'https://api.blackdiamondlabs.co.nz'
 const KEY_STORE = 'bdai-member-key'
 const VOICE_STORE = 'bdai-voice-on'
+
+// Palette — gold belongs to Coach Nate; the room around him is electric blue.
+const AQUA = '#2FE0F0'
+const BLUE = '#4D9FFF'
+const AQUA_DIM = 'rgba(47,224,240,0.35)'
+
 // Stripe Payment Links — swap to live URLs at the Stripe live-flip
 const STRIPE = {
   nz: {
@@ -156,14 +162,20 @@ export default function CoachNate() {
       x.fillStyle = 'rgba(0,0,0,0.08)'; x.fillRect(0, 0, c.width, c.height)
       x.font = fs + 'px monospace'
       for (let i = 0; i < drops.length; i++) {
-        x.fillStyle = i % 9 === 0 ? '#E8C77A' : '#C7CEDA'
+        // Aqua rain with a brighter leading glyph now and then
+        const bright = i % 11 === 0
+        x.shadowBlur = bright ? 8 : 0
+        x.shadowColor = bright ? AQUA : 'transparent'
+        x.fillStyle = bright ? '#7FF6FF' : '#1F9DB0'
         x.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs)
         if (drops[i] * fs > c.height && Math.random() > 0.975) drops[i] = 0
         drops[i]++
       }
+      x.shadowBlur = 0
     }, 55)
     return () => { clearInterval(t); window.removeEventListener('resize', fit) }
   }, [apiKey])
+
   const startTrial = async () => {
     if (trialBusy || !trialEmail.includes('@')) return
     setTrialBusy(true); setTrialMsg('')
@@ -305,15 +317,30 @@ export default function CoachNate() {
   }
 
   const gold: React.CSSProperties = { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }
- 
+  const neon: React.CSSProperties = { background: 'linear-gradient(90deg,#1B6E8C,#2FE0F0,#BDF6FF,#2FE0F0,#1B6E8C)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }
+
   return (
     <main className="min-h-screen bg-black text-white flex flex-col relative">
-      {apiKey && <canvas id="bdai-rain" className="fixed inset-0 w-full h-full" style={{ opacity: 0.16, pointerEvents: 'none' }} />}
+      <style>{`
+        @keyframes neon-breathe {
+          0%, 100% { box-shadow: 0 0 22px rgba(47,224,240,0.10), inset 0 0 30px rgba(47,224,240,0.03); }
+          50%      { box-shadow: 0 0 34px rgba(47,224,240,0.20), inset 0 0 30px rgba(47,224,240,0.06); }
+        }
+        @keyframes think-pulse {
+          0%, 100% { opacity: 0.25; transform: translateY(0); }
+          50%      { opacity: 1;    transform: translateY(-3px); }
+        }
+        .neon-card { animation: neon-breathe 4.5s ease-in-out infinite; }
+        .think-dot { animation: think-pulse 1.1s ease-in-out infinite; }
+      `}</style>
+
+      {apiKey && <canvas id="bdai-rain" className="fixed inset-0 w-full h-full" style={{ opacity: 0.14, pointerEvents: 'none' }} />}
       <Nav />
       {!apiKey && (
         <div className="fixed inset-0 z-0">
           <img src="/about-bg.jpeg" alt="" className="w-full h-full object-cover object-[70%_30%]" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.88) 55%, #000 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(2,10,18,0.82) 0%, rgba(1,6,12,0.90) 55%, #000 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 45% at 50% 22%, rgba(47,224,240,0.10), transparent 70%)' }} />
         </div>
       )}
       <section className="relative z-10 flex-1 flex flex-col pt-28 pb-10 px-4 sm:px-8 max-w-3xl mx-auto w-full">
@@ -323,18 +350,18 @@ export default function CoachNate() {
           </div>
         )}
         <div className="mb-6 text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2" style={{ color: '#E8C77A' }}>Black Diamond AI</p>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2" style={{ color: AQUA, textShadow: '0 0 14px rgba(47,224,240,0.5)' }}>Black Diamond AI</p>
           <h1 className={apiKey ? "text-2xl font-black" : "text-4xl sm:text-5xl font-black"}>
             Coach <span style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Nate</span>
           </h1>
-          {!apiKey && <p className="text-sm text-white/40 mt-3">Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond — and he remembers your season, session to session.</p>}
-          <p className="text-xs mt-2" style={{ color: online === 'offline' ? '#f87171' : online === 'online' ? '#4ade80' : '#facc15' }}>
+          {!apiKey && <p className="text-sm text-white/45 mt-3">Game plans. Training. In-game calls. The mental side. Ask like you would at the diamond — and he remembers your season, session to session.</p>}
+          <p className="text-xs mt-2" style={{ color: online === 'offline' ? '#f87171' : online === 'online' ? AQUA : '#facc15' }}>
             {online === 'checking' ? '' : online === 'online' ? '● Online' : '● Service resting — chat may be unavailable'}
           </p>
           {apiKey && member?.voice_enabled && (
             <button onClick={toggleVoice}
               className="text-xs mt-3 px-3 py-1 rounded-full border transition-colors"
-              style={{ borderColor: voiceOn ? '#4ade80' : '#ffffff30', color: voiceOn ? '#4ade80' : '#ffffff60' }}>
+              style={{ borderColor: voiceOn ? AQUA : '#ffffff30', color: voiceOn ? AQUA : '#ffffff60', boxShadow: voiceOn ? '0 0 14px rgba(47,224,240,0.25)' : undefined }}>
               {voiceOn ? (speaking ? '🔊 Coach Nate speaking…' : '🔊 Voice: ON') : '🔇 Voice: OFF'}
             </button>
           )}
@@ -346,25 +373,31 @@ export default function CoachNate() {
         </div>
 
         {!apiKey ? (
-          <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 max-w-md mx-auto w-full text-center">
+          <div className="neon-card rounded-2xl border p-8 max-w-md mx-auto w-full text-center"
+            style={{ borderColor: AQUA_DIM, background: 'linear-gradient(180deg, rgba(6,22,32,0.72), rgba(2,8,14,0.72))', backdropFilter: 'blur(3px)' }}>
             <h2 className="text-lg font-black mb-2">Members</h2>
-            <p className="text-sm text-white/40 mb-6">Enter your member key to talk with Coach Nate.</p>
+            <p className="text-sm text-white/45 mb-6">Enter your member key to talk with Coach Nate.</p>
             <input
               ref={keyRef}
               type="password"
               autoComplete="off"
               onKeyDown={e => e.key === 'Enter' && saveKey()}
               placeholder="Your access key"
-              className="w-full rounded-lg bg-black border border-white/15 px-4 py-3 text-sm mb-4 focus:outline-none focus:border-white/40"
+              className="w-full rounded-lg bg-black/70 border px-4 py-3 text-sm mb-4 focus:outline-none transition-colors"
+              style={{ borderColor: 'rgba(47,224,240,0.25)' }}
+              onFocus={e => { e.currentTarget.style.borderColor = AQUA; e.currentTarget.style.boxShadow = '0 0 16px rgba(47,224,240,0.25)' }}
+              onBlur={e => { e.currentTarget.style.borderColor = 'rgba(47,224,240,0.25)'; e.currentTarget.style.boxShadow = 'none' }}
             />
-            <button onClick={saveKey} className="w-full rounded-lg py-3 text-sm font-bold uppercase tracking-widest text-black" style={gold}>
+            <button onClick={saveKey}
+              className="w-full rounded-lg py-3 text-sm font-bold uppercase tracking-widest text-black transition-all hover:brightness-110"
+              style={{ ...neon, boxShadow: '0 0 22px rgba(47,224,240,0.35)' }}>
               Enter
             </button>
             {error && <p className="text-xs text-red-400 mt-3">{error}</p>}
 
-            <div className="mt-8 pt-6 border-t border-white/10 text-left">
-              <p className="text-sm font-black text-center mb-1" style={{ color: '#E8C77A' }}>Not a member? Try him free.</p>
-              <p className="text-xs text-white/40 text-center mb-4">5 questions, no card needed. Ask something hard.</p>
+            <div className="mt-8 pt-6 text-left" style={{ borderTop: '1px solid rgba(47,224,240,0.18)' }}>
+              <p className="text-sm font-black text-center mb-1" style={{ color: AQUA, textShadow: '0 0 12px rgba(47,224,240,0.45)' }}>Not a member? Try him free.</p>
+              <p className="text-xs text-white/45 text-center mb-4">5 questions, no card needed. Ask something hard.</p>
               <div className="flex flex-col gap-3">
                 <input
                   type="email"
@@ -372,31 +405,38 @@ export default function CoachNate() {
                   onChange={e => setTrialEmail(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && startTrial()}
                   placeholder="Your email"
-                  className="w-full rounded-lg bg-black border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                  className="w-full rounded-lg bg-black/70 border px-4 py-3 text-sm focus:outline-none transition-colors"
+                  style={{ borderColor: 'rgba(47,224,240,0.25)' }}
+                  onFocus={e => { e.currentTarget.style.borderColor = AQUA; e.currentTarget.style.boxShadow = '0 0 16px rgba(47,224,240,0.25)' }}
+                  onBlur={e => { e.currentTarget.style.borderColor = 'rgba(47,224,240,0.25)'; e.currentTarget.style.boxShadow = 'none' }}
                 />
                 <button onClick={startTrial} disabled={trialBusy || !trialEmail.includes('@')}
-                  className="w-full rounded-lg py-3 text-sm font-bold uppercase tracking-widest border disabled:opacity-40"
-                  style={{ borderColor: '#E8C77A', color: '#E8C77A' }}>
+                  className="w-full rounded-lg py-3 text-sm font-bold uppercase tracking-widest border disabled:opacity-40 transition-all"
+                  style={{ borderColor: AQUA, color: AQUA, background: 'rgba(47,224,240,0.08)' }}>
                   {trialBusy ? 'Creating your key…' : 'Try free'}
                 </button>
               </div>
-              {trialMsg && <p className="text-xs text-white/50 mt-3 text-center">{trialMsg}</p>}
+              {trialMsg && <p className="text-xs text-white/55 mt-3 text-center">{trialMsg}</p>}
             </div>
 
             <p className="text-xs text-white/30 mt-6">Pricing below — or <a href="/contact" className="underline hover:text-white">get in touch</a>.</p>
           </div>
         ) : (
           <>
-            <div ref={chatRef} className="flex-1 rounded-2xl border border-white/15 p-4 sm:p-6 overflow-y-auto overscroll-contain mb-4" style={{ minHeight: 320, height: 'calc(100vh - 380px)', background: 'rgba(5,5,8,0.82)', backdropFilter: 'blur(2px)' }}>
+            <div ref={chatRef} className="flex-1 rounded-2xl border p-4 sm:p-6 overflow-y-auto overscroll-contain mb-4"
+              style={{ minHeight: 320, height: 'calc(100vh - 380px)', background: 'rgba(3,10,16,0.86)', borderColor: 'rgba(47,224,240,0.22)', backdropFilter: 'blur(2px)', boxShadow: 'inset 0 0 40px rgba(47,224,240,0.04)' }}>
               {msgs.length === 0 && (
                 <div className="text-center mt-10">
-                  <p className="text-sm text-white/30 mb-6">
+                  <p className="text-sm text-white/35 mb-6">
                     Hey there — what are we working on today?
                   </p>
                   <div className="flex flex-wrap justify-center gap-2 px-2">
                     {CHIPS.map(c => (
                       <button key={c} onClick={() => send(c)}
-                        className="text-xs px-3 py-2 rounded-full border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition-colors">
+                        className="text-xs px-3 py-2 rounded-full border transition-all hover:text-white"
+                        style={{ borderColor: 'rgba(47,224,240,0.25)', color: 'rgba(255,255,255,0.55)' }}
+                        onMouseEnter={e => { e.currentTarget.style.borderColor = AQUA; e.currentTarget.style.boxShadow = '0 0 14px rgba(47,224,240,0.2)' }}
+                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(47,224,240,0.25)'; e.currentTarget.style.boxShadow = 'none' }}>
                         {c}
                       </button>
                     ))}
@@ -405,8 +445,10 @@ export default function CoachNate() {
               )}
               {msgs.map((m, i) => (
                 <div key={i} className={`mb-4 flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap break-words [overflow-wrap:anywhere] ${m.role === 'user' ? 'bg-white/15 border border-white/10' : 'border'}`}
-                    style={m.role === 'assistant' ? { background: 'rgba(232,199,122,0.12)', borderColor: 'rgba(232,199,122,0.35)', boxShadow: '0 0 18px rgba(232,199,122,0.12)' } : undefined}>
+                  <div className="max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap break-words [overflow-wrap:anywhere] border"
+                    style={m.role === 'assistant'
+                      ? { background: 'rgba(232,199,122,0.10)', borderColor: 'rgba(232,199,122,0.32)', boxShadow: '0 0 18px rgba(232,199,122,0.10)' }
+                      : { background: 'rgba(47,224,240,0.09)', borderColor: 'rgba(47,224,240,0.28)' }}>
                     {m.role === 'assistant' && (
                       <div className="flex items-center justify-between mb-1">
                         <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#E8C77A' }}>Coach Nate</p>
@@ -417,11 +459,10 @@ export default function CoachNate() {
                           </button>
                           {member?.voice_enabled && (
                             <button onClick={() => { unlockAudio(); speak(m.content, i) }}
-                              className={`text-[10px] px-2 py-0.5 rounded-full border transition-colors ${
-                                playingIdx === i
-                                  ? 'border-green-400/70 text-green-300'
-                                  : 'border-white/15 text-white/40 hover:text-white/80'
-                              }`}>
+                              className="text-[10px] px-2 py-0.5 rounded-full border transition-colors"
+                              style={playingIdx === i
+                                ? { borderColor: AQUA, color: AQUA, boxShadow: '0 0 12px rgba(47,224,240,0.3)' }
+                                : { borderColor: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.4)' }}>
                               {playingIdx === i ? '⏸ Playing…' : '🔊 Replay'}
                             </button>
                           )}
@@ -432,7 +473,14 @@ export default function CoachNate() {
                   </div>
                 </div>
               ))}
-              {busy && <p className="text-xs text-white/30 animate-pulse">Coach Nate is thinking…</p>}
+              {busy && (
+                <div className="flex items-center gap-2 text-xs" style={{ color: AQUA }}>
+                  <span className="think-dot" style={{ animationDelay: '0s' }}>●</span>
+                  <span className="think-dot" style={{ animationDelay: '0.15s' }}>●</span>
+                  <span className="think-dot" style={{ animationDelay: '0.3s' }}>●</span>
+                  <span className="text-white/35 ml-1">Coach Nate is thinking…</span>
+                </div>
+              )}
               <div ref={endRef} />
             </div>
             {error && <p className="text-xs text-red-400 mb-3">{error}</p>}
@@ -443,7 +491,10 @@ export default function CoachNate() {
                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }}
                 placeholder="Ask Coach Nate…"
                 rows={2}
-                className="flex-1 rounded-xl bg-black border border-white/15 px-4 py-3 text-sm resize-none focus:outline-none focus:border-white/40"
+                className="flex-1 rounded-xl bg-black/70 border px-4 py-3 text-sm resize-none focus:outline-none transition-colors"
+                style={{ borderColor: 'rgba(47,224,240,0.25)' }}
+                onFocus={e => { e.currentTarget.style.borderColor = AQUA; e.currentTarget.style.boxShadow = '0 0 16px rgba(47,224,240,0.22)' }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'rgba(47,224,240,0.25)'; e.currentTarget.style.boxShadow = 'none' }}
               />
               {speaking && (
                 <button onClick={() => { audioRef.current?.pause(); setSpeaking(false); setPlayingIdx(null) }}
@@ -451,7 +502,9 @@ export default function CoachNate() {
                   ⏹ Stop
                 </button>
               )}
-              <button onClick={() => send()} disabled={busy || !input.trim()} className="rounded-xl px-5 text-sm font-bold text-black disabled:opacity-40" style={gold}>
+              <button onClick={() => send()} disabled={busy || !input.trim()}
+                className="rounded-xl px-5 text-sm font-bold text-black disabled:opacity-40 transition-all hover:brightness-110"
+                style={{ ...neon, boxShadow: '0 0 18px rgba(47,224,240,0.3)' }}>
                 Send
               </button>
             </div>
@@ -465,24 +518,25 @@ export default function CoachNate() {
                 } catch {}
               }}
                 className="text-xs px-4 py-1.5 rounded-full border transition-colors"
-                style={{ borderColor: '#E8C77A66', color: '#E8C77A' }}>Tell a mate</button>
+                style={{ borderColor: 'rgba(47,224,240,0.45)', color: AQUA }}>Tell a mate</button>
               <button onClick={(e) => { (e.currentTarget as HTMLButtonElement).blur(); setMsgs([]); try { sessionStorage.removeItem('bdai-chat') } catch {}; window.scrollTo({ top: 0 }) }}
                 className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">New chat</button>
               <button onClick={signOut} className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">Sign out</button>
             </div>
 
             {member?.tier !== 'trial' && (
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
-              <p className="text-xs font-bold" style={{ color: '#E8C77A' }}>Member downloads</p>
+            <div className="mt-6 rounded-2xl border p-4" style={{ borderColor: 'rgba(47,224,240,0.2)', background: 'rgba(6,20,28,0.5)' }}>
+              <p className="text-xs font-bold" style={{ color: AQUA }}>Member downloads</p>
               <p className="text-[11px] text-white/35 mb-1">New tools added monthly.</p>
               {DOWNLOADS.map(d => (
-                <div key={d.slug} className="flex items-center justify-between py-2 border-t border-white/5">
+                <div key={d.slug} className="flex items-center justify-between py-2" style={{ borderTop: '1px solid rgba(47,224,240,0.12)' }}>
                   <div className="pr-3">
                     <p className="text-xs text-white/80 font-semibold">{d.title}</p>
                     <p className="text-[11px] text-white/40">{d.desc}</p>
                   </div>
                   <button onClick={() => download(d.slug, d.file)}
-                    className="text-xs px-4 py-2 rounded-lg border border-white/20 text-white/60 hover:text-white shrink-0">
+                    className="text-xs px-4 py-2 rounded-lg border shrink-0 transition-colors"
+                    style={{ borderColor: 'rgba(47,224,240,0.35)', color: 'rgba(255,255,255,0.65)' }}>
                     ⬇ Download
                   </button>
                 </div>
@@ -494,12 +548,15 @@ export default function CoachNate() {
 
         {/* Pricing */}
         <div className="mt-16" style={{ display: apiKey ? 'none' : undefined }}>
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: '#E8C77A' }}>Price of Greatness</p>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: AQUA, textShadow: '0 0 14px rgba(47,224,240,0.45)' }}>Price of Greatness</p>
           <h2 className="text-2xl sm:text-3xl font-black text-center mb-2">Back the Coach. Lock your rate.</h2>
           <div className="flex justify-center gap-2 mb-3">
             {MARKETS.map(mk => (
               <button key={mk.id} onClick={() => setMarket(mk.id)}
-                className={`rounded-full px-3 py-1.5 text-xs font-bold border transition-colors ${market === mk.id ? 'border-white/60 bg-white/10 text-white' : 'border-white/10 bg-transparent text-white/40'}`}>
+                className="rounded-full px-3 py-1.5 text-xs font-bold border transition-all"
+                style={market === mk.id
+                  ? { borderColor: AQUA, color: '#fff', background: 'rgba(47,224,240,0.14)', boxShadow: '0 0 14px rgba(47,224,240,0.25)' }
+                  : { borderColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.4)', background: 'transparent' }}>
                 {mk.flag} {mk.label}
               </button>
             ))}
@@ -511,12 +568,13 @@ export default function CoachNate() {
               const p = PRICES[market][t.id]
               const links = STRIPE[market][t.id as keyof typeof STRIPE['nz']]
               return (
-                <div key={t.id} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 flex flex-col">
+                <div key={t.id} className="rounded-2xl border p-6 flex flex-col transition-all"
+                  style={{ borderColor: 'rgba(47,224,240,0.18)', background: 'rgba(4,14,22,0.55)' }}>
                   <h3 className="font-black text-lg">{t.name}</h3>
                   <p className="text-xs text-white/40 mt-1 mb-4 flex-1">{t.blurb}</p>
                   <p className="text-3xl font-black">{cur}{p.m.toLocaleString()}<span className="text-sm font-semibold text-white/40">/mo</span></p>
-                  <p className="text-xs text-white/40 mb-1">or <a href={links.a} className="underline decoration-white/30 hover:text-white/70">{cur}{p.a.toLocaleString()}/yr</a></p>
-                  <p className="text-[11px] mb-4" style={{ color: '#E8C77A' }}>{t.fair}</p>
+                  <p className="text-xs text-white/40 mb-1">or <a href={links.a} className="underline hover:text-white/70" style={{ textDecorationColor: AQUA_DIM }}>{cur}{p.a.toLocaleString()}/yr</a></p>
+                  <p className="text-[11px] mb-4" style={{ color: AQUA }}>{t.fair}</p>
                   <a href={links.m}
                     className="rounded-lg py-2.5 text-center text-xs font-bold uppercase tracking-widest text-black" style={{ background: (t as any).btn, backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>
                     Subscribe
@@ -528,16 +586,16 @@ export default function CoachNate() {
         </div>
         {/* Get the App */}
         <div className="mt-16 max-w-2xl mx-auto">
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: '#E8C77A' }}>Get the App</p>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2 text-center" style={{ color: AQUA, textShadow: '0 0 14px rgba(47,224,240,0.45)' }}>Get the App</p>
           <h2 className="text-2xl font-black text-center mb-2">Coach Nate on your home screen.</h2>
           <p className="text-xs text-white/40 text-center mb-8">No app store needed — add the site to your phone and it opens like an app, straight to Coach Nate.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-white/60">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+            <div className="rounded-2xl border p-6" style={{ borderColor: 'rgba(47,224,240,0.18)', background: 'rgba(4,14,22,0.55)' }}>
               <h3 className="font-black text-white mb-3">iPhone / iPad</h3>
               <p className="mb-2"><span className="text-white/90 font-semibold">Add:</span> Open this page in Safari → tap the Share button (square with arrow) → scroll and tap <span className="text-white/90">Add to Home Screen</span> → Add.</p>
               <p><span className="text-white/90 font-semibold">Remove:</span> Press and hold the Coach Nate icon → <span className="text-white/90">Remove App</span> → Delete from Home Screen. Your subscription is not affected.</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+            <div className="rounded-2xl border p-6" style={{ borderColor: 'rgba(47,224,240,0.18)', background: 'rgba(4,14,22,0.55)' }}>
               <h3 className="font-black text-white mb-3">Android</h3>
               <p className="mb-2"><span className="text-white/90 font-semibold">Add:</span> Open this page in Chrome → tap the ⋮ menu → <span className="text-white/90">Add to Home screen</span> (or "Install app") → Add.</p>
               <p><span className="text-white/90 font-semibold">Remove:</span> Press and hold the icon → <span className="text-white/90">Uninstall</span> (or drag to Remove). Your subscription is not affected.</p>

@@ -214,14 +214,14 @@ export default function Home() {
               />
               <BrandCard
                 name="Black Diamond Performance"
-                nameSplit={{ first: "Black Diamond ", second: "Performance", secondColor: "#C7CEDA" }}
+                nameSplit={{ first: "Black Diamond ", second: "Performance", secondColor: "#A855F7" }}
                 tagline="Registrations open — first 5: 2 FREE sessions selected."
-                taglineStyle={{ color: "#C7CEDA" }}
+                taglineStyle={{ color: "#A855F7" }}
                 description="Expert video analysis and a live one-on-one consultation with Black Diamond Labs personnel - experts in their field."
                 href="/performance"
                 secondaryCta={{ label: 'Register for free', href: '/performance' }}
                 status="live"
-                accentColor="#C7CEDA"
+                accentColor="#7B5BFF"
                 hideLink
                 hideEdition={true}
                 larger={true}
@@ -249,7 +249,7 @@ export default function Home() {
         <p className="text-sm text-white/40 mb-8 max-w-md mx-auto">A platform your sport needs. A coach AI in your code. Bring it to the Labs.</p>
         <div className="flex flex-wrap gap-4 justify-center">
           <a href="/contact" className="border border-white/20 px-8 py-3.5 text-sm font-bold text-white hover:bg-white/5 transition-all">Submit an Idea</a>
-          <a href="/contact#coach" className="px-8 py-3.5 text-sm font-bold text-white rounded-none" style={{ background: 'linear-gradient(90deg,#5B21B6,#8B5CF6,#A78BFA,#8B5CF6,#5B21B6)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>Become a BDAI Coach</a>
+          <a href="/contact#coach" className="px-8 py-3.5 text-sm font-bold text-black rounded-none" style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite' }}>Become a BDAI Coach</a>
         </div>
       </section>
       <Footer />

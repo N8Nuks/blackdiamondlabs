@@ -1,7 +1,7 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 
-const silverText: React.CSSProperties = { background: 'linear-gradient(90deg,#8E9BA8,#E6EAF0,#FFFFFF,#E6EAF0,#8E9BA8)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }
+const bdpText: React.CSSProperties = { background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#E9D5FF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }
 
 const STEPS = [
   { n: '01', t: 'Book your review', d: 'Complete the online booking form and athlete questionnaire, and confirm with payment.' },
@@ -32,15 +32,16 @@ export default function Performance() {
       <section className="relative z-10 pt-36 pb-16 px-6 sm:px-12 text-center">
         <div className="fixed inset-0 z-0 pointer-events-none">
           <div className="w-full h-full" style={{ backgroundImage: 'url(/performance-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center 25%' }} />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.92) 100%)' }} />
         </div>
         <div className="relative z-10">
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#C7CEDA' }}>Black Diamond Performance</p>
-          <h1 className="text-4xl sm:text-6xl font-black mb-4">Elite experience. <span style={silverText}>Personalised feedback.</span></h1>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/bdp-logo.webp" alt="Black Diamond Performance" className="w-full max-w-md mx-auto h-auto mb-6" />
+          <h1 className="text-3xl sm:text-5xl font-black mb-4">Elite experience. <span style={bdpText}>Personalised feedback.</span></h1>
           <p className="text-sm text-white/40 max-w-xl mx-auto">
             Expert video analysis and a live one-on-one consultation with Nathan and Katrina Nukunuku — two of New Zealand&apos;s most accomplished softball players, with 40+ years of combined international experience.
           </p>
-          <a href="/performance/book" className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black transition-all hover:opacity-90" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)' }}>
+          <a href="/performance/book" className="inline-block mt-8 rounded-full px-8 py-3 text-sm font-black text-white transition-all hover:opacity-90" style={{ background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite', boxShadow: '0 0 24px rgba(123,91,255,0.4)' }}>
             Register now — free to register →
           </a>
         </div>
@@ -48,40 +49,40 @@ export default function Performance() {
 
       {/* Product card */}
       <section className="relative z-10 px-6 sm:px-12 pb-20">
-        <div className="max-w-3xl mx-auto rounded-2xl border p-8 sm:p-10 text-center" style={{ borderColor: '#C7CEDA40', background: '#C7CEDA08' }}>
+        <div className="max-w-3xl mx-auto rounded-2xl border p-8 sm:p-10 text-center" style={{ borderColor: '#7B5BFF40', background: '#7B5BFF0A' }}>
           <div className="flex items-center justify-center gap-2 mb-5">
             <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ backgroundColor: '#4ade80' }} />
             <span className="text-xs font-bold uppercase tracking-widest" style={{ color: '#4ade80' }}>Registrations open — founding group</span>
           </div>
-          <h2 className="text-2xl font-black mb-1">The <span style={silverText}>Performance Review</span> — Diamond Sports</h2>
+          <h2 className="text-2xl font-black mb-1">The <span style={bdpText}>Performance Review</span> — Diamond Sports</h2>
           <p className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Online video analysis + live consultation — Diamond Sport athletes 10 years and over</p>
           <p className="text-sm text-white/40 leading-relaxed mb-6">
             Submit your footage, then meet Nathan and Katrina online for direct, honest feedback. Every review focuses on one or two key priorities — simple, practical, and immediately applicable. Choose your focus: {AREAS.join(' · ')}.
           </p>
           <div className="flex items-end justify-center gap-4 mb-2">
             <span className="text-lg text-white/30 line-through">$180 NZD</span>
-            <span className="text-4xl font-black" style={silverText}>$99 NZD</span>
+            <span className="text-4xl font-black" style={bdpText}>$99 NZD</span>
           </div>
           <p className="text-xs text-white/40 mb-3">Launch price when paid bookings open Monday — registering now locks it in. Inclusive of GST where applicable.</p>
-          <p className="text-sm font-bold mb-6" style={{ color: '#C7CEDA' }}>First 5 registrations: 2 will be selected for a FREE first session. Free-session recipients agree to share their journey and results publicly as a BDP testimonial.</p>
-          <a href="/performance/book" className="inline-block rounded-full px-8 py-3.5 text-sm font-black transition-all hover:opacity-90" style={{ color: '#000', background: 'linear-gradient(90deg,#C7CEDA,#FFFFFF,#C7CEDA)', boxShadow: '0 0 24px rgba(199,206,218,0.35)' }}>Register now and lock in the launch price →</a>
+          <p className="text-sm font-bold mb-6" style={{ color: '#A855F7' }}>First 5 registrations: 2 will be selected for a FREE first session. Free-session recipients agree to share their journey and results publicly as a BDP testimonial.</p>
+          <a href="/performance/book" className="inline-block rounded-full px-8 py-3.5 text-sm font-black text-white transition-all hover:opacity-90" style={{ background: 'linear-gradient(90deg,#5B9BFF,#A855F7,#5B9BFF)', backgroundSize: '200% auto', animation: 'shimmer 3s linear infinite', boxShadow: '0 0 24px rgba(123,91,255,0.45)' }}>Register now and lock in the launch price →</a>
         </div>
       </section>
 
       {/* How it works */}
       <section className="relative z-10 px-6 sm:px-12 py-20" style={{ borderTop: '1px solid #ffffff08', background: '#050505' }}>
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-black text-center mb-12">How it <span style={silverText}>works</span></h2>
+          <h2 className="text-3xl font-black text-center mb-12">How it <span style={bdpText}>works</span></h2>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {STEPS.map(s => (
               <div key={s.n} className="rounded-2xl border border-white/8 bg-white/[0.02] p-6">
-                <p className="text-xs font-black mb-2" style={{ color: '#C7CEDA' }}>{s.n}</p>
+                <p className="text-xs font-black mb-2" style={{ color: '#A855F7' }}>{s.n}</p>
                 <h3 className="font-black text-sm mb-2">{s.t}</h3>
                 <p className="text-xs text-white/40 leading-relaxed">{s.d}</p>
               </div>
             ))}
             <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-6">
-              <p className="text-xs font-black mb-2" style={{ color: '#C7CEDA' }}>Included</p>
+              <p className="text-xs font-black mb-2" style={{ color: '#A855F7' }}>Included</p>
               <ul className="text-xs text-white/40 leading-relaxed space-y-1">
                 {INCLUDED.map(i => <li key={i}>— {i}</li>)}
               </ul>
@@ -93,11 +94,11 @@ export default function Performance() {
       {/* Under 18 + coming soon */}
       <section className="relative z-10 px-6 sm:px-12 py-20" style={{ borderTop: '1px solid #ffffff08' }}>
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-black mb-4">Athletes <span style={silverText}>under 18</span></h2>
+          <h2 className="text-2xl font-black mb-4">Athletes <span style={bdpText}>under 18</span></h2>
           <p className="text-sm text-white/40 leading-relaxed mb-14">
             Young athletes are at the heart of what we do. A parent or guardian completes the consent section of the booking form, and a responsible adult is present during every consultation. Footage is stored securely and deleted within 30 days of your consultation.
           </p>
-          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#C7CEDA' }}>Coming to Black Diamond Performance</p>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] mb-3" style={{ color: '#A855F7' }}>Coming to Black Diamond Performance</p>
           <p className="text-sm text-white/30">In-person sessions · Weekend training camps · Team &amp; club programmes</p>
         </div>
       </section>

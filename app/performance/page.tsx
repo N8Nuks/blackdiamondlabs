@@ -36,7 +36,7 @@ export default function Performance() {
         </div>
         <div className="relative z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/bdp-logo.webp" alt="Black Diamond Performance" className="w-full max-w-md mx-auto h-auto mb-6" />
+          <img src="/bdp-logo.webp" alt="Black Diamond Performance" className="w-full max-w-md mx-auto h-auto mb-6" style={{ mixBlendMode: 'screen' }} />
           <h1 className="text-3xl sm:text-5xl font-black mb-4">Elite experience. <span style={bdpText}>Personalised feedback.</span></h1>
           <p className="text-sm text-white/40 max-w-xl mx-auto">
             Expert video analysis and a live one-on-one consultation with Nathan and Katrina Nukunuku — two of New Zealand&apos;s most accomplished softball players, with 40+ years of combined international experience.

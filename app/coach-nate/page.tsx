@@ -86,6 +86,11 @@ export default function CoachNate() {
   const [trialEmail, setTrialEmail] = useState('')
   const [trialBusy, setTrialBusy] = useState(false)
   const [trialMsg, setTrialMsg] = useState('')
+  const [project, setProject] = useState('General')
+  const [projects, setProjects] = useState<string[]>([])
+  const [projOpen, setProjOpen] = useState(false)
+  const [projCap, setProjCap] = useState(3)
+  const [newProj, setNewProj] = useState('')
   const [member, setMember] = useState<Member | null>(null)
   const [online, setOnline] = useState<'checking' | 'online' | 'offline'>('checking')
   const [pageError, setPageError] = useState('')
@@ -143,6 +148,28 @@ export default function CoachNate() {
       .finally(() => clearTimeout(t))
     return () => window.removeEventListener('error', onErr)
   }, [])
+    // Load the member's projects once signed in
+  useEffect(() => {
+    if (!apiKey || member?.tier === 'trial') return
+    fetch(API + '/v1/projects', { headers: { Authorization: 'Bearer ' + apiKey } })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) { setProjects(d.projects.map((p: any) => p.name)); setProjCap(d.cap) } })
+      .catch(() => {})
+  }, [apiKey, member])
+
+  // Each project keeps its own conversation on this device
+  useEffect(() => {
+    if (!apiKey) return
+    try {
+      const saved = localStorage.getItem('bdai-chat-' + project)
+      setMsgs(saved ? JSON.parse(saved) : [])
+    } catch { setMsgs([]) }
+  }, [project, apiKey])
+
+  useEffect(() => {
+    if (!apiKey) return
+    try { localStorage.setItem('bdai-chat-' + project, JSON.stringify(msgs)) } catch {}
+  }, [msgs, project, apiKey])
 
   useEffect(() => {
     if (msgs.length > 0 && chatRef.current) chatRef.current.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' })
@@ -289,7 +316,7 @@ export default function CoachNate() {
       const r = await fetch(API + '/v1/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + apiKey },
-        body: JSON.stringify({ message, history }),
+        body: JSON.stringify({ message, history, project }),
       })
       if (r.status === 401) { setError('That key is invalid or inactive. Check it and sign in again.'); signOut(); return }
       if (r.status === 429) { const d = await r.json().catch(() => null); setError(d?.detail || 'Daily fair-use limit reached — resets at midnight UTC.'); return }
@@ -423,6 +450,75 @@ export default function CoachNate() {
           </div>
         ) : (
           <>
+                      {member?.tier !== 'trial' && (
+              <div className="mb-3">
+                <button onClick={() => setProjOpen(o => !o)}
+                  className="w-full flex items-center justify-between rounded-xl border px-4 py-2.5 text-xs transition-colors"
+                  style={{ borderColor: 'rgba(47,224,240,0.25)', background: 'rgba(6,20,28,0.5)' }}>
+                  <span className="uppercase tracking-widest text-white/40">Project</span>
+                  <span className="font-bold" style={{ color: AQUA }}>{project} {projOpen ? '▲' : '▼'}</span>
+                </button>
+
+                {projOpen && (
+                  <div className="mt-2 rounded-xl border p-3" style={{ borderColor: 'rgba(47,224,240,0.25)', background: 'rgba(3,12,18,0.95)' }}>
+                    {['General', ...projects].map(p => (
+                      <div key={p} className="flex items-center justify-between gap-2 py-1.5">
+                        <button onClick={() => { setProject(p); setProjOpen(false) }}
+                          className="flex-1 text-left text-sm transition-colors"
+                          style={{ color: p === project ? AQUA : 'rgba(255,255,255,0.65)' }}>
+                          {p === project ? '● ' : '○ '}{p}
+                        </button>
+                        {p !== 'General' && (
+                          <button onClick={async () => {
+                            if (!confirm(`Delete "${p}" and everything Coach Nate remembers about it? This can't be undone.`)) return
+                            await fetch(API + '/v1/projects/' + encodeURIComponent(p), { method: 'DELETE', headers: { Authorization: 'Bearer ' + apiKey } }).catch(() => {})
+                            try { localStorage.removeItem('bdai-chat-' + p) } catch {}
+                            setProjects(ps => ps.filter(x => x !== p))
+                            if (project === p) setProject('General')
+                          }}
+                            className="text-[10px] px-2 py-0.5 rounded-full border border-white/15 text-white/30 hover:text-red-300 hover:border-red-400/40 transition-colors">
+                            delete
+                          </button>
+                        )}
+                      </div>
+                    ))}
+
+                    {(projCap === 0 || projects.length < projCap) ? (
+                      <div className="flex gap-2 mt-3 pt-3" style={{ borderTop: '1px solid rgba(47,224,240,0.15)' }}>
+                        <input value={newProj} onChange={e => setNewProj(e.target.value)}
+                          onKeyDown={async e => { if (e.key === 'Enter') (document.getElementById('mkproj') as HTMLButtonElement)?.click() }}
+                          placeholder="New project name…"
+                          className="flex-1 rounded-lg bg-black/70 border px-3 py-2 text-xs focus:outline-none"
+                          style={{ borderColor: 'rgba(47,224,240,0.25)' }} />
+                        <button id="mkproj" onClick={async () => {
+                          const name = newProj.trim()
+                          if (!name) return
+                          const r = await fetch(API + '/v1/projects', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + apiKey },
+                            body: JSON.stringify({ name }),
+                          }).catch(() => null)
+                          if (r && r.ok) {
+                            const d = await r.json()
+                            setProjects(ps => [...ps, d.name])
+                            setProject(d.name); setNewProj(''); setProjOpen(false)
+                          } else if (r) {
+                            const d = await r.json().catch(() => ({}))
+                            setError(d.detail || 'Could not create that project.')
+                          }
+                        }}
+                          className="rounded-lg px-4 text-xs font-bold border"
+                          style={{ borderColor: AQUA, color: AQUA }}>Create</button>
+                      </div>
+                    ) : (
+                      <p className="text-[10px] text-white/30 mt-3 pt-3" style={{ borderTop: '1px solid rgba(47,224,240,0.15)' }}>
+                        You&apos;ve used all {projCap} projects on your plan. Delete one to make room, or move up a tier.
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
             <div ref={chatRef} className="flex-1 rounded-2xl border p-4 sm:p-6 overflow-y-auto overscroll-contain mb-4"
               style={{ minHeight: 320, height: 'calc(100vh - 380px)', background: 'rgba(3,10,16,0.86)', borderColor: 'rgba(47,224,240,0.22)', backdropFilter: 'blur(2px)', boxShadow: 'inset 0 0 40px rgba(47,224,240,0.04)' }}>
               {msgs.length === 0 && (

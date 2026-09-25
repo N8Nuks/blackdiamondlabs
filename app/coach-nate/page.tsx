@@ -236,7 +236,7 @@ export default function CoachNate() {
     setApiKey(''); setMsgs([]); setMember(null)
     audioRef.current?.pause()
     try { localStorage.removeItem(KEY_STORE) } catch {}
-    try { Object.keys(localStorage).filter(k => k.startsWith('bdai-chat-')).forEach(k => localStorage.removeItem(k)) } catch {}
+    // chat transcripts stay on this device — personal phones, not shared terminals
   }
 
   const toggleVoice = () => {

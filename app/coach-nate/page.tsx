@@ -107,19 +107,6 @@ export default function CoachNate() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const speakBusy = useRef(false)
 
-  // Restore chat after an accidental refresh (session-scoped only)
-  useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem('bdai-chat')
-      if (saved) setMsgs(JSON.parse(saved))
-    } catch {}
-  }, [])
-  useEffect(() => {
-    try {
-      if (msgs.length > 0) sessionStorage.setItem('bdai-chat', JSON.stringify(msgs))
-    } catch {}
-  }, [msgs])
-
   useEffect(() => {
     const onErr = (e: ErrorEvent) => {
       const src = String(e.filename || '')
@@ -249,7 +236,7 @@ export default function CoachNate() {
     setApiKey(''); setMsgs([]); setMember(null)
     audioRef.current?.pause()
     try { localStorage.removeItem(KEY_STORE) } catch {}
-    try { sessionStorage.removeItem('bdai-chat') } catch {}
+    try { Object.keys(localStorage).filter(k => k.startsWith('bdai-chat-')).forEach(k => localStorage.removeItem(k)) } catch {}
   }
 
   const toggleVoice = () => {
@@ -615,7 +602,7 @@ export default function CoachNate() {
               }}
                 className="text-xs px-4 py-1.5 rounded-full border transition-colors"
                 style={{ borderColor: 'rgba(47,224,240,0.45)', color: AQUA }}>Tell a mate</button>
-              <button onClick={(e) => { (e.currentTarget as HTMLButtonElement).blur(); setMsgs([]); try { sessionStorage.removeItem('bdai-chat') } catch {}; window.scrollTo({ top: 0 }) }}
+              <button onClick={(e) => { (e.currentTarget as HTMLButtonElement).blur(); setMsgs([]); try { localStorage.removeItem('bdai-chat-' + project) } catch {}; window.scrollTo({ top: 0 }) }}
                 className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">New chat</button>
               <button onClick={signOut} className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">Sign out</button>
             </div>

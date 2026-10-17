@@ -159,7 +159,14 @@ export default function CoachNate() {
   }, [msgs, project, apiKey])
 
   useEffect(() => {
-    if (msgs.length > 0 && chatRef.current) chatRef.current.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' })
+    if (msgs.length === 0) return
+    const box = chatRef.current
+    // Desktop: the chat box is its own scroller. Mobile: it isn't, so move the page instead.
+    if (box && box.scrollHeight > box.clientHeight + 4) {
+      box.scrollTo({ top: box.scrollHeight, behavior: 'smooth' })
+    } else {
+      endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    }
   }, [msgs, busy])
 
   useEffect(() => {
@@ -506,8 +513,8 @@ export default function CoachNate() {
                 )}
               </div>
             )}
-            <div ref={chatRef} className="flex-1 rounded-2xl border p-4 sm:p-6 overflow-y-auto overscroll-contain mb-4"
-              style={{ minHeight: 320, height: 'calc(100vh - 380px)', background: 'rgba(3,10,16,0.86)', borderColor: 'rgba(47,224,240,0.22)', backdropFilter: 'blur(2px)', boxShadow: 'inset 0 0 40px rgba(47,224,240,0.04)' }}>
+            <div ref={chatRef} className="flex-1 rounded-2xl border p-4 sm:p-6 mb-4 overflow-visible sm:overflow-y-auto sm:overscroll-contain sm:h-[calc(100vh_-_380px)]"
+              style={{ minHeight: 320, background: 'rgba(3,10,16,0.86)', borderColor: 'rgba(47,224,240,0.22)', backdropFilter: 'blur(2px)', boxShadow: 'inset 0 0 40px rgba(47,224,240,0.04)' }}>
               {msgs.length === 0 && (
                 <div className="text-center mt-10">
                   <p className="text-sm text-white/35 mb-6">

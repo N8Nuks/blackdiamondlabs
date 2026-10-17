@@ -144,19 +144,35 @@ export default function CoachNate() {
       .catch(() => {})
   }, [apiKey, member])
 
-  // Each project keeps its own conversation on this device
+  // Conversation history lives on the server, per project, so it follows the member across devices.
+  // If this device still holds an older local copy and the server has nothing yet, hand it over once.
   useEffect(() => {
     if (!apiKey) return
-    try {
-      const saved = localStorage.getItem('bdai-chat-' + project)
-      setMsgs(saved ? JSON.parse(saved) : [])
-    } catch { setMsgs([]) }
+    let cancelled = false
+    const H = { Authorization: 'Bearer ' + apiKey }
+    const localKey = 'bdai-chat-' + project
+    ;(async () => {
+      let server: Msg[] = []
+      try {
+        const r = await fetch(API + '/v1/chat?project=' + encodeURIComponent(project), { headers: H })
+        if (r.ok) server = ((await r.json()).messages || []).map((m: Msg) => ({ role: m.role, content: m.content }))
+      } catch {}
+      let local: Msg[] = []
+      try { local = JSON.parse(localStorage.getItem(localKey) || '[]') } catch {}
+      if (server.length === 0 && local.length > 0) {
+        try {
+          const r = await fetch(API + '/v1/chat/import', {
+            method: 'POST', headers: { ...H, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ project, messages: local.slice(-200) }),
+          })
+          if (r.ok) server = local
+        } catch {}
+      }
+      if (server.length > 0) { try { localStorage.removeItem(localKey) } catch {} }
+      if (!cancelled) setMsgs(server)
+    })()
+    return () => { cancelled = true }
   }, [project, apiKey])
-
-  useEffect(() => {
-    if (!apiKey) return
-    try { localStorage.setItem('bdai-chat-' + project, JSON.stringify(msgs)) } catch {}
-  }, [msgs, project, apiKey])
 
   useEffect(() => {
     if (msgs.length === 0) return
@@ -609,7 +625,7 @@ export default function CoachNate() {
               }}
                 className="text-xs px-4 py-1.5 rounded-full border transition-colors"
                 style={{ borderColor: 'rgba(47,224,240,0.45)', color: AQUA }}>Tell a mate</button>
-              <button onClick={(e) => { (e.currentTarget as HTMLButtonElement).blur(); setMsgs([]); try { localStorage.removeItem('bdai-chat-' + project) } catch {}; window.scrollTo({ top: 0 }) }}
+              <button onClick={(e) => { (e.currentTarget as HTMLButtonElement).blur(); setMsgs([]); fetch(API + '/v1/chat?project=' + encodeURIComponent(project), { method: 'DELETE', headers: { Authorization: 'Bearer ' + apiKey } }).catch(() => {}); window.scrollTo({ top: 0 }) }}
                 className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">New chat</button>
               <button onClick={signOut} className="text-xs px-4 py-1.5 rounded-full border border-white/30 text-white/70 hover:text-white hover:border-white/60 transition-colors">Sign out</button>
             </div>

@@ -1,4 +1,3 @@
-import DiamondReveal from '@/components/DiamondReveal'
 import BrandCard from '@/components/BrandCard'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -138,11 +137,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Mobile diamond */}
-          <div className="lg:hidden order-first relative z-10 w-full flex justify-center" style={{ height: 400, overflow: 'visible' }}>
-            <div style={{ transform: 'scale(0.62)', transformOrigin: 'top center' }}>
-              <DiamondReveal />
-            </div>
+          {/* Mobile logo */}
+          <div className="lg:hidden order-first relative z-10 w-full flex justify-center px-10 pb-6">
+            <img src="/bdl-mark.webp" alt="Black Diamond Labs" width={718} height={549} fetchPriority="high"
+              className="animate-diamond w-full max-w-[280px] h-auto" />
           </div>
 
           {/* Right — diamond (desktop only) */}
@@ -180,8 +178,9 @@ export default function Home() {
               <div style={{ width: 500, height: 14, borderRadius: '50%', border: '1px solid #C7CEDA15' }} />
             </div>
 
-            {/* Diamond */}
-            <DiamondReveal />
+            {/* Logo */}
+            <img src="/bdl-mark.webp" alt="Black Diamond Labs" width={718} height={549} fetchPriority="high"
+              className="animate-diamond relative z-10 h-auto" style={{ width: 430, maxWidth: '90%' }} />
           </div>
         </section>
 

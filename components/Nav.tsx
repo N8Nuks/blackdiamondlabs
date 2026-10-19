@@ -19,7 +19,7 @@ export default function Nav() {
 
         {/* Logo */}
         <a href="/" className="flex items-center gap-3">
-          <img src="/logo-mark.png" alt="Black Diamond Labs" className="h-9 w-auto" />
+          <img src="/bdl-mark-nav.webp" alt="Black Diamond Labs" width={192} height={145} className="h-9 w-auto" />
           <img src="/wordmark.svg" alt="Black Diamond Labs" className="h-7 w-auto hidden sm:block" />
         </a>
 

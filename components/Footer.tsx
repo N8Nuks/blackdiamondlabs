@@ -21,7 +21,7 @@ export default function Footer() {
 
           {/* Logo left */}
           <div className="flex items-center gap-3">
-            <img src="/logo-mark.png" alt="" className="h-6 w-auto" />
+            <img src="/bdl-mark-nav.webp" alt="" width={192} height={145} className="h-6 w-auto" />
             <span style={{ position: 'relative', display: 'inline-block' }}>
               <img src="/wordmark.svg" alt="Black Diamond Labs" className="h-6 w-auto opacity-90" />
               <span style={{ position: 'absolute', inset: 0, background: 'linear-gradient(100deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%)', backgroundSize: '200% 100%', animation: 'shimmer 4s linear infinite', mixBlendMode: 'overlay', pointerEvents: 'none' }} />

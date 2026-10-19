@@ -139,7 +139,7 @@ export default function Home() {
 
           {/* Mobile logo */}
           <div className="lg:hidden order-first relative z-10 w-full flex justify-center px-10 pb-6">
-            <img src="/bdl-mark.png" alt="Black Diamond Labs" width={718} height={549} fetchPriority="high"
+            <img src="/bdl-mark.webp" alt="Black Diamond Labs" width={704} height={532} fetchPriority="high"
               className="animate-diamond w-full max-w-[280px] h-auto" />
           </div>
 
@@ -179,7 +179,7 @@ export default function Home() {
             </div>
 
             {/* Logo */}
-            <img src="/bdl-mark.png" alt="Black Diamond Labs" width={718} height={549} fetchPriority="high"
+            <img src="/bdl-mark.webp" alt="Black Diamond Labs" width={704} height={532} fetchPriority="high"
               className="animate-diamond relative z-10 h-auto" style={{ width: 430, maxWidth: '90%' }} />
           </div>
         </section>

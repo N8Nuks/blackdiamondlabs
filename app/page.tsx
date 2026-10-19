@@ -227,11 +227,11 @@ export default function Home() {
               />
               <BrandCard
                 name="Grassroots Fantasy"
-                description="Fantasy League platform — support your club, collect player cards, build your squad, score points based on real game results. Open sandbox season running now; real season starts October."
-                tagline="LIVE now — free sandbox season open."
+                description="Fantasy League platform — support your club, collect player cards, build your squad, score points based on real game results. The NFSPL season is live now — pick your squad and start scoring from the next round."
+                tagline="LIVE now — season underway, join any round."
                 taglineStyle={{ color: "#2d9e4e" }}
                 href="https://grassrootsfantasy.co.nz"
-                secondaryCta={{ label: 'Play the sandbox season', href: 'https://grassrootsfantasy.co.nz' }}
+                secondaryCta={{ label: 'Build your squad', href: 'https://grassrootsfantasy.co.nz' }}
                 status="live"
                 hideLink
                 accentColor="#2d9e4e"

@@ -9,6 +9,7 @@ const AQUA = '#2FE0F0'
 const GOLD = '#E8C77A'
 
 const PITCH = [['D', 'drop'], ['R', 'rise'], ['C', 'change'], ['S', 'screw'], ['U', 'curve'], ['F', 'fast']]
+const PITCH_NAMES = PITCH.map(([, n]) => n[0].toUpperCase() + n.slice(1))   // Drop, Rise, Change, Screw, Curve, Fast
 const CALL = [['B', 'ball'], ['K', 'strike'], ['F5', 'foul 5'], ['F3', 'foul 3'], ['F2', 'foul 2']]
 const SWING = [['T', 'took'], ['S', 'swung'], ['M', 'missed'], ['H', 'hit']]
 const RESULTS = ['1B', '2B', '3B', 'HR', 'BB', 'HBP', 'K', 'Kc', 'GO', 'FO', 'LO', 'SAC', 'E']
@@ -19,7 +20,7 @@ const STATES = ['Relaxed', 'Tense', 'Strong', 'Weak', 'Clear', 'Rushed', 'Guessi
 const ROWS = ['PITCH', 'B·S', 'SWING']
 
 type AB = { n: number; pitches: string[][]; result: string; hit_where: string; state: string[]; why: string }
-type Game = { id: number; game_date: string; opponent: string; pitcher: string; feel: string[]; intent: string; review: string; scout: string; closed: number; abs: AB[] }
+type Game = { id: number; game_date: string; opponent: string; pitcher: string; feel: string[]; intent: string; p_pitches: string[]; p_best: string; p_goto: string; review: string; scout: string; closed: number; abs: AB[] }
 type Tab = 'pre' | 'ab' | 'post' | 'hist' | 'ins'
 type Tone = 'good' | 'bad' | ''
 
@@ -62,6 +63,9 @@ function Card({ title, sub, children }: { title: string; sub?: string; children:
     </div>
   )
 }
+function Label({ t }: { t: string }) {
+  return <p className="text-[9px] uppercase tracking-widest text-white/35 mb-1 mt-3 first:mt-0">{t}</p>
+}
 function Line({ a }: { a: AB }) {
   return (
     <p className="text-[12px] font-mono text-white/70"><span className="font-black mr-2" style={{ color: GOLD }}>AB{a.n}</span>{seq(a.pitches) || 'no pitches'} → {a.result || '?'}{a.state.length ? ' · ' + a.state.join(', ').toLowerCase() : ''}</p>
@@ -79,6 +83,7 @@ export default function HittingDiary() {
   // pre-game
   const [gDate, setGDate] = useState(new Date().toLocaleDateString('en-NZ', { weekday: 'short', day: 'numeric', month: 'short' }))
   const [gOpp, setGOpp] = useState(''); const [gPit, setGPit] = useState('')
+  const [pPitches, setPPitches] = useState<string[]>([]); const [pBest, setPBest] = useState(''); const [pGoto, setPGoto] = useState('')
   const [gFeel, setGFeel] = useState<string[]>([]); const [gIntent, setGIntent] = useState('')
   const [sharedFeels, setSharedFeels] = useState<string[]>([])   // words 3+ members have used
   const [customFeel, setCustomFeel] = useState('')
@@ -94,6 +99,12 @@ export default function HittingDiary() {
 
   const H = (k = apiKey) => ({ Authorization: 'Bearer ' + k, 'Content-Type': 'application/json' })
 
+  const loadPre = (g: Game) => {
+    setGDate(g.game_date || ''); setGOpp(g.opponent || ''); setGPit(g.pitcher || '')
+    setPPitches(g.p_pitches || []); setPBest(g.p_best || ''); setPGoto(g.p_goto || '')
+    setGFeel(g.feel || []); setGIntent(g.intent || '')
+  }
+
   useEffect(() => {
     let k = ''
     try { k = localStorage.getItem(KEY_STORE) || '' } catch {}
@@ -106,7 +117,7 @@ export default function HittingDiary() {
       const d = await r.json()
       setGames(d.games)
       const open = d.games.find((g: Game) => !g.closed)
-      if (open) { setGame(open); setGFeel(open.feel || []); setTab('ab') } else setTab('pre')
+      if (open) { setGame(open); loadPre(open); setTab('ab') } else setTab('pre')
       setGate('ok')
       fetch(API + '/v1/diary/insights', { headers: H(k) }).then(r => r.ok ? r.json() : null).then(d => d && setInsight(d.insight)).catch(() => {})
       fetch(API + '/v1/diary/feels', { headers: H(k) }).then(r => r.ok ? r.json() : null).then(d => d && setSharedFeels(d.feels || [])).catch(() => {})
@@ -118,6 +129,14 @@ export default function HittingDiary() {
   const refreshHistory = async () => {
     const r = await fetch(API + '/v1/diary/history', { headers: H() }).catch(() => null)
     if (r && r.ok) setGames((await r.json()).games)
+  }
+
+  // Pitcher card: best / go-to can only be one of the pitches ticked
+  const togglePitch = (v: string) => {
+    const next = pPitches.includes(v) ? pPitches.filter(x => x !== v) : [...pPitches, v]
+    setPPitches(next)
+    if (!next.includes(pBest)) setPBest('')
+    if (!next.includes(pGoto)) setPGoto('')
   }
 
   // Feel chips = defaults + shared vocabulary + anything this member typed for this game
@@ -133,7 +152,8 @@ export default function HittingDiary() {
 
   const startGame = async () => {
     setBusy(true)
-    const r = await fetch(API + '/v1/diary/game', { method: 'POST', headers: H(), body: JSON.stringify({ id: game?.id || null, game_date: gDate, opponent: gOpp, pitcher: gPit, feel: gFeel, intent: gIntent }) }).catch(() => null)
+    const body = { id: game?.id || null, game_date: gDate, opponent: gOpp, pitcher: gPit, feel: gFeel, intent: gIntent, p_pitches: pPitches, p_best: pBest, p_goto: pGoto }
+    const r = await fetch(API + '/v1/diary/game', { method: 'POST', headers: H(), body: JSON.stringify(body) }).catch(() => null)
     setBusy(false)
     if (!r || !r.ok) { flash('Could not save — try again.'); return }
     const g: Game = await r.json(); setGame(g); await refreshHistory(); setTab('ab'); flash('Game open. Go hit.')
@@ -169,7 +189,8 @@ export default function HittingDiary() {
     if (!r || !r.ok) { flash('Could not close the game — try again.'); return }
     const d = await r.json()
     if (d.insight) setInsight({ text: d.insight, created_at: new Date().toISOString() })
-    setGame(null); setGFeel([]); setReview(''); setScout(''); resetAB(); await refreshHistory(); setTab('ins')
+    setGame(null); setGFeel([]); setGOpp(''); setGPit(''); setPPitches([]); setPBest(''); setPGoto(''); setGIntent('')
+    setReview(''); setScout(''); resetAB(); await refreshHistory(); setTab('ins')
   }
 
   const refreshInsight = async () => {
@@ -220,11 +241,24 @@ export default function HittingDiary() {
               <div className="flex flex-col gap-3">
                 {game && <p className="text-xs text-white/40">Editing the open game v {game.opponent || '?'}.</p>}
                 <Card title="Before anything happens">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <input className={inp} style={inpStyle} value={gDate} onChange={e => setGDate(e.target.value)} placeholder="Date" />
                     <input className={inp} style={inpStyle} value={gOpp} onChange={e => setGOpp(e.target.value)} placeholder="Opponent" />
-                    <input className={inp} style={inpStyle} value={gPit} onChange={e => setGPit(e.target.value)} placeholder="Starting pitcher" />
                   </div>
+                </Card>
+                <Card title="The book on the pitcher" sub="what you know before pitch one">
+                  <input className={inp} style={inpStyle} value={gPit} onChange={e => setGPit(e.target.value)} placeholder="Starting pitcher — name or #" />
+                  <Label t="What they've got" />
+                  <Chips items={PITCH_NAMES} value={pPitches} onPick={togglePitch} />
+                  {pPitches.length > 0 && (
+                    <>
+                      <Label t="Best pitch" />
+                      <Chips items={pPitches} value={[pBest]} onPick={v => setPBest(v === pBest ? '' : v)} tone={() => 'bad'} />
+                      <Label t="Go-to when behind in the count" />
+                      <Chips items={pPitches} value={[pGoto]} onPick={v => setPGoto(v === pGoto ? '' : v)} tone={() => 'good'} />
+                      <p className="text-[10px] text-white/35 mt-2">Behind in the count is where they get honest. Sit on it.</p>
+                    </>
+                  )}
                 </Card>
                 <Card title="How do I feel?" sub="plain and physical">
                   <Chips items={feelItems} value={gFeel} onPick={v => toggle(gFeel, v, setGFeel)} shared={sharedFeels}
@@ -252,6 +286,11 @@ export default function HittingDiary() {
             )}
             {tab === 'ab' && game && (
               <div className="flex flex-col gap-3">
+                {(game.p_best || game.p_goto) && (
+                  <p className="text-[11px] text-white/45 font-mono">
+                    {game.pitcher || 'Pitcher'}: {game.p_pitches.join(' · ')}{game.p_best && <> · best <span style={{ color: '#e0524a' }}>{game.p_best}</span></>}{game.p_goto && <> · behind <span style={{ color: '#48b36b' }}>{game.p_goto}</span></>}
+                  </p>
+                )}
                 <Card title={`At-bat ${editN ?? game.abs.length + 1}`} sub="tap a cell, then a code">
                   <div className="overflow-x-auto -mx-1">
                     <div className="grid gap-[3px] min-w-max font-mono text-[12px]" style={{ gridTemplateColumns: '46px repeat(15, 32px)' }}>
@@ -328,8 +367,9 @@ export default function HittingDiary() {
                 <div className="flex flex-col gap-2">
                   {games.map(g => (
                     <div key={g.id} className="rounded-lg border p-3" style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.4)' }}>
-                      <p className="text-xs"><span className="font-black" style={{ color: GOLD }}>{g.game_date || '?'}</span> <span className="text-white/60">v {g.opponent || '?'}</span>{!g.closed && <span className="ml-2 text-[9px] uppercase tracking-widest" style={{ color: AQUA }}>open</span>}</p>
+                      <p className="text-xs"><span className="font-black" style={{ color: GOLD }}>{g.game_date || '?'}</span> <span className="text-white/60">v {g.opponent || '?'}{g.pitcher ? ' · P ' + g.pitcher : ''}</span>{!g.closed && <span className="ml-2 text-[9px] uppercase tracking-widest" style={{ color: AQUA }}>open</span>}</p>
                       <p className="text-[11px] text-white/45">{g.abs.map(a => a.result || '?').join(', ') || 'no at-bats'}{g.feel.length ? ' · ' + g.feel.join(', ').toLowerCase() : ''}</p>
+                      {(g.p_best || g.p_goto) && <p className="text-[11px] text-white/45">Pitcher: {g.p_pitches.join(', ')}{g.p_best ? ' · best ' + g.p_best : ''}{g.p_goto ? ' · behind ' + g.p_goto : ''}</p>}
                       {g.scout && <p className="text-[11px] text-white/45">They think: {g.scout}</p>}
                     </div>
                   ))}

@@ -163,7 +163,10 @@ export default function HittingDiary() {
 
   const setCell = (v: string) => {
     const [c, r] = sel
-    const g = grid.map(x => [...x]); g[c][r] = v; setGrid(g)
+    const g = grid.map(x => [...x]); g[c][r] = v
+    // A foul is a swing by definition — fill the swing box and move to the next pitch
+    if (r === 1 && v.startsWith('F')) { g[c][2] = 'F'; setGrid(g); if (c < 14) setSel([c + 1, 0]); return }
+    setGrid(g)
     if (!v) return
     if (r < 2) setSel([c, r + 1]); else if (c < 14) setSel([c + 1, 0])
   }

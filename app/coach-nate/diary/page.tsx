@@ -17,15 +17,19 @@ const FEELS = ['Slept well', 'Slept badly', 'Fresh', 'Sore legs', 'Sore hands', 
 const BAD_FEELS = ['Slept badly', 'Sore legs', 'Sore hands', 'Tired']
 const GOOD_FEELS = ['Fresh', 'Ready']
 const STATES = ['Relaxed', 'Tense', 'Strong', 'Weak', 'Clear', 'Rushed', 'Guessing']
+const BAD_STATES = ['Tense', 'Weak', 'Rushed']
+const GOOD_STATES = ['Relaxed', 'Strong', 'Clear']
 const ROWS = ['PITCH', 'B·S', 'SWING']
 
-type AB = { n: number; pitches: string[][]; result: string; hit_where: string; state: string[]; why: string }
-type Game = { id: number; game_date: string; opponent: string; pitcher: string; feel: string[]; intent: string; p_pitches: string[]; p_best: string; p_goto: string; review: string; scout: string; closed: number; abs: AB[] }
+type AB = { n: number; pitches: string[][]; result: string; hit_where: string; state: string[]; why: string; pitcher?: string }
+type PLog = { name: string; pitches: string[]; best: string; goto: string }
+type Game = { id: number; game_date: string; opponent: string; pitcher: string; feel: string[]; intent: string; p_pitches: string[]; p_best: string; p_goto: string; p_log: PLog[]; review: string; scout: string; closed: number; abs: AB[] }
 type Tab = 'pre' | 'ab' | 'post' | 'hist' | 'ins'
 type Tone = 'good' | 'bad' | ''
 
 const emptyGrid = () => Array.from({ length: 15 }, () => ['', '', ''])
 const seq = (p: string[][]) => p.filter(x => x.some(Boolean)).map(x => x.filter(Boolean).join('-')).join(' · ')
+const cap = (v: string) => v[0].toUpperCase() + v.slice(1)
 
 const box: React.CSSProperties = { borderColor: 'rgba(47,224,240,0.22)', background: 'rgba(3,10,16,0.86)' }
 const inp = 'w-full rounded-lg bg-black/70 border px-3 py-2.5 text-sm focus:outline-none'
@@ -49,6 +53,15 @@ function Chips({ items, value, onPick, tone, shared }: { items: string[]; value:
     ))}</div>
   )
 }
+function AddOwn({ value, onChange, onAdd, placeholder }: { value: string; onChange: (v: string) => void; onAdd: () => void; placeholder: string }) {
+  return (
+    <div className="flex gap-2 mt-2">
+      <input className={inp} style={inpStyle} value={value} onChange={e => onChange(e.target.value)}
+        onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); onAdd() } }} placeholder={placeholder} maxLength={24} />
+      <button onClick={onAdd} disabled={!value.trim()} className="rounded-lg px-4 text-xs font-bold border shrink-0 disabled:opacity-40" style={{ borderColor: AQUA, color: AQUA }}>Add</button>
+    </div>
+  )
+}
 function TabBtn({ id, label, tab, setTab }: { id: Tab; label: string; tab: Tab; setTab: (t: Tab) => void }) {
   return (
     <button onClick={() => setTab(id)} className="shrink-0 text-xs font-bold uppercase tracking-widest px-3 py-2 rounded-full border transition-colors"
@@ -64,11 +77,36 @@ function Card({ title, sub, children }: { title: string; sub?: string; children:
   )
 }
 function Label({ t }: { t: string }) {
-  return <p className="text-[9px] uppercase tracking-widest text-white/35 mb-1 mt-3 first:mt-0">{t}</p>
+  return <p className="text-[9px] uppercase tracking-widest text-white/35 mb-1 mt-3">{t}</p>
 }
 function Line({ a }: { a: AB }) {
   return (
-    <p className="text-[12px] font-mono text-white/70"><span className="font-black mr-2" style={{ color: GOLD }}>AB{a.n}</span>{seq(a.pitches) || 'no pitches'} → {a.result || '?'}{a.state.length ? ' · ' + a.state.join(', ').toLowerCase() : ''}</p>
+    <p className="text-[12px] font-mono text-white/70"><span className="font-black mr-2" style={{ color: GOLD }}>AB{a.n}</span>{seq(a.pitches) || 'no pitches'} → {a.result || '?'}{a.state.length ? ' · ' + a.state.join(', ').toLowerCase() : ''}{a.pitcher ? <span className="text-white/35"> · v {a.pitcher}</span> : null}</p>
+  )
+}
+// The scouting card — used on Pre-game and again mid-game on a pitcher change
+function PitcherCard({ name, setName, pitches, setPitches, best, setBest, goto, setGoto }: {
+  name: string; setName: (v: string) => void; pitches: string[]; setPitches: (v: string[]) => void; best: string; setBest: (v: string) => void; goto: string; setGoto: (v: string) => void
+}) {
+  const toggle = (v: string) => {
+    const next = pitches.includes(v) ? pitches.filter(x => x !== v) : [...pitches, v]
+    setPitches(next); if (!next.includes(best)) setBest(''); if (!next.includes(goto)) setGoto('')
+  }
+  return (
+    <>
+      <input className={inp} style={inpStyle} value={name} onChange={e => setName(e.target.value)} placeholder="Pitcher — name or #" />
+      <Label t="What they've got" />
+      <Chips items={PITCH_NAMES} value={pitches} onPick={toggle} />
+      {pitches.length > 0 && (
+        <>
+          <Label t="Best pitch" />
+          <Chips items={pitches} value={[best]} onPick={v => setBest(v === best ? '' : v)} tone={() => 'bad'} />
+          <Label t="Go-to when behind in the count" />
+          <Chips items={pitches} value={[goto]} onPick={v => setGoto(v === goto ? '' : v)} tone={() => 'good'} />
+          <p className="text-[10px] text-white/35 mt-2">Behind in the count is where they get honest. Sit on it.</p>
+        </>
+      )}
+    </>
   )
 }
 
@@ -87,11 +125,13 @@ export default function HittingDiary() {
   const [gFeel, setGFeel] = useState<string[]>([]); const [gIntent, setGIntent] = useState('')
   const [sharedFeels, setSharedFeels] = useState<string[]>([])   // words 3+ members have used
   const [customFeel, setCustomFeel] = useState('')
+  const [pitcherChange, setPitcherChange] = useState(false)
   // at-bat
   const [grid, setGrid] = useState<string[][]>(emptyGrid())
   const [sel, setSel] = useState<[number, number]>([0, 0])
   const [result, setResult] = useState(''); const [where, setWhere] = useState('')
   const [state, setState] = useState<string[]>([]); const [why, setWhy] = useState('')
+  const [customState, setCustomState] = useState('')
   const [editN, setEditN] = useState<number | null>(null)
   // post
   const [review, setReview] = useState(''); const [scout, setScout] = useState('')
@@ -104,6 +144,7 @@ export default function HittingDiary() {
     setPPitches(g.p_pitches || []); setPBest(g.p_best || ''); setPGoto(g.p_goto || '')
     setGFeel(g.feel || []); setGIntent(g.intent || '')
   }
+  const clearPre = () => { setGOpp(''); setGPit(''); setPPitches([]); setPBest(''); setPGoto(''); setGFeel([]); setGIntent('') }
 
   useEffect(() => {
     let k = ''
@@ -131,32 +172,31 @@ export default function HittingDiary() {
     if (r && r.ok) setGames((await r.json()).games)
   }
 
-  // Pitcher card: best / go-to can only be one of the pitches ticked
-  const togglePitch = (v: string) => {
-    const next = pPitches.includes(v) ? pPitches.filter(x => x !== v) : [...pPitches, v]
-    setPPitches(next)
-    if (!next.includes(pBest)) setPBest('')
-    if (!next.includes(pGoto)) setPGoto('')
-  }
-
-  // Feel chips = defaults + shared vocabulary + anything this member typed for this game
+  // "Add your own" for feel and state — your word becomes a chip for this game
   const feelItems = Array.from(new Set([...FEELS, ...sharedFeels, ...gFeel]))
-  const addCustomFeel = () => {
-    const v = customFeel.trim().replace(/\s+/g, ' ').slice(0, 24)
+  const stateItems = Array.from(new Set([...STATES, ...state]))
+  const addOwn = (raw: string, items: string[], arr: string[], set: (a: string[]) => void, clear: () => void) => {
+    const v = raw.trim().replace(/\s+/g, ' ').slice(0, 24)
     if (!v) return
-    const existing = feelItems.find(f => f.toLowerCase() === v.toLowerCase())
-    const word = existing || (v[0].toUpperCase() + v.slice(1))
-    if (!gFeel.includes(word)) setGFeel([...gFeel, word])
-    setCustomFeel('')
+    const word = items.find(f => f.toLowerCase() === v.toLowerCase()) || cap(v)
+    if (!arr.includes(word)) set([...arr, word])
+    clear()
   }
 
-  const startGame = async () => {
+  const saveGame = async (next?: Partial<Game>) => {
     setBusy(true)
-    const body = { id: game?.id || null, game_date: gDate, opponent: gOpp, pitcher: gPit, feel: gFeel, intent: gIntent, p_pitches: pPitches, p_best: pBest, p_goto: pGoto }
+    const body = { id: game?.id || null, game_date: gDate, opponent: gOpp, pitcher: gPit, feel: gFeel, intent: gIntent, p_pitches: pPitches, p_best: pBest, p_goto: pGoto, ...next }
     const r = await fetch(API + '/v1/diary/game', { method: 'POST', headers: H(), body: JSON.stringify(body) }).catch(() => null)
     setBusy(false)
-    if (!r || !r.ok) { flash('Could not save — try again.'); return }
-    const g: Game = await r.json(); setGame(g); await refreshHistory(); setTab('ab'); flash('Game open. Go hit.')
+    if (!r || !r.ok) { flash('Could not save — try again.'); return null }
+    const g: Game = await r.json(); setGame(g); loadPre(g); await refreshHistory(); return g
+  }
+  const startGame = async () => { const g = await saveGame(); if (g) { setTab('ab'); flash('Game open. Go hit.') } }
+  const openPitcherChange = () => { setGPit(''); setPPitches([]); setPBest(''); setPGoto(''); setPitcherChange(true) }
+  const cancelPitcherChange = () => { if (game) loadPre(game); setPitcherChange(false) }
+  const savePitcherChange = async () => {
+    if (!gPit.trim()) { flash('Give the new pitcher a name or number.'); return }
+    const g = await saveGame(); if (g) { setPitcherChange(false); flash('New pitcher logged. Next at-bats count against ' + g.pitcher + '.') }
   }
 
   const resetAB = () => { setGrid(emptyGrid()); setSel([0, 0]); setResult(''); setWhere(''); setState([]); setWhy(''); setEditN(null) }
@@ -174,8 +214,9 @@ export default function HittingDiary() {
   const saveAB = async () => {
     if (!game) return
     const n = editN ?? game.abs.length + 1
+    const prev = editN ? game.abs.find(a => a.n === editN)?.pitcher : undefined
     setBusy(true)
-    const r = await fetch(API + '/v1/diary/ab', { method: 'POST', headers: H(), body: JSON.stringify({ game_id: game.id, n, pitches: grid, result, hit_where: where, state, why }) }).catch(() => null)
+    const r = await fetch(API + '/v1/diary/ab', { method: 'POST', headers: H(), body: JSON.stringify({ game_id: game.id, n, pitches: grid, result, hit_where: where, state, why, pitcher: prev ?? game.pitcher }) }).catch(() => null)
     setBusy(false)
     if (!r || !r.ok) { flash('Could not save — try again.'); return }
     setGame(await r.json()); resetAB(); flash('Saved. Close the book — back to the team.')
@@ -192,8 +233,7 @@ export default function HittingDiary() {
     if (!r || !r.ok) { flash('Could not close the game — try again.'); return }
     const d = await r.json()
     if (d.insight) setInsight({ text: d.insight, created_at: new Date().toISOString() })
-    setGame(null); setGFeel([]); setGOpp(''); setGPit(''); setPPitches([]); setPBest(''); setPGoto(''); setGIntent('')
-    setReview(''); setScout(''); resetAB(); await refreshHistory(); setTab('ins')
+    setGame(null); clearPre(); setReview(''); setScout(''); resetAB(); setPitcherChange(false); await refreshHistory(); setTab('ins')
   }
 
   const refreshInsight = async () => {
@@ -203,6 +243,8 @@ export default function HittingDiary() {
     if (!r || !r.ok) { const d = r ? await r.json().catch(() => ({})) : {}; flash(d.detail || 'Could not refresh.'); return }
     setInsight((await r.json()).insight); flash('Updated.')
   }
+
+  const pitcherProps = { name: gPit, setName: setGPit, pitches: pPitches, setPitches: setPPitches, best: pBest, setBest: setPBest, goto: pGoto, setGoto: setPGoto }
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
@@ -250,28 +292,12 @@ export default function HittingDiary() {
                   </div>
                 </Card>
                 <Card title="The book on the pitcher" sub="what you know before pitch one">
-                  <input className={inp} style={inpStyle} value={gPit} onChange={e => setGPit(e.target.value)} placeholder="Starting pitcher — name or #" />
-                  <Label t="What they've got" />
-                  <Chips items={PITCH_NAMES} value={pPitches} onPick={togglePitch} />
-                  {pPitches.length > 0 && (
-                    <>
-                      <Label t="Best pitch" />
-                      <Chips items={pPitches} value={[pBest]} onPick={v => setPBest(v === pBest ? '' : v)} tone={() => 'bad'} />
-                      <Label t="Go-to when behind in the count" />
-                      <Chips items={pPitches} value={[pGoto]} onPick={v => setPGoto(v === pGoto ? '' : v)} tone={() => 'good'} />
-                      <p className="text-[10px] text-white/35 mt-2">Behind in the count is where they get honest. Sit on it.</p>
-                    </>
-                  )}
+                  <PitcherCard {...pitcherProps} />
                 </Card>
                 <Card title="How do I feel?" sub="plain and physical">
                   <Chips items={feelItems} value={gFeel} onPick={v => toggle(gFeel, v, setGFeel)} shared={sharedFeels}
                     tone={v => BAD_FEELS.includes(v) ? 'bad' : GOOD_FEELS.includes(v) ? 'good' : ''} />
-                  <div className="flex gap-2 mt-2">
-                    <input className={inp} style={inpStyle} value={customFeel} onChange={e => setCustomFeel(e.target.value)}
-                      onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addCustomFeel() } }}
-                      placeholder="Add your own — e.g. Stiff back" maxLength={24} />
-                    <button onClick={addCustomFeel} disabled={!customFeel.trim()} className="rounded-lg px-4 text-xs font-bold border shrink-0 disabled:opacity-40" style={{ borderColor: AQUA, color: AQUA }}>Add</button>
-                  </div>
+                  <AddOwn value={customFeel} onChange={setCustomFeel} onAdd={() => addOwn(customFeel, feelItems, gFeel, setGFeel, () => setCustomFeel(''))} placeholder="Add your own — e.g. Stiff back" />
                   {sharedFeels.length > 0 && <p className="text-[10px] text-white/30 mt-2"><span style={{ color: GOLD }}>·</span> = words other members use too</p>}
                 </Card>
                 <Card title="One thing today">
@@ -289,10 +315,20 @@ export default function HittingDiary() {
             )}
             {tab === 'ab' && game && (
               <div className="flex flex-col gap-3">
-                {(game.p_best || game.p_goto) && (
-                  <p className="text-[11px] text-white/45 font-mono">
-                    {game.pitcher || 'Pitcher'}: {game.p_pitches.join(' · ')}{game.p_best && <> · best <span style={{ color: '#e0524a' }}>{game.p_best}</span></>}{game.p_goto && <> · behind <span style={{ color: '#48b36b' }}>{game.p_goto}</span></>}
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-[11px] text-white/45 font-mono min-w-0 truncate">
+                    {game.pitcher || 'Pitcher ?'}{game.p_pitches.length > 0 && <>: {game.p_pitches.join(' · ')}</>}{game.p_best && <> · best <span style={{ color: '#e0524a' }}>{game.p_best}</span></>}{game.p_goto && <> · behind <span style={{ color: '#48b36b' }}>{game.p_goto}</span></>}
                   </p>
+                  {!pitcherChange && <button onClick={openPitcherChange} className="text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border shrink-0" style={{ borderColor: 'rgba(232,199,122,0.5)', color: GOLD }}>Pitcher change</button>}
+                </div>
+                {pitcherChange && (
+                  <Card title="New pitcher" sub="the book from here on">
+                    <PitcherCard {...pitcherProps} />
+                    <div className="flex gap-2 mt-3">
+                      <button onClick={savePitcherChange} disabled={busy} className="flex-1 rounded-lg py-2.5 text-xs font-bold uppercase tracking-widest text-black disabled:opacity-40" style={goldBtn}>Log the change</button>
+                      <button onClick={cancelPitcherChange} className="rounded-lg px-4 text-xs border" style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.6)' }}>Cancel</button>
+                    </div>
+                  </Card>
                 )}
                 <Card title={`At-bat ${editN ?? game.abs.length + 1}`} sub="tap a cell, then a code">
                   <div className="overflow-x-auto -mx-1">
@@ -325,14 +361,15 @@ export default function HittingDiary() {
                       </div>
                     </div>
                   ))}
-                  <p className="text-[10px] text-white/35 mt-2">Gold line = pitch 10. F5 / F3 / F2 = foul, strikes-equivalent.</p>
+                  <p className="text-[10px] text-white/35 mt-2">Gold line = pitch 10. F5 / F3 / F2 = foul, strikes-equivalent — fills the swing box as F.</p>
                 </Card>
                 <Card title="Result">
                   <Chips items={RESULTS} value={[result]} onPick={v => setResult(v === result ? '' : v)} tone={v => ['1B', '2B', '3B', 'HR', 'SAC'].includes(v) ? 'good' : ['K', 'Kc', 'E'].includes(v) ? 'bad' : ''} />
                   <input className={inp + ' mt-2'} style={inpStyle} value={where} onChange={e => setWhere(e.target.value)} placeholder="Where — e.g. hard GB to 2B" />
                 </Card>
                 <Card title="State" sub="in the box">
-                  <Chips items={STATES} value={state} onPick={v => toggle(state, v, setState)} tone={v => ['Tense', 'Weak', 'Rushed'].includes(v) ? 'bad' : ['Relaxed', 'Strong', 'Clear'].includes(v) ? 'good' : ''} />
+                  <Chips items={stateItems} value={state} onPick={v => toggle(state, v, setState)} tone={v => BAD_STATES.includes(v) ? 'bad' : GOOD_STATES.includes(v) ? 'good' : ''} />
+                  <AddOwn value={customState} onChange={setCustomState} onAdd={() => addOwn(customState, stateItems, state, setState, () => setCustomState(''))} placeholder="Add your own — e.g. Over-thinking" />
                   <textarea className={inp + ' mt-2 resize-none'} style={inpStyle} rows={2} value={why} onChange={e => setWhy(e.target.value)} placeholder="Why. One line. Honest." />
                 </Card>
                 <button onClick={saveAB} disabled={busy} className="w-full rounded-xl py-3 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-40" style={neon}>{editN ? 'Save changes' : 'Save · next at-bat'}</button>
@@ -370,9 +407,11 @@ export default function HittingDiary() {
                 <div className="flex flex-col gap-2">
                   {games.map(g => (
                     <div key={g.id} className="rounded-lg border p-3" style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.4)' }}>
-                      <p className="text-xs"><span className="font-black" style={{ color: GOLD }}>{g.game_date || '?'}</span> <span className="text-white/60">v {g.opponent || '?'}{g.pitcher ? ' · P ' + g.pitcher : ''}</span>{!g.closed && <span className="ml-2 text-[9px] uppercase tracking-widest" style={{ color: AQUA }}>open</span>}</p>
+                      <p className="text-xs"><span className="font-black" style={{ color: GOLD }}>{g.game_date || '?'}</span> <span className="text-white/60">v {g.opponent || '?'}</span>{!g.closed && <span className="ml-2 text-[9px] uppercase tracking-widest" style={{ color: AQUA }}>open</span>}</p>
                       <p className="text-[11px] text-white/45">{g.abs.map(a => a.result || '?').join(', ') || 'no at-bats'}{g.feel.length ? ' · ' + g.feel.join(', ').toLowerCase() : ''}</p>
-                      {(g.p_best || g.p_goto) && <p className="text-[11px] text-white/45">Pitcher: {g.p_pitches.join(', ')}{g.p_best ? ' · best ' + g.p_best : ''}{g.p_goto ? ' · behind ' + g.p_goto : ''}</p>}
+                      {[...(g.p_log || []), ...(g.pitcher ? [{ name: g.pitcher, pitches: g.p_pitches, best: g.p_best, goto: g.p_goto }] : [])].map((p, i) => (
+                        <p key={i} className="text-[11px] text-white/45">P {p.name}: {p.pitches.join(', ') || '?'}{p.best ? ' · best ' + p.best : ''}{p.goto ? ' · behind ' + p.goto : ''}</p>
+                      ))}
                       {g.scout && <p className="text-[11px] text-white/45">They think: {g.scout}</p>}
                     </div>
                   ))}

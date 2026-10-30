@@ -11,7 +11,7 @@ const GOLD = '#E8C77A'
 const PITCH = [['D', 'drop'], ['R', 'rise'], ['C', 'change'], ['S', 'screw'], ['U', 'curve'], ['F', 'fast']]
 const PITCH_NAMES = PITCH.map(([, n]) => n[0].toUpperCase() + n.slice(1))   // Drop, Rise, Change, Screw, Curve, Fast
 const CALL = [['B', 'ball'], ['K', 'strike'], ['F5', 'foul 5'], ['F3', 'foul 3'], ['F2', 'foul 2']]
-const SWING = [['T', 'took'], ['S', 'swung'], ['M', 'missed'], ['H', 'hit']]
+const SWING = [['T', 'took'], ['M', 'missed'], ['H', 'hit']]
 const RESULTS = ['1B', '2B', '3B', 'HR', 'BB', 'HBP', 'K', 'Kc', 'GO', 'FO', 'LO', 'SAC', 'E']
 const FEELS = ['Slept well', 'Slept badly', 'Fresh', 'Sore legs', 'Sore hands', 'Tired', 'Nervous', 'Ready']
 const BAD_FEELS = ['Slept badly', 'Sore legs', 'Sore hands', 'Tired']

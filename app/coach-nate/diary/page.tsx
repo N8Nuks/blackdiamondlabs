@@ -19,6 +19,7 @@ const ROWS = ['PITCH', 'B·S', 'SWING']
 type AB = { n: number; pitches: string[][]; result: string; hit_where: string; state: string[]; why: string }
 type Game = { id: number; game_date: string; opponent: string; pitcher: string; feel: string[]; intent: string; review: string; scout: string; closed: number; abs: AB[] }
 type Tab = 'pre' | 'ab' | 'post' | 'hist' | 'ins'
+type Tone = 'good' | 'bad' | ''
 
 const emptyGrid = () => Array.from({ length: 15 }, () => ['', '', ''])
 const seq = (p: string[][]) => p.filter(x => x.some(Boolean)).map(x => x.filter(Boolean).join('-')).join(' · ')
@@ -26,6 +27,42 @@ const seq = (p: string[][]) => p.filter(x => x.some(Boolean)).map(x => x.filter(
 const box: React.CSSProperties = { borderColor: 'rgba(47,224,240,0.22)', background: 'rgba(3,10,16,0.86)' }
 const inp = 'w-full rounded-lg bg-black/70 border px-3 py-2.5 text-sm focus:outline-none'
 const inpStyle: React.CSSProperties = { borderColor: 'rgba(47,224,240,0.25)' }
+const neon: React.CSSProperties = { background: 'linear-gradient(90deg,#1B6E8C,#2FE0F0,#BDF6FF,#2FE0F0,#1B6E8C)' }
+const goldBtn: React.CSSProperties = { background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)' }
+
+const chip = (on: boolean, tone: Tone = ''): React.CSSProperties => ({
+  borderColor: on ? (tone === 'bad' ? '#e0524a' : tone === 'good' ? '#48b36b' : AQUA) : 'rgba(255,255,255,0.15)',
+  background: on ? (tone === 'bad' ? 'rgba(224,82,74,0.18)' : tone === 'good' ? 'rgba(72,179,107,0.18)' : 'rgba(47,224,240,0.14)') : 'rgba(0,0,0,0.5)',
+  color: on ? '#fff' : 'rgba(255,255,255,0.6)',
+})
+
+// Helpers live OUTSIDE the page component so React keeps them mounted between keystrokes.
+function Chips({ items, value, onPick, tone }: { items: string[]; value: string[]; onPick: (v: string) => void; tone?: (v: string) => Tone }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">{items.map(v => (
+      <button key={v} onClick={() => onPick(v)} className="text-xs px-3 py-1.5 rounded-md border transition-colors" style={chip(value.includes(v), tone ? tone(v) : '')}>{v}</button>
+    ))}</div>
+  )
+}
+function TabBtn({ id, label, tab, setTab }: { id: Tab; label: string; tab: Tab; setTab: (t: Tab) => void }) {
+  return (
+    <button onClick={() => setTab(id)} className="shrink-0 text-xs font-bold uppercase tracking-widest px-3 py-2 rounded-full border transition-colors"
+      style={tab === id ? { borderColor: AQUA, background: 'rgba(47,224,240,0.14)', color: '#fff' } : { borderColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.45)' }}>{label}</button>
+  )
+}
+function Card({ title, sub, children }: { title: string; sub?: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-2xl border p-4" style={box}>
+      <p className="text-sm font-black uppercase tracking-wide mb-2">{title}{sub && <span className="text-[10px] font-normal tracking-widest text-white/35 ml-2">{sub}</span>}</p>
+      {children}
+    </div>
+  )
+}
+function Line({ a }: { a: AB }) {
+  return (
+    <p className="text-[12px] font-mono text-white/70"><span className="font-black mr-2" style={{ color: GOLD }}>AB{a.n}</span>{seq(a.pitches) || 'no pitches'} → {a.result || '?'}{a.state.length ? ' · ' + a.state.join(', ').toLowerCase() : ''}</p>
+  )
+}
 
 export default function HittingDiary() {
   const [apiKey, setApiKey] = useState('')
@@ -125,30 +162,6 @@ export default function HittingDiary() {
     setInsight((await r.json()).insight); flash('Updated.')
   }
 
-  const chip = (on: boolean, tone: 'good' | 'bad' | '' = ''): React.CSSProperties => ({
-    borderColor: on ? (tone === 'bad' ? '#e0524a' : tone === 'good' ? '#48b36b' : AQUA) : 'rgba(255,255,255,0.15)',
-    background: on ? (tone === 'bad' ? 'rgba(224,82,74,0.18)' : tone === 'good' ? 'rgba(72,179,107,0.18)' : 'rgba(47,224,240,0.14)') : 'rgba(0,0,0,0.5)',
-    color: on ? '#fff' : 'rgba(255,255,255,0.6)',
-  })
-  const Chips = ({ items, value, onPick, tone }: { items: string[]; value: string[]; onPick: (v: string) => void; tone?: (v: string) => 'good' | 'bad' | '' }) => (
-    <div className="flex flex-wrap gap-1.5">{items.map(v => (
-      <button key={v} onClick={() => onPick(v)} className="text-xs px-3 py-1.5 rounded-md border transition-colors" style={chip(value.includes(v), tone ? tone(v) : '')}>{v}</button>
-    ))}</div>
-  )
-  const TabBtn = ({ id, label }: { id: Tab; label: string }) => (
-    <button onClick={() => setTab(id)} className="shrink-0 text-xs font-bold uppercase tracking-widest px-3 py-2 rounded-full border transition-colors"
-      style={tab === id ? { borderColor: AQUA, background: 'rgba(47,224,240,0.14)', color: '#fff' } : { borderColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.45)' }}>{label}</button>
-  )
-  const Card = ({ title, sub, children }: { title: string; sub?: string; children: React.ReactNode }) => (
-    <div className="rounded-2xl border p-4" style={box}>
-      <p className="text-sm font-black uppercase tracking-wide mb-2">{title}{sub && <span className="text-[10px] font-normal tracking-widest text-white/35 ml-2">{sub}</span>}</p>
-      {children}
-    </div>
-  )
-  const Line = ({ a }: { a: AB }) => (
-    <p className="text-[12px] font-mono text-white/70"><span className="font-black mr-2" style={{ color: GOLD }}>AB{a.n}</span>{seq(a.pitches) || 'no pitches'} → {a.result || '?'}{a.state.length ? ' · ' + a.state.join(', ').toLowerCase() : ''}</p>
-  )
-
   return (
     <main className="min-h-screen bg-black text-white flex flex-col">
       <Nav />
@@ -170,14 +183,18 @@ export default function HittingDiary() {
           <div className="rounded-2xl border p-6 text-center" style={box}>
             <p className="text-sm font-black mb-1">Members only.</p>
             <p className="text-xs text-white/50 mb-4">The Hitting Diary is part of the subscription. Your whole season stays in here, and Coach Nate reads it back to you.</p>
-            <a href="/coach-nate" className="inline-block rounded-lg px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-black" style={{ background: 'linear-gradient(90deg,#1B6E8C,#2FE0F0,#BDF6FF,#2FE0F0,#1B6E8C)' }}>See membership</a>
+            <a href="/coach-nate" className="inline-block rounded-lg px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-black" style={neon}>See membership</a>
           </div>
         )}
 
         {gate === 'ok' && (
           <>
             <div className="flex gap-1.5 overflow-x-auto pb-2 mb-4">
-              <TabBtn id="pre" label="Pre-game" /><TabBtn id="ab" label="At-bat" /><TabBtn id="post" label="Post-game" /><TabBtn id="hist" label="History" /><TabBtn id="ins" label="Insights" />
+              <TabBtn id="pre" label="Pre-game" tab={tab} setTab={setTab} />
+              <TabBtn id="ab" label="At-bat" tab={tab} setTab={setTab} />
+              <TabBtn id="post" label="Post-game" tab={tab} setTab={setTab} />
+              <TabBtn id="hist" label="History" tab={tab} setTab={setTab} />
+              <TabBtn id="ins" label="Insights" tab={tab} setTab={setTab} />
             </div>
             {msg && <p className="text-xs mb-3" style={{ color: AQUA }}>{msg}</p>}
 
@@ -197,8 +214,7 @@ export default function HittingDiary() {
                 <Card title="One thing today">
                   <input className={inp} style={inpStyle} value={gIntent} onChange={e => setGIntent(e.target.value)} placeholder="e.g. first-pitch aggression on a strike" />
                 </Card>
-                <button onClick={startGame} disabled={busy} className="w-full rounded-xl py-3 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-40"
-                  style={{ background: 'linear-gradient(90deg,#1B6E8C,#2FE0F0,#BDF6FF,#2FE0F0,#1B6E8C)' }}>{game ? 'Save' : 'Open the game'}</button>
+                <button onClick={startGame} disabled={busy} className="w-full rounded-xl py-3 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-40" style={neon}>{game ? 'Save' : 'Open the game'}</button>
               </div>
             )}
 
@@ -251,8 +267,7 @@ export default function HittingDiary() {
                   <Chips items={STATES} value={state} onPick={v => toggle(state, v, setState)} tone={v => ['Tense', 'Weak', 'Rushed'].includes(v) ? 'bad' : ['Relaxed', 'Strong', 'Clear'].includes(v) ? 'good' : ''} />
                   <textarea className={inp + ' mt-2 resize-none'} style={inpStyle} rows={2} value={why} onChange={e => setWhy(e.target.value)} placeholder="Why. One line. Honest." />
                 </Card>
-                <button onClick={saveAB} disabled={busy} className="w-full rounded-xl py-3 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-40"
-                  style={{ background: 'linear-gradient(90deg,#1B6E8C,#2FE0F0,#BDF6FF,#2FE0F0,#1B6E8C)' }}>{editN ? 'Save changes' : 'Save · next at-bat'}</button>
+                <button onClick={saveAB} disabled={busy} className="w-full rounded-xl py-3 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-40" style={neon}>{editN ? 'Save changes' : 'Save · next at-bat'}</button>
                 {editN && <button onClick={resetAB} className="text-xs text-white/40 underline">Cancel edit</button>}
                 {game.abs.length > 0 && (
                   <Card title="This game" sub="tap to edit">
@@ -277,8 +292,7 @@ export default function HittingDiary() {
                 <Card title="What they think beats me">
                   <input className={inp} style={inpStyle} value={scout} onChange={e => setScout(e.target.value)} placeholder="e.g. drop away early, rise in when ahead" />
                 </Card>
-                <button onClick={closeGame} disabled={busy} className="w-full rounded-xl py-3 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-40"
-                  style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)' }}>{busy ? 'Coach Nate is reading…' : 'Close the game'}</button>
+                <button onClick={closeGame} disabled={busy} className="w-full rounded-xl py-3 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-40" style={goldBtn}>{busy ? 'Coach Nate is reading…' : 'Close the game'}</button>
               </div>
             )}
 

@@ -634,6 +634,13 @@ export default function CoachNate() {
             <div className="mt-6 rounded-2xl border p-4" style={{ borderColor: 'rgba(47,224,240,0.2)', background: 'rgba(6,20,28,0.5)' }}>
               <p className="text-xs font-bold" style={{ color: AQUA }}>Member downloads</p>
               <p className="text-[11px] text-white/35 mb-1">New tools added monthly.</p>
+              <div className="flex items-center justify-between py-2" style={{ borderTop: '1px solid rgba(47,224,240,0.12)' }}>
+                <div className="pr-3">
+                  <p className="text-xs text-white/80 font-semibold">Hitting Diary <span className="text-[9px] uppercase tracking-widest ml-1" style={{ color: '#E8C77A' }}>new</span></p>
+                  <p className="text-[11px] text-white/40">The Black Book, online · pitch-by-pitch at-bats · full season history · Coach Nate reads it and tells you what he sees</p>
+                </div>
+                <a href="/coach-nate/diary" className="text-xs px-4 py-2 rounded-lg border shrink-0 transition-colors" style={{ borderColor: 'rgba(232,199,122,0.5)', color: '#E8C77A' }}>Open</a>
+              </div>
               {DOWNLOADS.map(d => (
                 <div key={d.slug} className="flex items-center justify-between py-2" style={{ borderTop: '1px solid rgba(47,224,240,0.12)' }}>
                   <div className="pr-3">

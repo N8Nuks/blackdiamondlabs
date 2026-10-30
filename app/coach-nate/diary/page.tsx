@@ -20,13 +20,18 @@ const STATES = ['Relaxed', 'Tense', 'Strong', 'Weak', 'Clear', 'Rushed', 'Guessi
 const BAD_STATES = ['Tense', 'Weak', 'Rushed']
 const GOOD_STATES = ['Relaxed', 'Strong', 'Clear']
 const ROWS = ['PITCH', 'B·S', 'SWING']
+const BATS = ['Right', 'Left', 'Switch']
+const HITTER_TYPES = ['Power', 'Contact', 'Slap', 'Mixed']
+const POSITIONS = ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF', 'DP', 'Utility']
 
 type AB = { n: number; pitches: string[][]; result: string; hit_where: string; state: string[]; why: string; pitcher?: string }
 type PLog = { name: string; pitches: string[]; best: string; goto: string }
 type Game = { id: number; game_date: string; opponent: string; pitcher: string; feel: string[]; intent: string; p_pitches: string[]; p_best: string; p_goto: string; p_log: PLog[]; review: string; scout: string; closed: number; abs: AB[] }
-type Tab = 'pre' | 'ab' | 'post' | 'hist' | 'ins'
+type Profile = { name: string; bats: string; hitter_type: string; position: string; level: string; team: string; notes: string }
+type Tab = 'me' | 'pre' | 'ab' | 'post' | 'hist' | 'ins'
 type Tone = 'good' | 'bad' | ''
 
+const emptyProfile: Profile = { name: '', bats: '', hitter_type: '', position: '', level: '', team: '', notes: '' }
 const emptyGrid = () => Array.from({ length: 15 }, () => ['', '', ''])
 const seq = (p: string[][]) => p.filter(x => x.some(Boolean)).map(x => x.filter(Boolean).join('-')).join(' · ')
 const cap = (v: string) => v[0].toUpperCase() + v.slice(1)
@@ -118,6 +123,9 @@ export default function HittingDiary() {
   const [game, setGame] = useState<Game | null>(null)
   const [msg, setMsg] = useState('')
   const [busy, setBusy] = useState(false)
+  // hitter profile
+  const [profile, setProfile] = useState<Profile>(emptyProfile)
+  const [hasProfile, setHasProfile] = useState(false)
   // pre-game
   const [gDate, setGDate] = useState(new Date().toLocaleDateString('en-NZ', { weekday: 'short', day: 'numeric', month: 'short' }))
   const [gOpp, setGOpp] = useState(''); const [gPit, setGPit] = useState('')
@@ -157,8 +165,15 @@ export default function HittingDiary() {
       if (r.status === 403) { setGate('members'); return }
       const d = await r.json()
       setGames(d.games)
+      // Profile decides the landing tab for a first-timer
+      let gotProfile = false
+      try {
+        const pr = await fetch(API + '/v1/diary/profile', { headers: H(k) })
+        if (pr.ok) { const pd = await pr.json(); if (pd.profile) { setProfile({ ...emptyProfile, ...pd.profile }); gotProfile = true } }
+      } catch {}
+      setHasProfile(gotProfile)
       const open = d.games.find((g: Game) => !g.closed)
-      if (open) { setGame(open); loadPre(open); setTab('ab') } else setTab('pre')
+      if (open) { setGame(open); loadPre(open); setTab('ab') } else setTab(gotProfile ? 'pre' : 'me')
       setGate('ok')
       fetch(API + '/v1/diary/insights', { headers: H(k) }).then(r => r.ok ? r.json() : null).then(d => d && setInsight(d.insight)).catch(() => {})
       fetch(API + '/v1/diary/feels', { headers: H(k) }).then(r => r.ok ? r.json() : null).then(d => d && setSharedFeels(d.feels || [])).catch(() => {})
@@ -170,6 +185,17 @@ export default function HittingDiary() {
   const refreshHistory = async () => {
     const r = await fetch(API + '/v1/diary/history', { headers: H() }).catch(() => null)
     if (r && r.ok) setGames((await r.json()).games)
+  }
+
+  const setP = (k: keyof Profile, v: string) => setProfile(p => ({ ...p, [k]: v }))
+  const saveProfile = async () => {
+    if (!profile.bats) { flash('Batting side is the one that matters — pick Right, Left or Switch.'); return }
+    setBusy(true)
+    const r = await fetch(API + '/v1/diary/profile', { method: 'POST', headers: H(), body: JSON.stringify(profile) }).catch(() => null)
+    setBusy(false)
+    if (!r || !r.ok) { flash('Could not save — try again.'); return }
+    setHasProfile(true); flash('Saved. Coach Nate reads everything through this now.')
+    if (!game) setTab('pre')
   }
 
   // "Add your own" for feel and state — your word becomes a chip for this game
@@ -274,6 +300,7 @@ export default function HittingDiary() {
         {gate === 'ok' && (
           <>
             <div className="flex gap-1.5 overflow-x-auto pb-2 mb-4">
+              <TabBtn id="me" label="Hitter" tab={tab} setTab={setTab} />
               <TabBtn id="pre" label="Pre-game" tab={tab} setTab={setTab} />
               <TabBtn id="ab" label="At-bat" tab={tab} setTab={setTab} />
               <TabBtn id="post" label="Post-game" tab={tab} setTab={setTab} />
@@ -282,8 +309,31 @@ export default function HittingDiary() {
             </div>
             {msg && <p className="text-xs mb-3" style={{ color: AQUA }}>{msg}</p>}
 
+            {tab === 'me' && (
+              <div className="flex flex-col gap-3">
+                <Card title="Who's holding the bat" sub="Coach Nate reads every at-bat through this">
+                  <input className={inp} style={inpStyle} value={profile.name} onChange={e => setP('name', e.target.value)} placeholder="Name (first name is fine)" />
+                  <Label t="Bats" />
+                  <Chips items={BATS} value={[profile.bats]} onPick={v => setP('bats', v)} />
+                  <Label t="Type of hitter" />
+                  <Chips items={HITTER_TYPES} value={[profile.hitter_type]} onPick={v => setP('hitter_type', v === profile.hitter_type ? '' : v)} />
+                  <Label t="Position" />
+                  <Chips items={POSITIONS} value={[profile.position]} onPick={v => setP('position', v === profile.position ? '' : v)} />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3">
+                    <input className={inp} style={inpStyle} value={profile.level} onChange={e => setP('level', e.target.value)} placeholder="Level — e.g. U17 Premier, Senior Club" />
+                    <input className={inp} style={inpStyle} value={profile.team} onChange={e => setP('team', e.target.value)} placeholder="Team" />
+                  </div>
+                  <textarea className={inp + ' mt-2 resize-none'} style={inpStyle} rows={3} value={profile.notes} onChange={e => setP('notes', e.target.value)} maxLength={400} placeholder="Anything else he should know — what you're working on, an old injury, how you see yourself at the plate" />
+                </Card>
+                <button onClick={saveProfile} disabled={busy} className="w-full rounded-xl py-3 text-sm font-bold uppercase tracking-widest text-black disabled:opacity-40" style={neon}>{hasProfile ? 'Save' : 'Save and start the book'}</button>
+              </div>
+            )}
+
             {tab === 'pre' && (
               <div className="flex flex-col gap-3">
+                {!hasProfile && (
+                  <button onClick={() => setTab('me')} className="text-left text-xs rounded-lg border px-3 py-2" style={{ borderColor: 'rgba(232,199,122,0.5)', color: GOLD }}>Fill in the Hitter tab first — batting side changes how every sequence reads →</button>
+                )}
                 {game && <p className="text-xs text-white/40">Editing the open game v {game.opponent || '?'}.</p>}
                 <Card title="Before anything happens">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -365,6 +415,7 @@ export default function HittingDiary() {
                 </Card>
                 <Card title="Result">
                   <Chips items={RESULTS} value={[result]} onPick={v => setResult(v === result ? '' : v)} tone={v => ['1B', '2B', '3B', 'HR', 'SAC'].includes(v) ? 'good' : ['K', 'Kc', 'E'].includes(v) ? 'bad' : ''} />
+                  <p className="text-[10px] text-white/35 mt-2">GO ground out · FO fly out · LO line out · Kc strike out looking · SAC sacrifice · E reached on error</p>
                   <input className={inp + ' mt-2'} style={inpStyle} value={where} onChange={e => setWhere(e.target.value)} placeholder="Where — e.g. hard GB to 2B" />
                 </Card>
                 <Card title="State" sub="in the box">

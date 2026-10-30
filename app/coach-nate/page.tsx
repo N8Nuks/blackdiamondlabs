@@ -174,6 +174,37 @@ export default function CoachNate() {
     return () => { cancelled = true }
   }, [project, apiKey])
 
+  // Arriving from the Hitting Diary (?ask=diary): open or create the "Hitting Diary" project, then ask him to read the book.
+  const [pendingAsk, setPendingAsk] = useState('')
+  const diaryAsked = useRef(false)
+  useEffect(() => {
+    if (diaryAsked.current || !apiKey || !member || member.tier === 'trial') return
+    if (new URLSearchParams(window.location.search).get('ask') !== 'diary') return
+    diaryAsked.current = true
+    const H = { Authorization: 'Bearer ' + apiKey }
+    ;(async () => {
+      let name = 'Hitting Diary'
+      try {
+        const r = await fetch(API + '/v1/projects', { headers: H })
+        const d = r.ok ? await r.json() : { projects: [] }
+        const have = (d.projects || []).map((p: any) => p.name)
+        if (!have.includes(name)) {
+          const c = await fetch(API + '/v1/projects', { method: 'POST', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify({ name }) })
+          if (c.ok) { const cd = await c.json(); name = cd.name; setProjects(ps => ps.includes(cd.name) ? ps : [...ps, cd.name]) }
+          else name = 'General'
+        }
+      } catch { name = 'General' }
+      window.history.replaceState({}, '', '/coach-nate')
+      setProject(name)
+      setPendingAsk('Read my Hitting Diary and tell me what you see. Start with my batting side.')
+    })()
+  }, [apiKey, member])
+  useEffect(() => {
+    if (!pendingAsk || busy) return
+    const q = pendingAsk; setPendingAsk('')
+    send(q)
+  }, [project, pendingAsk])
+
   useEffect(() => {
     if (msgs.length === 0) return
     const box = chatRef.current

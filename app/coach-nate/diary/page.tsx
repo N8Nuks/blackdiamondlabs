@@ -483,7 +483,7 @@ export default function HittingDiary() {
                   ) : <p className="text-xs text-white/50">Close your first game and I'll read the book.</p>}
                 </div>
                 <button onClick={refreshInsight} disabled={busy} className="text-xs px-4 py-2 rounded-full border self-start disabled:opacity-40" style={{ borderColor: 'rgba(47,224,240,0.45)', color: AQUA }}>Read it again</button>
-                <a href="/coach-nate" className="text-xs px-4 py-2 rounded-full border self-start" style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.6)' }}>Ask Coach Nate about this →</a>
+                <a href="/coach-nate?ask=diary" className="text-xs px-4 py-2 rounded-full border self-start" style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.6)' }}>Ask Coach Nate about this →</a>
               </div>
             )}
           </>

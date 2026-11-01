@@ -12,28 +12,28 @@ const AQUA = '#2FE0F0'
 const BLUE = '#4D9FFF'
 const AQUA_DIM = 'rgba(47,224,240,0.35)'
 
-// Stripe Payment Links — swap to live URLs at the Stripe live-flip
+// Stripe Payment Links — standard-rate Individual links live 1 Nov 2026
 const STRIPE = {
   nz: {
-    member: { m: 'https://buy.stripe.com/4gM28q9uOeIe0BMb71ak000', a: 'https://buy.stripe.com/4gMbJ0eP8cA61FQejdak001' },
+    member: { m: 'https://buy.stripe.com/5kQ00i6iC1VsgAKb71ak00x', a: 'https://buy.stripe.com/bJe7sK7mGarYckua2Xak00y' },
     team:   { m: 'https://buy.stripe.com/fZudR87mGarY98ib71ak008', a: 'https://buy.stripe.com/3cI8wOcH02ZwgAKdf9ak009' },
     club:   { m: 'https://buy.stripe.com/5kQfZgfTcarY5W6df9ak00g', a: 'https://buy.stripe.com/00w28q8qK43A4S24IDak00h' },
     assoc:  { m: 'https://buy.stripe.com/dRm3cu5ey0Rodoy3Ezak00o', a: 'https://buy.stripe.com/bJe8wO6iC0Ro1FQejdak00p' },
   },
   au: {
-    member: { m: 'https://buy.stripe.com/6oU28q5ey0Ro70a1wrak006', a: 'https://buy.stripe.com/cNi5kCdL4gQmfwGcb5ak007' },
+    member: { m: 'https://buy.stripe.com/eVqeVc8qK9nUbgqb71ak00z', a: 'https://buy.stripe.com/bJe14mfTcfMibgq4IDak00A' },
     team:   { m: 'https://buy.stripe.com/8x26oGeP857Eacm3Ezak00e', a: 'https://buy.stripe.com/6oU8wOeP81Vsdoy4IDak00f' },
     club:   { m: 'https://buy.stripe.com/28EeVcdL48jQbgq0snak00n', a: 'https://buy.stripe.com/5kQ3cufTcbw2esC1wrak00m' },
     assoc:  { m: 'https://buy.stripe.com/aFaaEW7mG1Vs5W6b71ak00u', a: 'https://buy.stripe.com/7sYaEWcH057E84e6QLak00v' },
   },
   us: {
-    member: { m: 'https://buy.stripe.com/dRmcN48qK57E70aejdak002', a: 'https://buy.stripe.com/4gM3cu9uO7fM98i8YTak003' },
+    member: { m: 'https://buy.stripe.com/00w9AS8qK57E0BM1wrak00B', a: 'https://buy.stripe.com/6oU6oGdL457Edoya2Xak00C' },
     team:   { m: 'https://buy.stripe.com/eVqdR836q7fM3NYb71ak00a', a: 'https://buy.stripe.com/28EdR8eP857E84eejdak00b' },
     club:   { m: 'https://buy.stripe.com/7sY7sK5eygQm70a1wrak00i', a: 'https://buy.stripe.com/8x2cN4eP88jQ1FQfnhak00j' },
     assoc:  { m: 'https://buy.stripe.com/8x2bJ06iCeIecku5MHak00q', a: 'https://buy.stripe.com/5kQ7sK8qKarY3NYejdak00r' },
   },
   jp: {
-    member: { m: 'https://buy.stripe.com/28E7sKbCW9nUcku7UPak004', a: 'https://buy.stripe.com/14AcN436q9nUckudf9ak005' },
+    member: { m: 'https://buy.stripe.com/fZu9ASayS1VsgAKb71ak00D', a: 'https://buy.stripe.com/9B6cN40Yi2Zw1FQdf9ak00E' },
     team:   { m: 'https://buy.stripe.com/7sY8wOfTccA6bgqdf9ak00c', a: 'https://buy.stripe.com/fZu00icH09nU3NYfnhak00d' },
     club:   { m: 'https://buy.stripe.com/4gMdR89uO9nUacmfnhak00k', a: 'https://buy.stripe.com/00w9ASfTc2Zw4S25MHak00l' },
     assoc:  { m: 'https://buy.stripe.com/8x2cN49uO6bIesCgrlak00s', a: 'https://buy.stripe.com/6oUcN48qKfMi84ea2Xak00t' },
@@ -49,14 +49,14 @@ const MARKETS = [
 type MarketId = typeof MARKETS[number]['id']
 
 const PRICES: Record<MarketId, Record<string, { m: number; a: number }>> = {
-  nz: { member: { m: 29, a: 290 }, team: { m: 59, a: 590 }, club: { m: 99, a: 990 }, assoc: { m: 225, a: 2250 } },
-  au: { member: { m: 25, a: 250 }, team: { m: 49, a: 490 }, club: { m: 85, a: 850 }, assoc: { m: 189, a: 1890 } },
-  us: { member: { m: 29, a: 290 }, team: { m: 59, a: 590 }, club: { m: 99, a: 990 }, assoc: { m: 225, a: 2250 } },
-  jp: { member: { m: 2980, a: 29800 }, team: { m: 5980, a: 59800 }, club: { m: 9800, a: 98000 }, assoc: { m: 21800, a: 218000 } },
+  nz: { member: { m: 39, a: 390 }, team: { m: 59, a: 590 }, club: { m: 99, a: 990 }, assoc: { m: 225, a: 2250 } },
+  au: { member: { m: 35, a: 350 }, team: { m: 49, a: 490 }, club: { m: 85, a: 850 }, assoc: { m: 189, a: 1890 } },
+  us: { member: { m: 39, a: 390 }, team: { m: 59, a: 590 }, club: { m: 99, a: 990 }, assoc: { m: 225, a: 2250 } },
+  jp: { member: { m: 3980, a: 39800 }, team: { m: 5980, a: 59800 }, club: { m: 9800, a: 98000 }, assoc: { m: 21800, a: 218000 } },
 }
 
 const TIERS = [
-  { id: 'member', btn: 'linear-gradient(90deg,#0F7A4D,#34D399,#A7F3D0,#34D399,#0F7A4D)', name: 'Opening Day Patron', monthly: 29, annual: 290, blurb: 'Opening special — rate locked for life. Coach Nate remembers your season. Moves to Individual at $39/mo · $390/yr.', fair: '40 questions per day' },
+  { id: 'member', btn: 'linear-gradient(90deg,#0F7A4D,#34D399,#A7F3D0,#34D399,#0F7A4D)', name: 'Individual', monthly: 39, annual: 390, blurb: 'One member key. Coach Nate remembers your season — game plans, training, and the mental side, any hour.', fair: '40 questions per day' },
   { id: 'team', btn: 'linear-gradient(90deg,#8C5A2B,#CD7F32,#F0C08A,#CD7F32,#8C5A2B)', name: 'Team', monthly: 59, annual: 590, blurb: 'One coaching staff, one squad. Shared access for your team.', fair: '3 member keys' },
   { id: 'club', btn: 'linear-gradient(90deg,#9AA4B2,#C7CEDA,#F4F7FB,#C7CEDA,#9AA4B2)', name: 'Club', monthly: 99, annual: 990, blurb: 'Club development pathways and Elite coaching aide always on hand.', fair: '5 member keys' },
   { id: 'assoc', btn: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', name: 'Association', monthly: 225, annual: 2250, blurb: 'Tool kit must have for Representative Coaches and Development Officers.', fair: '15 member keys' },

@@ -672,6 +672,13 @@ export default function CoachNate() {
                 </div>
                 <a href="/coach-nate/diary" className="text-xs px-4 py-2 rounded-lg border shrink-0 transition-colors" style={{ borderColor: 'rgba(232,199,122,0.5)', color: '#E8C77A' }}>Open</a>
               </div>
+              <div className="flex items-center justify-between py-2" style={{ borderTop: '1px solid rgba(47,224,240,0.12)' }}>
+                <div className="pr-3">
+                  <p className="text-xs text-white/80 font-semibold">Hey Blue! <span className="text-[9px] uppercase tracking-widest ml-1" style={{ color: '#D7F23A' }}>new</span></p>
+                  <p className="text-[11px] text-white/40">Rules, right now · quick calls and topics on the rules that start arguments · pin your own · ask Blue anything else</p>
+                </div>
+                <a href="/coach-nate/heyblue" className="text-xs px-4 py-2 rounded-lg border shrink-0 transition-colors" style={{ borderColor: '#2C66DC', color: '#8FB6FF' }}>Open</a>
+              </div>
               {DOWNLOADS.map(d => (
                 <div key={d.slug} className="flex items-center justify-between py-2" style={{ borderTop: '1px solid rgba(47,224,240,0.12)' }}>
                   <div className="pr-3">

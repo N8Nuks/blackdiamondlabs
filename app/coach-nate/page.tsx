@@ -418,6 +418,28 @@ export default function CoachNate() {
           </div>
         )}
         <div className="mb-6 text-center">
+          <svg role="img" aria-label="Coach Nate mark: the Nate Star inside a gold home plate" viewBox="0 0 400 320" className="mx-auto mb-3" style={{ width: apiKey ? 64 : 132, height: apiKey ? 51 : 106, color: '#FFE9A6', filter: 'drop-shadow(0 0 7px rgba(255,206,84,0.5))' }}>
+            <defs>
+              <linearGradient id="cnTop" gradientUnits="userSpaceOnUse" x1="20" y1="10" x2="380" y2="42"><stop offset="0" stopColor="#FFF4C8" /><stop offset="0.45" stopColor="#E8C77A" /><stop offset="0.55" stopColor="#B98A2C" /><stop offset="1" stopColor="#FFE9A6" /></linearGradient>
+              <linearGradient id="cnLeft" gradientUnits="userSpaceOnUse" x1="20" y1="0" x2="52" y2="0"><stop offset="0" stopColor="#FFF4C8" /><stop offset="1" stopColor="#C79A3A" /></linearGradient>
+              <linearGradient id="cnRight" gradientUnits="userSpaceOnUse" x1="348" y1="0" x2="380" y2="0"><stop offset="0" stopColor="#6E4E0E" /><stop offset="1" stopColor="#C79A3A" /></linearGradient>
+              <linearGradient id="cnLowL" gradientUnits="userSpaceOnUse" x1="20" y1="170" x2="200" y2="312"><stop offset="0" stopColor="#F3D98F" /><stop offset="1" stopColor="#8A6418" /></linearGradient>
+              <linearGradient id="cnLowR" gradientUnits="userSpaceOnUse" x1="380" y1="170" x2="200" y2="312"><stop offset="0" stopColor="#9C7420" /><stop offset="1" stopColor="#4A3408" /></linearGradient>
+            </defs>
+            <polygon points="20,10 196,10 196,42 52,42" fill="url(#cnTop)" />
+            <polygon points="204,10 380,10 348,42 204,42" fill="url(#cnTop)" />
+            <polygon points="20,10 20,170 52,156 52,42" fill="url(#cnLeft)" />
+            <polygon points="380,10 380,170 348,156 348,42" fill="url(#cnRight)" />
+            <polygon points="20,170 196,308.8 196,268.9 52,156" fill="url(#cnLowL)" />
+            <polygon points="380,170 204,308.8 204,268.9 348,156" fill="url(#cnLowR)" />
+            <g transform="translate(117.5 52) scale(0.5)" fill="currentColor" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
+              <path d="M161 0 L164 40 L167 80 L170 106 L173 135 L176 170 L177.5 200 L177.5 260 L176 306 L174 349 L172 390 L170 401 L168 396 L165 357 L162 318 L159 285 L156 246 L154 213 L152.5 190 L152 140 L153 95 L155 60 L158 23 Z" />
+              <path d="M0 113 L31 111.5 L127 110.5 L317 110.5 L320 118 L300 118.5 L152 120 L79 119.5 L40 118 L0 116.5 Z" />
+              <path d="M58 190 L61 188 L100 171.5 L150 154 L178 146.5 L207 138.7 L244 131 L286 122 L317 110.5 L341 106.5 L357 102.5 L363 102.5 L363 106 L340 114 L320 122 L300.5 129 L279 136 L263 141 L246 146 L232 150 L216 153.5 L190 159 L177 162 L150 166.5 L138 169 L118 174 L98 180 L82 185.3 L60 192 Z" />
+              <path d="M58 191 L82 185.8 L152 185 L180 185.5 L235 187.5 L272 189 L300 191.5 L304 194 L302 196 L280 196 L246 195 L197 194 L60 193 Z" />
+              <path d="M162.5 2 C170 50 195 115 228 154 C250 175 280 190 302 194" fill="none" strokeWidth="5.6" strokeLinecap="round" />
+            </g>
+          </svg>
           <p className="text-xs font-bold uppercase tracking-[0.35em] mb-2" style={{ color: AQUA, textShadow: '0 0 14px rgba(47,224,240,0.5)' }}>Black Diamond AI</p>
           <h1 className={apiKey ? "text-2xl font-black" : "text-4xl sm:text-5xl font-black"}>
             Coach <span style={{ background: 'linear-gradient(90deg,#B8860B,#FFD700,#FFF3C4,#FFD700,#B8860B)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'shimmer 3s linear infinite' }}>Nate</span>
